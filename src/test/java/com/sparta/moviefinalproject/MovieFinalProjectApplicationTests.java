@@ -4,6 +4,7 @@ import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -11,6 +12,7 @@ class MovieFinalProjectApplicationTests {
     @Test
     void contextLoads() {
     }
+
 
     @Autowired
     MovieRepository movieRepository;
