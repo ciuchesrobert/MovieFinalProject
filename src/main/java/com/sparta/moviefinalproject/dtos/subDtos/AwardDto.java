@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AwardDto {
+    private int wins;
     private int nominations;
     private String text;
-    private int wins;
 }

@@ -7,15 +7,15 @@ import com.sparta.moviefinalproject.entities.subEntities.Award;
 public class AwardConverter implements Converter<AwardDto, Award> {
     @Override
     public Award dtoToEntity(AwardDto awardDto) {
-        return new Award(awardDto.getNominations(),
-                awardDto.getText(),
-                awardDto.getWins());
+        return new Award(awardDto.getWins(),
+                awardDto.getNominations(),
+                awardDto.getText());
     }
 
     @Override
     public AwardDto entityToDto(Award award) {
-        return new AwardDto(award.getNominations(),
-                award.getText(),
-                award.getWins());
+        return new AwardDto(award.getWins(),
+                award.getNominations(),
+                award.getText());
     }
 }
