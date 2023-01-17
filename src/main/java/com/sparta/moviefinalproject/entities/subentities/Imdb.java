@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Embeddable
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class Imdb {
     @Nullable

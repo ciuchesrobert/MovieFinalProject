@@ -13,13 +13,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/sessions")
 public class SessionController {
-    final SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
 
     public SessionController(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Session> findAll() {
         return sessionRepository.findAll();
     }

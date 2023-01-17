@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.restControllers;
+package com.sparta.moviefinalproject.restcontrollers;
 
 
 import com.sparta.moviefinalproject.entities.Movie;
@@ -10,17 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {
-    final MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
     public MovieController(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }

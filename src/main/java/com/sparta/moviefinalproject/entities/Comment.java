@@ -14,8 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Document(collection = "comments")
 public class Comment {
@@ -34,4 +35,5 @@ public class Comment {
     private String name;
     @NonNull
     private String text;
+
 }

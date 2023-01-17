@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/comments")
 public class CommentWebController {
-    final CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
     public CommentWebController(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;

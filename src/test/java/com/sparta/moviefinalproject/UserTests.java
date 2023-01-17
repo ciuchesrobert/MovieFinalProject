@@ -1,6 +1,5 @@
 package com.sparta.moviefinalproject;
 
-
 import com.sparta.moviefinalproject.daos.interfaces.UserDao;
 import com.sparta.moviefinalproject.dtos.UserDto;
 import org.bson.types.ObjectId;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 
 import static java.time.format.DateTimeFormatter.ISO_DATE_TIME;
+
 
 @SpringBootTest
 public class UserTests {
@@ -58,4 +58,5 @@ public class UserTests {
         LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, ISO_DATE_TIME);
         System.out.println(dateTime);
     }
+
 }
