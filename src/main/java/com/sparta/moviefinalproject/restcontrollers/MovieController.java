@@ -36,7 +36,7 @@ public class MovieController {
 
     @DeleteMapping("/delete")
     public void delete(@RequestParam String id){
-         this.movieRepository.deleteById(new ObjectId(id));
+        this.movieRepository.deleteById(new ObjectId(id));
     }
 
     @PutMapping("/update")
@@ -45,7 +45,7 @@ public class MovieController {
 
         if (movieOptional.isPresent()) {
             Movie original = movieOptional.get();
-            if (movie.getYear() != 0) {
+            if (movie.getYear() != null) {
                 original.setYear(movie.getYear());
             }
             if(movie.getRated() != null){
@@ -62,4 +62,4 @@ public class MovieController {
         return new Movie();
     }
 
-    }
+}
