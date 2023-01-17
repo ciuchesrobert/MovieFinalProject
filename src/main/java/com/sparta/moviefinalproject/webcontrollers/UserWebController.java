@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 public class UserWebController {
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserWebController(UserRepository userRepository) {
         this.userRepository = userRepository;

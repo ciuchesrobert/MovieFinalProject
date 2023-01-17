@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/movies")
 public class MovieWebController {
-    final MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
 
     public MovieWebController(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
