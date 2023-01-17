@@ -1,7 +1,7 @@
 package com.sparta.moviefinalproject.converters;
 
 
-import com.sparta.moviefinalproject.converters.subtypeconverters.*;
+import com.sparta.moviefinalproject.converters.subtypes.*;
 import com.sparta.moviefinalproject.dtos.MovieDto;
 import com.sparta.moviefinalproject.entities.Movie;
 
