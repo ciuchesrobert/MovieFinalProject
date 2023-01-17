@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.entities.subentities;
 
+import com.mongodb.lang.Nullable;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Viewer {
-    private int meter;
-    private int numReviews;
-    private double rating;
+    @Nullable
+    private Integer meter;
+    @Nullable
+    private Integer numReviews;
+    @Nullable
+    private Double rating;
 }
