@@ -1,6 +1,5 @@
-package com.sparta.moviefinalproject.restControllers;
+package com.sparta.moviefinalproject.restcontrollers;
 
-import com.sparta.moviefinalproject.entities.Comment;
 import com.sparta.moviefinalproject.entities.Session;
 import com.sparta.moviefinalproject.repositories.SessionRepository;
 import org.bson.types.ObjectId;

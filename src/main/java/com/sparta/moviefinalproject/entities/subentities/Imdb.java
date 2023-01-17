@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.entities.subEntities;
+package com.sparta.moviefinalproject.entities.subentities;
 
 import com.mongodb.lang.Nullable;
 import jakarta.persistence.Embeddable;
@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Viewer {
+public class Imdb {
     @Nullable
-    private Integer meter;
-    @Nullable
-    private Integer numReviews;
+    private Integer id;
     @Nullable
     private Double rating;
+    @Nullable
+    private Integer votes;
 }

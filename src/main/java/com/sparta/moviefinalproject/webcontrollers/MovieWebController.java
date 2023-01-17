@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.webControllers;
+package com.sparta.moviefinalproject.webcontrollers;
 
 import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.springframework.stereotype.Controller;

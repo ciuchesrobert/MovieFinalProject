@@ -1,21 +1,16 @@
 package com.sparta.moviefinalproject.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
-import com.sparta.moviefinalproject.entities.subEntities.Award;
-import com.sparta.moviefinalproject.entities.subEntities.Imdb;
-import com.sparta.moviefinalproject.entities.subEntities.Tomato;
+import com.sparta.moviefinalproject.entities.subentities.Award;
+import com.sparta.moviefinalproject.entities.subentities.Imdb;
+import com.sparta.moviefinalproject.entities.subentities.Tomato;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraintvalidation.SupportedValidationTarget;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 

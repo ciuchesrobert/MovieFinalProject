@@ -1,7 +1,8 @@
-package com.sparta.moviefinalproject.webControllers;
+package com.sparta.moviefinalproject.webcontrollers;
 
 import com.sparta.moviefinalproject.repositories.CommentRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -12,4 +13,6 @@ public class CommentWebController {
     public CommentWebController(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
+
+
 }

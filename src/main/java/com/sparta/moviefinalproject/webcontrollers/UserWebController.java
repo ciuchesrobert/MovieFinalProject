@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.webControllers;
+package com.sparta.moviefinalproject.webcontrollers;
 
 import com.sparta.moviefinalproject.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -12,4 +12,6 @@ public class UserWebController {
     public UserWebController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+
 }

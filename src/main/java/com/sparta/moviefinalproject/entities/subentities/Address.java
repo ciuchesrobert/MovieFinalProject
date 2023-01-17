@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.entities.subEntities;
+package com.sparta.moviefinalproject.entities.subentities;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

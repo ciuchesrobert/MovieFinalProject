@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.restControllers;
+package com.sparta.moviefinalproject.restcontrollers;
 
 import com.sparta.moviefinalproject.entities.Comment;
 import com.sparta.moviefinalproject.repositories.CommentRepository;

@@ -1,6 +1,5 @@
-package com.sparta.moviefinalproject.restControllers;
+package com.sparta.moviefinalproject.restcontrollers;
 
-import com.sparta.moviefinalproject.entities.Theater;
 import com.sparta.moviefinalproject.entities.User;
 import com.sparta.moviefinalproject.repositories.UserRepository;
 import org.bson.types.ObjectId;

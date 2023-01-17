@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.entities.subEntities;
+package com.sparta.moviefinalproject.entities.subentities;
 
 import com.mongodb.lang.Nullable;
 import jakarta.persistence.Embeddable;
