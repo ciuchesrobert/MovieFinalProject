@@ -32,7 +32,7 @@ public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.Use
             User user = userRepo.findById(id).get();
             return Optional.of(new UserConverter().entityToDto(user));
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
