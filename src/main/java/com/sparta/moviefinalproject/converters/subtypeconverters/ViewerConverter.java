@@ -1,8 +1,8 @@
-package com.sparta.moviefinalproject.converters.subTypeConverters;
+package com.sparta.moviefinalproject.converters.subtypeconverters;
 
 import com.sparta.moviefinalproject.converters.Converter;
-import com.sparta.moviefinalproject.dtos.subDtos.ViewerDto;
-import com.sparta.moviefinalproject.entities.subEntities.Viewer;
+import com.sparta.moviefinalproject.dtos.subdtos.ViewerDto;
+import com.sparta.moviefinalproject.entities.subentities.Viewer;
 
 public class ViewerConverter implements Converter<ViewerDto, Viewer> {
 

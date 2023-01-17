@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 public interface Dao<T> {
     void create(T t);
 
-    T findById(ObjectId id);
+    Optional<T> findById(ObjectId id);
 
     void update(ObjectId id, T t);
 

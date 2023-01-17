@@ -1,8 +1,8 @@
-package com.sparta.moviefinalproject.converters.subTypeConverters;
+package com.sparta.moviefinalproject.converters.subtypeconverters;
 
 import com.sparta.moviefinalproject.converters.Converter;
-import com.sparta.moviefinalproject.dtos.subDtos.AwardDto;
-import com.sparta.moviefinalproject.entities.subEntities.Award;
+import com.sparta.moviefinalproject.dtos.subdtos.AwardDto;
+import com.sparta.moviefinalproject.entities.subentities.Award;
 
 public class AwardConverter implements Converter<AwardDto, Award> {
     @Override

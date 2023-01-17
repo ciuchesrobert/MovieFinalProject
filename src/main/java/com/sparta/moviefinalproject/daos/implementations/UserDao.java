@@ -22,12 +22,12 @@ public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.Use
     }
 
     @Override
-    public UserDto findById(ObjectId id) {
+    public Optional<UserDto> findById(ObjectId id) {
         if(userRepo.findById(id).isPresent()) {
             User user = userRepo.findById(id).get();
-            return new UserConverter().entityToDto(user);
+            return Optional.of(new UserConverter().entityToDto(user));
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
