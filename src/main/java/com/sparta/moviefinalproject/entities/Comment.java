@@ -23,7 +23,7 @@ public class Comment {
     private ObjectId id;
     private LocalDateTime date;
     private String email;
-    private  ObjectId movieId;
+    private ObjectId movieId;
     private String name;
     private String text;
 }
