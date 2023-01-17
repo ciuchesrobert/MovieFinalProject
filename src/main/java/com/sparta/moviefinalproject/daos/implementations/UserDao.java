@@ -7,6 +7,10 @@ import com.sparta.moviefinalproject.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.UserDao {
 
@@ -42,5 +46,17 @@ public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.Use
         if(userRepo.findById(id).isPresent()) {
             userRepo.deleteById(id);
         }
+    }
+
+    @Override
+    public List<UserDto> findAll()
+    {
+        List<User> users = userRepo.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
+        for(User user : users)
+        {
+            userDtos.add(new UserConverter().entityToDto(user));
+        }
+        return userDtos;
     }
 }
