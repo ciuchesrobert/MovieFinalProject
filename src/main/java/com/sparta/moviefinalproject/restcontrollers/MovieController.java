@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.restcontrollers;
+package com.sparta.moviefinalproject.restControllers;
 
 
 import com.sparta.moviefinalproject.entities.Movie;
