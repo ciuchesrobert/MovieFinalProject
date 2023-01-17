@@ -26,14 +26,13 @@ public class Comment {
     @NonNull
     private ObjectId id;
     @NonNull
-    private LocalDateTime date;
+    private String name;
     @NonNull
     private String email;
     @Nullable
     private ObjectId movieId;
     @NonNull
-    private String name;
-    @NonNull
     private String text;
-
+    @NonNull
+    private LocalDateTime date;
 }
