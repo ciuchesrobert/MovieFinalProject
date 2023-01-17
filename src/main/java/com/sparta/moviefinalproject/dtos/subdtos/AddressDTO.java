@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ViewerDto {
-    private int meter;
-    private int numReviews;
-    private double rating;
+public class AddressDTO {
+    private String city;
+    private String state;
+    private String street;
+    private String zipcode;
 }

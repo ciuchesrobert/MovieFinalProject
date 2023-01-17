@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CriticDto {
+public class ViewerDTO {
     private int meter;
     private int numReviews;
     private double rating;

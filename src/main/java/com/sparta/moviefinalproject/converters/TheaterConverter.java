@@ -1,19 +1,19 @@
 package com.sparta.moviefinalproject.converters;
 
-import com.sparta.moviefinalproject.dtos.TheaterDto;
+import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import com.sparta.moviefinalproject.entities.Theater;
 
-public class TheaterConverter implements Converter<TheaterDto, Theater> {
+public class TheaterConverter implements Converter<TheaterDTO, Theater> {
     @Override
-    public Theater dtoToEntity(TheaterDto theaterDto) {
+    public Theater dtoToEntity(TheaterDTO theaterDto) {
         return new Theater(theaterDto.getId(),
                 theaterDto.getLocation(),
                 theaterDto.getTheaterId());
     }
 
     @Override
-    public TheaterDto entityToDto(Theater theater) {
-        return new TheaterDto(theater.getId(),
+    public TheaterDTO entityToDto(Theater theater) {
+        return new TheaterDTO(theater.getId(),
                 theater.getLocation(),
                 theater.getTheaterId());
     }

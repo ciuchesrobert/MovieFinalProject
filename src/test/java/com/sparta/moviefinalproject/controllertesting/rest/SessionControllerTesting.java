@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.controllertesting.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.moviefinalproject.MovieFinalProjectApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,10 +25,18 @@ public class SessionControllerTesting {
     @Autowired
     private MockMvc mvc;
 
+    public String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Test
-    @DisplayName("Test get method for session with ID of 5a97f9c91c807bb9c6eb5fb4")
+    @DisplayName("Testing @GetMapping for findById method on session with ID of 5a97f9c91c807bb9c6eb5fb4")
     public void FindCommentById_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/sessions/5a97f9c91c807bb9c6eb5fb4")
+        mvc.perform(get("/api/sessions/{id}","5a97f9c91c807bb9c6eb5fb4")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -41,7 +50,7 @@ public class SessionControllerTesting {
     }
 
     @Test
-    @DisplayName("Test get method for all sessions")
+    @DisplayName("Test @GetMapping for findAll method for sessions")
     public void FindAllComments_SuccessIfExists() throws Exception{
         mvc.perform(get("/api/sessions")
                         .contentType(MediaType.APPLICATION_JSON))

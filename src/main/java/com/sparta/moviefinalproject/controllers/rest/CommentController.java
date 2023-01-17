@@ -9,43 +9,37 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/comments/")
+@RequestMapping("api/comments")
 public class CommentController {
-    final CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
     public CommentController(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
 
-//
-//    @GetMapping("/test")
-//    public Optional<Comment> test() {
-//        return commentRepository.findById(new ObjectId("573a1390f29313caabcd4135"));
-//    }
-
-    @GetMapping("/")
-    public Optional<Comment> findById(@RequestParam String id) {
+    @GetMapping("/{id}")
+    public Optional<Comment> findById(@PathVariable("id") String id) {
         return commentRepository.findById(new ObjectId(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Comment> findAll() {
         return commentRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public Comment create(@RequestBody Comment comment){
 
         return this.commentRepository.save(comment);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestParam String id){
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id){
         this.commentRepository.deleteById(new ObjectId(id));
     }
 
-    @PutMapping("/update")
-    public Comment update(@RequestBody Comment comment, @RequestParam String id) {
+    @PutMapping("/{id}")
+    public Comment update(@RequestBody Comment comment, @PathVariable("id") String id) {
         Optional<Comment> commentOptional = this.commentRepository.findById(new ObjectId(id));
 
         if (commentOptional.isPresent()) {
