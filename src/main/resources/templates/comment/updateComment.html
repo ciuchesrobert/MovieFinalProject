@@ -10,6 +10,7 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar"></div>
 <br><br>
+<h3>Update a comment</h3>
 <div class="container">
     <form th:action="@{updateSuccess}" th:object="${comment}" method="POST">
         <label for="id">Id: </label>
