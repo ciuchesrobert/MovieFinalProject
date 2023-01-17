@@ -13,6 +13,7 @@
 
 <h4>List of All Movies</h4>
 </br>
+<div class="container">
 <table>
     <thead>
     <tr>
@@ -40,14 +41,14 @@
     <tr th:each="movie:${movies}">
         <td th:text="${movie.id}"></td>
         <td th:text="${movie.directors}"></td>
-        <td th:text="${movie.fullplot}"></td>
+        <td th:text="${movie.fullPlot}"></td>
         <td th:text="${movie.numMflixComments}"></td>
         <td th:text="${movie.plot}"></td>
         <td th:text="${movie.title}"></td>
         <td th:text="${movie.writers}"></td>
         <td th:text="${movie.awards}"></td>
         <td th:text="${movie.genres}"></td>
-        <td th:text="${movie.lastupdated}"></td>
+        <td th:text="${movie.lastUpdated}"></td>
         <td th:text="${movie.poster}"></td>
         <td th:text="${movie.tomatoes}"></td>
         <td th:text="${movie.year}"></td>
@@ -60,5 +61,6 @@
         <td th:text="${movie.type}"></td>
     </tr>
 </table>
+</div>
 </body>
 </html>
