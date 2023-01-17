@@ -1,7 +1,7 @@
-package com.sparta.moviefinalproject.converters.subTypeConverters;
+package com.sparta.moviefinalproject.converters.subtypeconverters;
 
 import com.sparta.moviefinalproject.converters.Converter;
-import com.sparta.moviefinalproject.dtos.subDtos.CriticDto;
+import com.sparta.moviefinalproject.dtos.subdtos.CriticDto;
 import com.sparta.moviefinalproject.entities.subentities.Critic;
 
 public class CriticConverter implements Converter<CriticDto, Critic> {

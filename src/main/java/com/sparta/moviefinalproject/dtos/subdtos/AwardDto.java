@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.dtos.subDtos;
+package com.sparta.moviefinalproject.dtos.subdtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

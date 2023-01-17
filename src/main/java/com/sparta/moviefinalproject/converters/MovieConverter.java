@@ -1,10 +1,9 @@
 package com.sparta.moviefinalproject.converters;
 
-//import com.sparta.moviefinalproject.converters.subTypeConverters.AwardConverter;
-//import com.sparta.moviefinalproject.converters.subTypeConverters.ImdbConverter;
-//import com.sparta.moviefinalproject.converters.subTypeConverters.TomatoConverter;
-//import com.sparta.moviefinalproject.dtos.MovieDto;
-//import com.sparta.moviefinalproject.entities.Movie;
+
+import com.sparta.moviefinalproject.converters.subtypeconverters.*;
+import com.sparta.moviefinalproject.dtos.MovieDto;
+import com.sparta.moviefinalproject.entities.Movie;
 
 public class MovieConverter implements Converter<MovieDto, Movie> {
 

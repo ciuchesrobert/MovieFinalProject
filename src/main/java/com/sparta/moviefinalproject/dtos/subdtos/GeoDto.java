@@ -1,20 +1,14 @@
-package com.sparta.moviefinalproject.entities.subentities;
+package com.sparta.moviefinalproject.dtos.subdtos;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Geo {
-    @NonNull
+public class GeoDto {
     private String type;
-    @Transient
-    @NonNull
     private Double[] coordinates;
 }
