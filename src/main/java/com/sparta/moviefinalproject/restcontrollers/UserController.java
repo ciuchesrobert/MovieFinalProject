@@ -13,13 +13,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -27,6 +27,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User findById(@PathVariable("id") String id) {
-        return userRepository.findById(new ObjectId(id)).get();
+        ObjectId objectId = new ObjectId(id);
+        System.out.println(objectId);
+        return userRepository.findById(objectId).get();
     }
 }

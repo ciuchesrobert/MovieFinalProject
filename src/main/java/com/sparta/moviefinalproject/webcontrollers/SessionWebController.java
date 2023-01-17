@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/sessions")
 public class SessionWebController {
-    final SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
 
     public SessionWebController(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;

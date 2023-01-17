@@ -13,13 +13,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/theaters")
 public class TheaterController {
-    final TheaterRepository theaterRepository;
+    private final TheaterRepository theaterRepository;
 
     public TheaterController(TheaterRepository theaterRepository) {
         this.theaterRepository = theaterRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Theater> findAll() {
         return theaterRepository.findAll();
     }

@@ -14,8 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Document(collection = "movies")
 public class Movie {
@@ -64,7 +65,7 @@ public class Movie {
     private Tomato tomatoes;
     @Column(name = "year")
     @NonNull
-    private Integer year;
+    private String year;
     @Embedded
     @Column(name = "imdb")
     @NonNull
