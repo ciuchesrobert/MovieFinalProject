@@ -18,20 +18,15 @@ public class MovieController {
         this.movieRepository = movieRepository;
     }
 
-    @GetMapping("/test")
-    public Optional<Movie> test() {
-        return movieRepository.findById(new ObjectId("573a1390f29313caabcd4135"));
-    }
-
     @GetMapping("/")
     public Optional<Movie> findById(@RequestParam String id) {
         return movieRepository.findById(new ObjectId(id));
     }
 
-    @GetMapping("/all")
-    public List<Movie> findAll() {
-        return movieRepository.findAll();
-    }
+//    @GetMapping("/all")
+//    public List<Movie> findAll() {
+//        return movieRepository.findAll();
+//    }
 
     @PostMapping("/create")
     public Movie create(@RequestBody Movie movie){
