@@ -11,6 +11,7 @@
 <div th:insert="/navbar/navbar.html :: navbar"></div>
 <br><br>
 <div class="container">
+    <h3>Create a comment</h3>
     <form th:action="@{createSuccess}" th:object="${comment}" method="POST">
         <label for="id">Id: </label>
         <input type="Id" id="id" name="id" th:field="*{id}">

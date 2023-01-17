@@ -9,6 +9,7 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
+<h3>Update a movie</h3>
 <div class="container">
     <form action="updateSuccess" th:object="${movie}" method ="POST">
         Movie Number: <span th:text="*{id}"></span>
@@ -32,8 +33,17 @@
         <label for="writers">Writers: </label>
         <input type="text" id="writers" name="writers" th:field="*{writers}">
         <br/><br/>
-        <label for="awards">Awards: </label>
-        <input type="text" id="awards" name="awards" th:field="*{awards}">
+<!--        <label for="awards">Awards: </label>-->
+<!--        <input type="text" id="awards" name="awards" th:field="*{awards}">-->
+<!--        <br/><br/>-->
+        <label for="awardNominations">Nominations: </label>
+        <input type="number" id="awardNominations" name="awardNominations" th:field="*{awards.nominations}">
+        <br/><br/>
+        <label for="awardText">Award Info: </label>
+        <input type="text" id="awardText" name="awardText" th:field="*{awards.text}">
+        <br/><br/>
+        <label for="awardWins">Wins: </label>
+        <input type="number" id="awardWins" name="awardWins" th:field="*{awards.wins}">
         <br/><br/>
         <label for="genres">Genre: </label>
         <input type="text" id="genres" name="genres" th:field="*{genres}">
@@ -44,14 +54,23 @@
         <label for="poster">Poster: </label>
         <input type="text" id="poster" name="poster" th:field="*{poster}">
         <br/><br/>
-        <label for="tomatoes">Tomatoes: </label>
-        <input type="text" id="tomatoes" name="tomatoes" th:field="*{tomatoes}">
-        <br/><br/>
+<!--        <label for="tomatoes">Tomatoes: </label>-->
+<!--        <input type="text" id="tomatoes" name="tomatoes" th:field="*{tomatoes}">-->
+<!--        <br/><br/>-->
         <label for="year">Year: </label>
         <input type="text" id="year" name="year" th:field="*{year}">
         <br/><br/>
-        <label for="imdb">Imdb: </label>
-        <input type="text" id="imdb" name="imdb" th:field="*{imdb}">
+<!--        <label for="imdb">Imdb: </label>-->
+<!--        <input type="text" id="imdb" name="imdb" th:field="*{imdb}">-->
+<!--        <br/><br/>-->
+        <label for="imdbID">IMDB ID: </label>
+        <input type="number" id="imdbID" name="imdbId" th:field="*{imdb.id}">
+        <br/><br/>
+        <label for="imdbRating">IMDB Rating: </label>
+        <input type="number" step="0.1" id="imdbRating" name="imdbRating" th:field="*{imdb.rating}">
+        <br/><br/>
+        <label for="imdbVotes">IMDB Votes: </label>
+        <input type="number" id="imdbVotes" name="imdbVotes" th:field="*{imdb.votes}">
         <br/><br/>
         <label for="rated">Rated: </label>
         <input type="text" id="rated" name="rated" th:field="*{rated}">

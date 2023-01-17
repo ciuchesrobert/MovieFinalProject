@@ -8,6 +8,7 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
+<h3>Create a movie</h3>
 <div class="container">
     <form th:action="@{createMovieSuccess}" th:object="${movie}" method ="POST">
         <label for="id">Movie Id: </label>
