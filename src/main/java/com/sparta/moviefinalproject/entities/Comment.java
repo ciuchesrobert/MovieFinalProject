@@ -1,5 +1,7 @@
 package com.sparta.moviefinalproject.entities;
 
+import com.mongodb.lang.NonNull;
+import com.mongodb.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,10 +22,16 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
+    @NonNull
     private ObjectId id;
+    @NonNull
     private LocalDateTime date;
+    @NonNull
     private String email;
+    @Nullable
     private ObjectId movieId;
+    @NonNull
     private String name;
+    @NonNull
     private String text;
 }

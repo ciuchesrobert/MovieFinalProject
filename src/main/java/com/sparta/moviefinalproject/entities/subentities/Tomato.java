@@ -1,6 +1,8 @@
-package com.sparta.moviefinalproject.entities.subEntities;
+package com.sparta.moviefinalproject.entities.subentities;
 
+import com.mongodb.lang.Nullable;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +14,24 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Tomato {
+    @Nullable
     private String consensus;
+    @Nullable
+    @Embedded
     private Critic critic;
+    @Nullable
     private LocalDateTime dvd;
-    private int fresh;
+    @Nullable
+    private Integer fresh;
+    @Nullable
     private LocalDateTime lastUpdated;
+    @Nullable
     private String production;
-    private int rotten;
+    @Nullable
+    private Integer rotten;
+    @Embedded
+    @Nullable
     private Viewer viewer;
+    @Nullable
     private String website;
 }
