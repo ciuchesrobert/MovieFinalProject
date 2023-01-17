@@ -2,7 +2,7 @@ package com.sparta.moviefinalproject.converters.subTypeConverters;
 
 import com.sparta.moviefinalproject.converters.Converter;
 import com.sparta.moviefinalproject.dtos.subDtos.TomatoDto;
-import com.sparta.moviefinalproject.entities.subEntities.Tomato;
+import com.sparta.moviefinalproject.entities.subentities.Tomato;
 
 public class TomatoConverter implements Converter<TomatoDto, Tomato> {
     @Override
