@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class UserWebController {
-    UserRepository userRepository;
+
+    final UserDao userDao;
+
 
     public UserWebController(UserRepository userRepository) {
         this.userRepository = userRepository;

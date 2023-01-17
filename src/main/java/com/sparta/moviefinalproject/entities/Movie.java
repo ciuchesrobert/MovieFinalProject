@@ -48,7 +48,7 @@ public class Movie {
     @Column(name = "toatoes")
     private Tomato tomatoes;
     @Column(name = "year")
-    private int year;
+    private String year;
     @Embedded
     @Column(name = "imdb")
     private Imdb imdb;

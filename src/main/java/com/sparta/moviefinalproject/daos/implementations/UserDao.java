@@ -5,7 +5,12 @@ import com.sparta.moviefinalproject.dtos.UserDto;
 import com.sparta.moviefinalproject.entities.User;
 import com.sparta.moviefinalproject.repositories.UserRepository;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.UserDao {
@@ -22,10 +27,10 @@ public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.Use
     }
 
     @Override
-    public UserDto findById(ObjectId id) {
+    public Optional<UserDto> findById(ObjectId id) {
         if(userRepo.findById(id).isPresent()) {
             User user = userRepo.findById(id).get();
-            return new UserConverter().entityToDto(user);
+            return Optional.of(new UserConverter().entityToDto(user));
         }
         return null;
     }
@@ -43,4 +48,14 @@ public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.Use
             userRepo.deleteById(id);
         }
     }
+
+    public Page<User> findAllUsers(){
+        return userPage(PageRequest.of(10, 10));
+    }
+
+    public Page<User> userPage(Pageable pageable){
+        return userRepo.findAll(pageable);
+    }
+
+
 }

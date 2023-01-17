@@ -1,8 +1,9 @@
 package com.sparta.moviefinalproject.DTO;
 
-import com.sparta.moviefinalproject.DBObjects.Award;
-import com.sparta.moviefinalproject.DBObjects.IMDB;
-import com.sparta.moviefinalproject.DBObjects.Tomato;
+
+import com.sparta.moviefinalproject.entities.subEntities.Award;
+import com.sparta.moviefinalproject.entities.subEntities.Imdb;
+import com.sparta.moviefinalproject.entities.subEntities.Tomato;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class MoviesDTO {
 
     private String year;
 
-    private IMDB imdb;
+    private Imdb imdb;
     private String rated;
 
     private LocalDateTime released;
