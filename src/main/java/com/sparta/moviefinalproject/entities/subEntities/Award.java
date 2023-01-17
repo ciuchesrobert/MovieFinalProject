@@ -1,4 +1,4 @@
-package com.sparta.moviefinalproject.entities.subentities;
+package com.sparta.moviefinalproject.entities.subEntities;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -10,13 +10,11 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
+public class Award {
     @NonNull
-    private String city;
+    private Integer wins;
     @NonNull
-    private String state;
+    private Integer nominations;
     @NonNull
-    private String street;
-    @NonNull
-    private String zipcode;
+    private String text;
 }

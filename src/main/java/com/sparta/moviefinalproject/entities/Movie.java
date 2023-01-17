@@ -2,9 +2,9 @@ package com.sparta.moviefinalproject.entities;
 
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
-import com.sparta.moviefinalproject.entities.subentities.Award;
-import com.sparta.moviefinalproject.entities.subentities.Imdb;
-import com.sparta.moviefinalproject.entities.subentities.Tomato;
+import com.sparta.moviefinalproject.entities.subEntities.Award;
+import com.sparta.moviefinalproject.entities.subEntities.Imdb;
+import com.sparta.moviefinalproject.entities.subEntities.Tomato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

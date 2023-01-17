@@ -1,7 +1,6 @@
-package com.sparta.moviefinalproject.entities.subentities;
+package com.sparta.moviefinalproject.entities.subEntities;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,13 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Geo {
-    @Transient
+public class Address {
     @NonNull
-    private Double[] coordinates;
+    private String city;
     @NonNull
-    private String type;
+    private String state;
+    @NonNull
+    private String street;
+    @NonNull
+    private String zipcode;
 }
