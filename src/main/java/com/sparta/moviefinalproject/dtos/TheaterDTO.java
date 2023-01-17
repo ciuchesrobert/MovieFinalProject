@@ -9,7 +9,7 @@ import org.bson.types.ObjectId;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class TheaterDto {
+public class TheaterDTO {
     private ObjectId id;
     private Location location;
     private String theaterId;

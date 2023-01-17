@@ -17,34 +17,29 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-//    @GetMapping("/test")
-//    public Optional<User> test() {
-//        return userRepository.findById(new ObjectId("573a1390f29313caabcd4135"));
-//    }
-
-    @GetMapping("/")
-    public Optional<User> findById(@RequestParam String id) {
+    @GetMapping("/{id}")
+    public Optional<User> findById(@PathVariable("id") String id) {
         return userRepository.findById(new ObjectId(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public User create(@RequestBody User user){
 
         return this.userRepository.save(user);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestParam String id){
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id){
         this.userRepository.deleteById(new ObjectId(id));
     }
 
-    @PutMapping("/update")
-    public User update(@RequestBody User user, @RequestParam String id) {
+    @PutMapping("/{id}")
+    public User update(@RequestBody User user, @PathVariable("id") String id) {
         Optional<User> userOptional = this.userRepository.findById(new ObjectId(id));
 
         if (userOptional.isPresent()) {

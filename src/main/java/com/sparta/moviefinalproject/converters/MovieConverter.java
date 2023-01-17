@@ -2,13 +2,13 @@ package com.sparta.moviefinalproject.converters;
 
 
 import com.sparta.moviefinalproject.converters.subtypes.*;
-import com.sparta.moviefinalproject.dtos.MovieDto;
+import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.entities.Movie;
 
-public class MovieConverter implements Converter<MovieDto, Movie> {
+public class MovieConverter implements Converter<MovieDTO, Movie> {
 
     @Override
-    public Movie dtoToEntity(MovieDto movieDto) {
+    public Movie dtoToEntity(MovieDTO movieDto) {
         return new Movie(movieDto.getId(),
                 new AwardConverter().dtoToEntity(movieDto.getAwards()),
                 movieDto.getDirectors(),
@@ -33,8 +33,8 @@ public class MovieConverter implements Converter<MovieDto, Movie> {
     }
 
     @Override
-    public MovieDto entityToDto(Movie movie) {
-        return new MovieDto(movie.getId(),
+    public MovieDTO entityToDto(Movie movie) {
+        return new MovieDTO(movie.getId(),
                 new AwardConverter().entityToDto(movie.getAwards()),
                 movie.getDirectors(),
                 movie.getFullPlot(),

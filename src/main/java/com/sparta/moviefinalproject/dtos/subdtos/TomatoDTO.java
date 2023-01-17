@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TomatoDto {
+public class TomatoDTO {
     private String consensus;
-    private CriticDto critic;
+    private CriticDTO critic;
     private LocalDateTime dvd;
     private int fresh;
     private LocalDateTime lastUpdated;
     private String production;
     private int rotten;
-    private ViewerDto viewer;
+    private ViewerDTO viewer;
     private String website;
 }

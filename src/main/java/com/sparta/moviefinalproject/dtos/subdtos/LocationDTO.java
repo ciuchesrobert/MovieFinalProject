@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationDto {
+public class LocationDTO {
     private Address address;
     private Geo geo;
 }

@@ -1,11 +1,11 @@
 package com.sparta.moviefinalproject.converters;
 
-import com.sparta.moviefinalproject.dtos.CommentDto;
+import com.sparta.moviefinalproject.dtos.CommentDTO;
 import com.sparta.moviefinalproject.entities.Comment;
 
-public class CommentConverter implements Converter<CommentDto, Comment>{
+public class CommentConverter implements Converter<CommentDTO, Comment>{
     @Override
-    public Comment dtoToEntity(CommentDto commentDto)
+    public Comment dtoToEntity(CommentDTO commentDto)
     {
         return new Comment(commentDto.getId(),
                 commentDto.getName(),
@@ -16,9 +16,9 @@ public class CommentConverter implements Converter<CommentDto, Comment>{
     }
 
     @Override
-    public CommentDto entityToDto(Comment comment)
+    public CommentDTO entityToDto(Comment comment)
     {
-        return new CommentDto(comment.getId(),
+        return new CommentDTO(comment.getId(),
                 comment.getName(),
                 comment.getEmail(),
                 comment.getMovieId(),

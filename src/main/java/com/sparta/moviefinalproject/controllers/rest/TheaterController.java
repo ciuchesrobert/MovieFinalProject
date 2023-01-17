@@ -11,40 +11,35 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/theaters")
 public class TheaterController {
-    final TheaterRepository theaterRepository;
+    private final TheaterRepository theaterRepository;
 
     public TheaterController(TheaterRepository theaterRepository) {
         this.theaterRepository = theaterRepository;
     }
 
-    @GetMapping("/test")
-    public Optional<Theater> test() {
-        return theaterRepository.findById(new ObjectId("573a1390f29313caabcd4135"));
-    }
-
-    @GetMapping("/")
-    public Optional<Theater> findById(@RequestParam String id) {
+    @GetMapping("/{id}")
+    public Optional<Theater> findById(@PathVariable("id") String id) {
         return theaterRepository.findById(new ObjectId(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Theater> findAll() {
         return theaterRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public Theater create(@RequestBody Theater theater){
 
         return this.theaterRepository.save(theater);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestParam String id){
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id){
         this.theaterRepository.deleteById(new ObjectId(id));
     }
 
-    @PutMapping("/update")
-    public Theater update(@RequestBody Theater theater, @RequestParam String id) {
+    @PutMapping("/{id}")
+    public Theater update(@RequestBody Theater theater, @PathVariable("id") String id) {
         Optional<Theater> theaterOptional = this.theaterRepository.findById(new ObjectId(id));
 
         if (theaterOptional.isPresent()) {
