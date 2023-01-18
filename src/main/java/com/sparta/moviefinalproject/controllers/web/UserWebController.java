@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/users")
 public class UserWebController {
+
+    @RequestMapping("/usersHome")
+    public String usersHome(Model model){
+        return "usersHome/usersHome";
+    }
     private final UserDAO userDao;
     public UserWebController(UserDAO userDao) {
         this.userDao = userDao;

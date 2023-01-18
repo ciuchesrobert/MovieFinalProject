@@ -13,6 +13,12 @@ import java.util.List;
 @RequestMapping("/comments")
 public class CommentWebController {
 
+    @RequestMapping("/commentsHome")
+    public String commentsHome(Model model){
+        return "commentsHome/commentsHome";
+    }
+
+
     final CommentRepository commentRepository;
 
     public CommentWebController(CommentRepository commentRepository) {

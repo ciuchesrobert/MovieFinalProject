@@ -12,6 +12,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/theaters")
 public class TheaterWebController {
+
+    @RequestMapping("/theatersHome")
+    public String theatersHome(Model model){
+        return "theatersHome/theatersHome";
+    }
     final TheaterRepository theaterRepository;
 
     public TheaterWebController(TheaterRepository theaterRepository) {

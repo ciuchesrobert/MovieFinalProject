@@ -18,6 +18,11 @@ public class MovieWebController {
         this.movieRepository = movieRepository;
     }
 
+    @RequestMapping("/moviesHome")
+    public String moviesHome(Model model){
+        return "moviesHome/moviesHome";
+    }
+
     // ------------- READ
     @GetMapping("/search")
     public String findMovieById(Model model, ObjectId id){
