@@ -13,10 +13,10 @@ public class TomatoDTO {
     private String consensus;
     private CriticDTO critic;
     private LocalDateTime dvd;
-    private int fresh;
+    private Integer fresh;
     private LocalDateTime lastUpdated;
     private String production;
-    private int rotten;
+    private Integer rotten;
     private ViewerDTO viewer;
     private String website;
 }
