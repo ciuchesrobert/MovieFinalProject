@@ -84,16 +84,19 @@ public class UserWebController {
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable ObjectId id, Model model){
         UserDTO userDto = userDao.findById(id).orElse(null);
-        if(userDto != null){
-            userDao.deleteById(id);
-        }
         model.addAttribute( "user", userDto );
         return "userDelete";
     }
 
     @PostMapping("/delete/success")
     public String deleteUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
-        user = userDao.findById( user.getId() ).get();
+
+        // check if records with given ID exists
+        if( user == null){
+            model.addAttribute("user", null);
+            return "userDeleteSuccess";
+        }
+        // otherwise delete from DB
         userDao.deleteById(user.getId());
         model.addAttribute("user", user);
         return "userDeleteSuccess";

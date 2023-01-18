@@ -1,7 +1,7 @@
 package com.sparta.moviefinalproject.controllers.web;
 
-import com.sparta.moviefinalproject.entities.Movie;
-import com.sparta.moviefinalproject.repositories.MovieRepository;
+import com.sparta.moviefinalproject.daos.implementations.MovieDAO;
+import com.sparta.moviefinalproject.dtos.MovieDTO;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,81 +12,83 @@ import java.util.List;
 @Controller
 @RequestMapping("/movies")
 public class MovieWebController {
-    final MovieRepository movieRepository;
+    final MovieDAO movieDao;
 
-    public MovieWebController(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    public MovieWebController(MovieDAO movieDao) {
+        this.movieDao = movieDao;
     }
 
     // ------------- READ
     @GetMapping("/search")
     public String findMovieById(Model model, ObjectId id){
-        Movie movie = new Movie();
+        MovieDTO movie = new MovieDTO();
         model.addAttribute("movie", movie);
         return "movieDisplay";
     }
 
     @PostMapping("/search/success")
-    public String findMoviesByIdSuccess(@ModelAttribute("movie") Movie movie, Model model){
-        movie = movieRepository.findById( movie.getId() ).orElse(null);
+    public String findMoviesByIdSuccess(@ModelAttribute("movie") MovieDTO movie, Model model){
+        movie = movieDao.findById( movie.getId() ).orElse(null);
         model.addAttribute("movie", movie);
         return "movieDisplaySuccess";
     }
 
     @GetMapping
     public String getAllMovies(Model model){
-        List<Movie> movies = movieRepository.findAll();
+        List<MovieDTO> movies = movieDao.findAll();
         model.addAttribute("movies", movies);
-        return "movie/displayAllMovies";
+        return "displayAll";
     }
 
 
     // ------------------ CREATE
     @GetMapping("/create")
     public String createMovie(Model model){
-        Movie movie = new Movie();
+        MovieDTO movie = new MovieDTO();
         model.addAttribute("movie", movie);
         return "movieCreate";
     }
 
     @PostMapping("/create/success")
-    public String createMovieSuccess(@ModelAttribute("movie")Movie movie){
-        movieRepository.save(movie);
+    public String createMovieSuccess(@ModelAttribute("movie")MovieDTO movie){
+        movieDao.create(movie);
         return "movieCreateSuccess";
     }
 
     // ------------------------ UPDATE
     @GetMapping("/update/{id}")
     public String updateMovie(@PathVariable("id")ObjectId id, Model model){
-        Movie movie = movieRepository.findById(id).orElse(null);
+        MovieDTO movie = movieDao.findById(id).orElse(null);
         model.addAttribute( "movie", movie);
         return "movieUpdate";
     }
 
     @PostMapping("/update/success")
-    public String updateMovieSuccess(@ModelAttribute("movie")Movie movie, Model model){
-        movieRepository.save(movie); // - needs updating
+    public String updateMovieSuccess(@ModelAttribute("movie")MovieDTO movie, Model model){
+        movieDao.update(movie.getId(), movie);
         return "movieUpdateSucces";
     }
 
     // ------------------------ DELETE
     @DeleteMapping("/delete/{id}")
     public String deleteMovie(@PathVariable ObjectId id, Model model){
-        Movie movie = movieRepository.findById(id).orElse(null);
-        if (movie != null){
-            movieRepository.delete(movie);
-        }
+        MovieDTO movie = movieDao.findById(id).orElse(null);
         model.addAttribute("movie", movie);
         return "movieDelete";
     }
     @PostMapping("/delete/success")
-    public String deleteMovieSuccess(@ModelAttribute("movie")Movie movie, Model model){
-        movie = movieRepository.findById(movie.getId()).get();
-        movieRepository.delete(movie);
+    public String deleteMovieSuccess(@ModelAttribute("movie")MovieDTO movie, Model model){
+
+        // check if records with given ID exists
+        if( movie == null){
+            model.addAttribute("movie", null);
+            return "movieDeleteSuccess";
+        }
+        // otherwise delete from DB
+        movieDao.deleteById(movie.getId());
         model.addAttribute("movie", model);
         return "movieDeleteSuccess";
     }
-
 
 
 }
