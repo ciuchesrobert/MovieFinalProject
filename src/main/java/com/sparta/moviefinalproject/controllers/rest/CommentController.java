@@ -31,7 +31,7 @@ public class CommentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Void create(@RequestBody CommentDTO commentDTO){
+    public void create(@RequestBody CommentDTO commentDTO){
 
         this.commentDAO.create(commentDTO);
     }
