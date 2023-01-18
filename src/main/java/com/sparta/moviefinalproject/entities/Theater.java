@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.sparta.moviefinalproject.converters.subtypes.AwardConverter;
+import com.sparta.moviefinalproject.converters.subtypes.LocationConverter;
+import com.sparta.moviefinalproject.dtos.TheaterDTO;
+import com.sparta.moviefinalproject.entities.subentities.Award;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +28,19 @@ public class Theater {
     private Location location;
     @NonNull
     private String theaterId;
+
+    public boolean entityEqualsDto(TheaterDTO obj)
+    {
+        Location locationConverted = new Location(obj.getLocation().getAddress(), obj.getLocation().getGeo());
+        if (this.getId() == obj.getId() &&
+                this.getLocation().equals(locationConverted) &&
+                this.getTheaterId() == obj.getTheaterId())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
