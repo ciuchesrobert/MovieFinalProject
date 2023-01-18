@@ -13,7 +13,7 @@
 
 <h4>List of All Users</h4>
 </br>
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>User Id</th>
@@ -28,5 +28,8 @@
         <td th:text="${user.password}"></td>
     </tr>
 </table>
+<span th:if="${pageNum>1}"><a class="pageButton" th:href="@{'http://localhost:8080/users/basic/'+ ${pageNum -1}}"><button>Previous</button></a>
+</span>
+<a class=pageButton th:href="@{'http://localhost:8080/users/basic/'+ ${pageNum + 1}}"><button>Next</button></a>
 </body>
 </html>
