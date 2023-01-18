@@ -10,9 +10,9 @@
 <br><br>
 <h3>Create a movie</h3>
 <div class="container">
-    <form th:action="@{create/success}" th:object="${movie}" method ="POST">
-        Movie Id: <label for="id" th:text="*{id}"></label>
-        <input type="hidden" id="id" name="id" th:field="*{id}">
+    <form th:action="@{createMovieSuccess}" th:object="${movie}" method ="POST">
+        <label for="id">Movie Id: </label>
+        <input type="text" id="id" name="id" th:field="*{id}">
         <br/><br/>
             <label for="awardNominations">Nominations: </label>
             <input type="number" id="awardNominations" name="awardNominations" th:field="*{awards.nominations}">
@@ -33,7 +33,7 @@
         <input type="text" id="languages" name="languages" th:field="*{languages}">
         <br/><br/>
         <label for="num_mflix_comments">Total Comments: </label>
-        <input type="number" id="num_mflix_comments" name="num_mflix_comments" th:field="*{numMflixComments}">
+        <input type="num" id="num_mflix_comments" name="num_mflix_comments" th:field="*{numMflixComments}">
         <br/><br/>
         <label for="plot">Plot: </label>
         <input type="text" id="plot" name="plot" th:field="*{plot}">
@@ -51,7 +51,7 @@
         <label for="poster">Poster Link: </label>
         <input type="text" id="poster" name="poster" th:field="*{poster}">
         <br/><br/>
-        <label for="year">Release Year: </label>
+        <label for="year">Directors: </label>
         <input type="number" id="year" name="year" min="1800" th:field="*{year}">
         <br/><br/>
             <label for="imdbID">IMDB ID: </label>
