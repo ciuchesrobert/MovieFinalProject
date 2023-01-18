@@ -1,6 +1,8 @@
 package com.sparta.moviefinalproject.controllers.rest;
 
+import com.sparta.moviefinalproject.entities.Apikey;
 import com.sparta.moviefinalproject.entities.Comment;
+import com.sparta.moviefinalproject.repositories.ApikeyRepository;
 import com.sparta.moviefinalproject.repositories.CommentRepository;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,11 @@ import java.util.Optional;
 @RequestMapping("api/comments")
 public class CommentController {
     private final CommentRepository commentRepository;
+    private final ApikeyRepository apikeyRepository;
 
-    public CommentController(CommentRepository commentRepository) {
+    public CommentController(CommentRepository commentRepository, ApikeyRepository apikeyRepository) {
         this.commentRepository = commentRepository;
+        this.apikeyRepository = apikeyRepository;
     }
 
     @GetMapping("/{id}")
@@ -24,7 +28,14 @@ public class CommentController {
     }
 
     @GetMapping
-    public List<Comment> findAll() {
+    public List<Comment> findAll(@RequestParam String apikey) {
+        System.out.println(apikey);
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        if(apikeyOptional.isPresent()){
+            key = apikeyOptional.get();
+            System.out.println(key);
+        }
         return commentRepository.findAll();
     }
 
