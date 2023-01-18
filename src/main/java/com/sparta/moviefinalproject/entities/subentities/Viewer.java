@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Viewer {
-    @Nullable
     private Integer meter;
-    @Nullable
     private Integer numReviews;
-    @Nullable
     private Double rating;
 }

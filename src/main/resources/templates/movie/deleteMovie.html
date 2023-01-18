@@ -9,9 +9,9 @@
 </head>
 <body>
 <span th:unless="${id == null}">
-<form action="deleteSuccess" th:object="*{id}" method="POST">
-    Delete Movie with ID: <span th:text="${id}"></span>
-    <input class="form-control" id="id" name="id" th:field="${id}">
+<form th:action="@{success}" th:object="${movie}" method="POST">
+    Delete Movie with ID: <span th:text="*{id}"></span><br/><br/>
+    <input type="hidden" id="id" name="id" th:value="*{id}" th:field="*{id}">
     <br/><br/>
     <input type="submit" value="Delete Movie">
 </form>

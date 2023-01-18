@@ -86,7 +86,7 @@ After David spent all night creating DAOs and DTOs, we began Sprint 2
 
 | Testing | Frontend | Mappers/DAO/DTO | Web Controllers | Rest Controllers | Security | Exception Handling and Logging | Documentation |
 |-----    | -----    |-------          | -------------- | ---------------- | --------  | ---------------------------   | ------------   |
-| Yash, Rob, JB, Emre, Hanibal | Cameron, Abdu;;ah, Patryk, Ben, Omari | David, Emre | Yash, David | Ben, Ignas | Liam, Omari | Craig, Hanibal | Rob | Liam          |
+| Yash, Rob, JB, Emre, Hanibal | Cameron, Abdullah, Patryk, Ben, Omari | David, Emre | Yash, David | Ben, Ignas | Liam, Omari | Craig, Hanibal | Rob | Liam          |
 
 
 
