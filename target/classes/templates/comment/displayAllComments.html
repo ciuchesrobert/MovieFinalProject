@@ -11,7 +11,7 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 
-<h4>Comment</h4>
+<h4>List of All Comments</h4>
 </br>
 <table>
     <thead>
@@ -23,6 +23,7 @@
         <th>Name</th>
         <th>Text</th>
     </thead>
+    <tr th:each="comment:${comments}">
         <td th:text="${comment.id}"></td>
         <td th:text="${comment.date}"></td>
         <td th:text="${comment.email}"></td>

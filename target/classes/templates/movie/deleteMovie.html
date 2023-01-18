@@ -5,14 +5,14 @@
     <link type="text/css" rel="stylesheet" th:href="@{/inputStyle.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <title>Delete Comment</title>
+    <title>Delete Movie</title>
 </head>
 <body>
-<form th:action="@{/comments/delete/success}" th:object="${comment}" method="POST">
-    Delete Comment with ID: <span th:text="${comment.id}"></span>
+<form action="deleteSuccess" th:object="${movie}" method="POST">
+    Delete Movie with ID: <span th:text="${movie.id}"></span>
     <input class="form-control" id="id" name="id" th:field="*{id}">
     <br/><br/>
-    <input type="submit" value="Delete Comment">
+    <input type="submit" value="Delete Movie">
 </form>
 </body>
 </html>

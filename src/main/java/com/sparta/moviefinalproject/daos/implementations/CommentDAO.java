@@ -5,11 +5,13 @@ import com.sparta.moviefinalproject.dtos.CommentDTO;
 import com.sparta.moviefinalproject.entities.Comment;
 import com.sparta.moviefinalproject.repositories.CommentRepository;
 import org.bson.types.ObjectId;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CommentDAO implements com.sparta.moviefinalproject.daos.interfaces.CommentDAO {
 
     private final CommentRepository commentRepo;
