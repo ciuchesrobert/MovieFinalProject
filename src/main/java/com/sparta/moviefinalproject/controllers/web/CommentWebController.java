@@ -23,17 +23,19 @@ public class CommentWebController {
     // ------------- READ
     @GetMapping("/search")
     public String findCommentById(Model model, ObjectId id){
-        Comment comment = new Comment();
+        Comment comment = commentRepository.findById(id).orElse(null);
         model.addAttribute("comment", comment);
+//        Comment comment = new Comment();
+//        model.addAttribute("comment", comment);
         return "comment/displayComment";
     }
 
-    @PostMapping("/search/success")
-    public String findCommentByIdSuccess(@ModelAttribute("comment") Comment comment, Model model){
-        comment = commentRepository.findById( comment.getId() ).orElse(null);
-        model.addAttribute("comment", comment);
-        return "comment/displayCommentSuccess";
-    }
+//    @PostMapping("/search/success")
+//    public String findCommentByIdSuccess(@ModelAttribute("comment") Comment comment, Model model){
+////        comment = commentRepository.findById( comment.getId() ).orElse(null);
+//        model.addAttribute("comment", comment);
+//        return "comment/displayCommentSuccess";
+//    }
 
     @GetMapping
     public String getAllComments(Model model){

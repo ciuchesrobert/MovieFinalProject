@@ -16,7 +16,7 @@ public class Address {
     @NonNull
     private String state;
     @NonNull
-    private String street;
+    private String street1;
     @NonNull
     private String zipcode;
 }
