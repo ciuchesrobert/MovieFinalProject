@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImdbDTO {
-    private int id;
-    private double rating;
-    private int votes;
+    private Integer id;
+    private Double rating;
+    private Integer votes;
 }
