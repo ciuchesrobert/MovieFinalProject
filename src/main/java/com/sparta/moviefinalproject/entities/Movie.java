@@ -27,11 +27,9 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    @NonNull
     private ObjectId id;
     @Embedded
     @Column(name = "awards")
-    @NonNull
     private Award awards;
     @Column(name = "directors")
     @Nullable
@@ -49,7 +47,6 @@ public class Movie {
     @Nullable
     private String plot;
     @Column(name = "title")
-    @NonNull
     private String title;
     @Column(name = "writers")
     @Nullable
@@ -68,11 +65,9 @@ public class Movie {
     @Nullable
     private Tomato tomatoes;
     @Column(name = "year")
-    @NonNull
     private String year;
     @Embedded
     @Column(name = "imdb")
-    @NonNull
     private Imdb imdb;
     @Column(name = "rated")
     @Nullable
@@ -90,7 +85,6 @@ public class Movie {
     @Nullable
     private String[] countries;
     @Column(name = "type")
-    @NonNull
     private String type;
 
     public boolean entityEqualsDto(MovieDTO obj) {

@@ -81,6 +81,7 @@ public class MovieWebController {
 
     @PostMapping("/admin/update/success")
     public String updateMovieSuccess(@ModelAttribute("movie")MovieDTO movie, Model model){
+        System.out.println(movie);
         movieDAO.update(movie.getId(), movie); // - needs updating
         return "movie/updateMovieSuccess";
     }
