@@ -1,7 +1,7 @@
 package com.sparta.moviefinalproject;
 
-import com.sparta.moviefinalproject.daos.interfaces.UserDao;
-import com.sparta.moviefinalproject.dtos.UserDto;
+import com.sparta.moviefinalproject.daos.interfaces.UserDAO;
+import com.sparta.moviefinalproject.dtos.UserDTO;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ public class UserTests {
     }
 
     @Autowired
-    UserDao userDao;
+    UserDAO userDao;
 
     @Test
     void createTest() {
-        UserDto user = new UserDto(new ObjectId("507f1f77bcf86cd799439011"),
+        UserDTO user = new UserDTO(new ObjectId("507f1f77bcf86cd799439011"),
                 "testEmail",
                 "testName",
                 "testPass");
@@ -39,7 +39,7 @@ public class UserTests {
 
     @Test
     void updateTest() {
-        UserDto user = new UserDto("testEmailUpdated",
+        UserDTO user = new UserDTO("testEmailUpdated",
                 "testNameUpdated",
                 "testPassUpdated");
         userDao.update(new ObjectId("507f1f77bcf86cd799439011"), user);
