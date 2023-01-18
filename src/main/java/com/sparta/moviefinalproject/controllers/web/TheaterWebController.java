@@ -19,6 +19,11 @@ public class TheaterWebController {
         this.theaterDAO = theaterDAO;
     }
 
+    @RequestMapping("/theatersHome")
+    public String theatersHome(Model model){
+        return "theatersHome/theatersHome";
+    }
+
     // ------------- READ
     @GetMapping("/basic/search")
     public String findTheaterById(Model model){

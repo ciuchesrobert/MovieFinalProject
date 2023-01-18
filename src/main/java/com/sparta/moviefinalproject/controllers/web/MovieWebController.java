@@ -20,6 +20,11 @@ public class MovieWebController {
         this.movieDAO = movieDAO;
     }
 
+    @RequestMapping("/moviesHome")
+    public String moviesHome(Model model){
+        return "moviesHome/moviesHome";
+    }
+
     // ------------- READ
     @GetMapping("/basic/search/{id}")
     public String findMovieById(Model model, String id){

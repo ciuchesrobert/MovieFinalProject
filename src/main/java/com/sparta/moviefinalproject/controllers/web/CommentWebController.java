@@ -15,10 +15,15 @@ public class CommentWebController {
 
     final CommentDAO commentDAO;
 
+
     public CommentWebController(CommentDAO commentDAO) {
         this.commentDAO = commentDAO;
     }
 
+    @RequestMapping("/commentsHome")
+    public String commentsHome(Model model){
+        return "commentsHome/commentsHome";
+    }
 
     // ------------- READ
     @GetMapping("basic/search")

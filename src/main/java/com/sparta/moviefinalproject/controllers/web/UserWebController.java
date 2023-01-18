@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/users")
 public class UserWebController {
-    private final UserDAO userDAO;
-    public UserWebController(UserDAO userDAO) {
-        this.userDAO = userDAO;
+
+    private final UserDAO userDao;
+    public UserWebController(UserDAO userDao) {
+        this.userDao = userDao;
     }
-
-
+    
+    @RequestMapping("/usersHome")
+    public String usersHome(Model model){
+        return "usersHome/usersHome";
+    }
+   
     // ---------------- READ
     @GetMapping("/basic/search")
     public String findUserById(Model model, ObjectId id){
