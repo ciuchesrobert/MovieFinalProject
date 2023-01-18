@@ -4,6 +4,8 @@ import lombok.Data;
 import com.sparta.moviefinalproject.entities.Comment;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -17,6 +19,8 @@ public class CommentDTO {
     private String text;
     private LocalDateTime date;
 
+
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public boolean dtoEqualsEntity(Comment obj) {
         if (this.getId() == obj.getId() &&
                 this.getDate() == obj.getDate() &&
