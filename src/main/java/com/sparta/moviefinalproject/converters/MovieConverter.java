@@ -68,13 +68,13 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movie.getCountries(),
                 movie.getType());
 
-        if(movieDto.getAwards() != null) {
+        if(movie.getAwards() != null) {
             movieDto.setAwards(new AwardConverter().entityToDto(movie.getAwards()));
         }
-        if(movieDto.getTomatoes() != null) {
+        if(movie.getTomatoes() != null) {
             movieDto.setTomatoes(new TomatoConverter().entityToDto(movie.getTomatoes()));
         }
-        if(movieDto.getImdb() != null) {
+        if(movie.getImdb() != null) {
             movieDto.setImdb(new ImdbConverter().entityToDto(movie.getImdb()));
         }
 
