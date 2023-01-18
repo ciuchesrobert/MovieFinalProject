@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ViewerDto {
-    private int meter;
-    private int numReviews;
-    private double rating;
+public class AwardDTO {
+    private int wins;
+    private int nominations;
+    private String text;
 }

@@ -1,22 +1,22 @@
 package com.sparta.moviefinalproject.converters.subtypes;
 
 import com.sparta.moviefinalproject.converters.Converter;
-import com.sparta.moviefinalproject.dtos.subdtos.AddressDto;
+import com.sparta.moviefinalproject.dtos.subdtos.AddressDTO;
 import com.sparta.moviefinalproject.entities.subentities.Address;
 
-public class AddressConverter implements Converter<AddressDto, Address> {
+public class AddressConverter implements Converter<AddressDTO, Address> {
 
     @Override
-    public Address dtoToEntity(AddressDto addressDto) {
-        return new Address(addressDto.getStreet1(),
+    public Address dtoToEntity(AddressDTO addressDto) {
+        return new Address(addressDto.getStreet(),
                 addressDto.getCity(),
                 addressDto.getState(),
                 addressDto.getZipcode());
     }
 
     @Override
-    public AddressDto entityToDto(Address address) {
-        return new AddressDto(address.getStreet1(),
+    public AddressDTO entityToDto(Address address) {
+        return new AddressDTO(address.getStreet(),
                 address.getCity(),
                 address.getState(),
                 address.getZipcode());

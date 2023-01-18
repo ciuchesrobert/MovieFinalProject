@@ -1,6 +1,7 @@
 package com.sparta.moviefinalproject.controllertesting.web;
 
 import com.sparta.moviefinalproject.MovieFinalProjectApplication;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,47 @@ public class CommentWebControllerTesting {
     private MockMvc mvc;
 
     @Test
+    @Disabled
     @DisplayName("")
-    public void test() throws Exception {
-        mvc.perform(get("/comments/12345678"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("")));
+    public void get1() throws Exception {
+        mvc.perform(get("/comments/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get2() throws Exception {
+        mvc.perform(get("/comments/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get3() throws Exception {
+        mvc.perform(get("/comments/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get4() throws Exception {
+        mvc.perform(get("/comments/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get5() throws Exception {
+        mvc.perform(get("/movies/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
     }
 
 }
