@@ -11,9 +11,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import com.sparta.moviefinalproject.dtos.CommentDTO;
+import com.sparta.moviefinalproject.dtos.UserDTO;
 import java.time.LocalDateTime;
-
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,4 +36,18 @@ public class Comment {
     private String text;
     @NonNull
     private LocalDateTime date;
+
+    public boolean entityEqualsDto(CommentDTO obj) {
+        if (this.getId() == obj.getId() &&
+                this.getDate() == obj.getDate() &&
+                this.getEmail() == obj.getEmail() &&
+                this.getMovieId() == obj.getMovieId() &&
+                this.getText() == obj.getText() &&
+                this.getName() == obj.getName()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
