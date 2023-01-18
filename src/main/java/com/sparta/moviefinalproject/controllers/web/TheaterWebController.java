@@ -13,10 +13,10 @@ import java.util.List;
 @RequestMapping("/theaters")
 public class TheaterWebController {
 
-    private final TheaterDAO theaterDao;
+    private final TheaterDAO theaterDAO;
 
-    public TheaterWebController(TheaterDAO theaterDao) {
-        this.theaterDao = theaterDao;
+    public TheaterWebController(TheaterDAO theaterDAO) {
+        this.theaterDAO = theaterDAO;
     }
 
     // ------------- READ
@@ -30,13 +30,13 @@ public class TheaterWebController {
 
    @PostMapping("/basic/search/success")
     public String findTheaterByIdSuccess(@ModelAttribute("theater") TheaterDTO theater, Model model){
-        theater = theaterDao.findById( theater.getId() ).orElse(null);
+        theater = theaterDAO.findById( theater.getId() ).orElse(null);
         return "theaterDisplaySuccess";
     }
 
     @GetMapping("/basic")
     public String getAllTheaters(Model model){
-        List<TheaterDTO> theaters = theaterDao.findAll();
+        List<TheaterDTO> theaters = theaterDAO.findAll();
         model.addAttribute("theaters", theaters);
         return "theaterDisplayAll";
     }
@@ -52,26 +52,26 @@ public class TheaterWebController {
     @PostMapping("/admin/create/success")
     public String createTheaterSuccess(@ModelAttribute("theater")TheaterDTO theater){
         theater.setId(theater.getId());
-        theaterDao.create(theater);
+        theaterDAO.create(theater);
         return "createTheaterSuccess";
     }
 
     // ------------------------ UPDATE
     @GetMapping("/admin/update/{id}")
     public String updateTheater(@PathVariable("id") ObjectId id, Model model){
-        TheaterDTO theater = theaterDao.findById(id).orElse(null);
+        TheaterDTO theater = theaterDAO.findById(id).orElse(null);
         model.addAttribute("theater", theater);
         return "theaterUpdate";
     }
 
     @PostMapping("/admin/update/success")
-    public String updateTheaterSuccess(@ModelAttribute("theater")TheaterDTO theater, Model model)
+    public String updateTheaterSuccess(@ModelAttribute("theater")TheaterDTO theater, Model model){
         // check if records with given ID exists
         if( theater == null ){
             model.addAttribute("theater", null);
             return "theaterUpdateSuccess";
         }
-        theaterDao.update(theater.getId(), theater);
+        theaterDAO.update(theater.getId(), theater);
         model.addAttribute("theater", theater);
         return "userUpdateSuccess";
     }
@@ -79,7 +79,7 @@ public class TheaterWebController {
     // ------------------------ DELETE
     @GetMapping("/admin/delete/{id}")
     public String deleteTheater(@PathVariable ObjectId id, Model model){
-        TheaterDTO theater = theaterDao.findById(id).orElse(null);
+        TheaterDTO theater = theaterDAO.findById(id).orElse(null);
         model.addAttribute( "theater", theater );
         return "theaterDelete";
     }
@@ -92,7 +92,7 @@ public class TheaterWebController {
             return "theaterDeleteSuccess";
         }
         // otherwise delete from DB
-        theaterDao.deleteById(theater.getId());
+        theaterDAO.deleteById(theater.getId());
         model.addAttribute("theater", theater);
         return "theaterDeleteSuccess";
     }

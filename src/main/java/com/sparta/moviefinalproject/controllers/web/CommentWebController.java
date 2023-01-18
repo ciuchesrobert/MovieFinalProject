@@ -13,10 +13,10 @@ import java.util.List;
 @RequestMapping("/comments/")
 public class CommentWebController {
 
-    final CommentDAO commentDao;
+    final CommentDAO commentDAO;
 
-    public CommentWebController(CommentDAO commentDao) {
-        this.commentDao = commentDao;
+    public CommentWebController(CommentDAO commentDAO) {
+        this.commentDAO = commentDAO;
     }
 
 
@@ -30,14 +30,14 @@ public class CommentWebController {
 
     @PostMapping("basic/search/success")
     public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
-        comment = commentDao.findById( comment.getId() ).orElse(null);
+        comment = commentDAO.findById( comment.getId() ).orElse(null);
         model.addAttribute("comment", comment);
         return "comment/displayCommentSuccess";
     }
 
     @GetMapping("basic")
     public String getAllComments(Model model){
-        List<CommentDTO> comments = commentDao.findAll();
+        List<CommentDTO> comments = commentDAO.findAll();
         model.addAttribute("comments", comments);
         return "comment/displayAllComments";
     }
