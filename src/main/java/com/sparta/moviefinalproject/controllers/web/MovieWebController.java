@@ -37,7 +37,7 @@ public class MovieWebController {
     public String getAllMovies(Model model){
         List<Movie> movies = movieRepository.findAll();
         model.addAttribute("movies", movies);
-        return "displayAll";
+        return "movie/displayAllMovies";
     }
 
 

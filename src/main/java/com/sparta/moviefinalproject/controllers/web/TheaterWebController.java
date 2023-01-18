@@ -35,9 +35,9 @@ public class TheaterWebController {
 
     @GetMapping
     public String getAllTheaters(Model model){
-        List<Theater> users = theaterRepository.findAll();
-        model.addAttribute("users", users);
-        return "theaterDisplayAll";
+        List<Theater> theaters = theaterRepository.findAll();
+        model.addAttribute("theaters", theaters);
+        return "theater/displayAllTheaters";
     }
 
     // ------------------ CREATE

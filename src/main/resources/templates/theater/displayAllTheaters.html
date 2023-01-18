@@ -13,22 +13,22 @@
 
 <h4>List of All Theater</h4>
 </br>
-<table>
+<table class="table table-hover">
     <thead>
     <tr>
         <th> Id</th>
         <th>Theater</th>
+        <th>Street</th>
         <th>City</th>
         <th>State</th>
-        <th>Street</th>
         <th>Zipcode</th>
     </thead>
     <tr th:each="theater:${theaters}">
         <td th:text="${theater.id}"></td>
         <td th:text="${theater.theaterId}"></td>
+        <td th:text="${theater.location.address.street1}"></td>
         <td th:text="${theater.location.address.city}"></td>
         <td th:text="${theater.location.address.state}"></td>
-        <td th:text="${theater.location.address.street}"></td>
         <td th:text="${theater.location.address.zipcode}"></td>
     </tr>
 </table>

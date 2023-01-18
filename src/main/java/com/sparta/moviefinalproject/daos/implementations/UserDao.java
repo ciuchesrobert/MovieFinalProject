@@ -37,11 +37,28 @@ public class UserDao implements com.sparta.moviefinalproject.daos.interfaces.Use
         return Optional.empty();
     }
 
-    @Override
-    public void update(ObjectId id, UserDto updatedUser) {
-            User user = new UserConverter().dtoToEntity(updatedUser);
-            user.setId(id);
-            userRepo.save(user);
+//    @Override
+//    public void update(ObjectId id, UserDto updatedUser) {
+//            User user = new UserConverter().dtoToEntity(updatedUser);
+//            user.setId(id);
+//            userRepo.save(user);
+//    }
+
+    public void update(ObjectId id, UserDto user) {
+        Optional<User> userDb = userRepo.findById(id);
+        if (userDb.isPresent()) {
+            User existingUser = userDb.get();
+            if(user.getEmail() != null) {
+                existingUser.setEmail(user.getEmail());
+            }
+            if(user.getName() != null) {
+                existingUser.setName(user.getName());
+            }
+            if(user.getPassword() != null) {
+                existingUser.setPassword(user.getPassword());
+            }
+            userRepo.save(existingUser);
+        }
     }
 
     @Override

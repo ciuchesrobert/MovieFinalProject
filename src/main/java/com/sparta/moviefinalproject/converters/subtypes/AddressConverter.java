@@ -8,7 +8,7 @@ public class AddressConverter implements Converter<AddressDto, Address> {
 
     @Override
     public Address dtoToEntity(AddressDto addressDto) {
-        return new Address(addressDto.getStreet(),
+        return new Address(addressDto.getStreet1(),
                 addressDto.getCity(),
                 addressDto.getState(),
                 addressDto.getZipcode());
@@ -16,7 +16,7 @@ public class AddressConverter implements Converter<AddressDto, Address> {
 
     @Override
     public AddressDto entityToDto(Address address) {
-        return new AddressDto(address.getStreet(),
+        return new AddressDto(address.getStreet1(),
                 address.getCity(),
                 address.getState(),
                 address.getZipcode());
