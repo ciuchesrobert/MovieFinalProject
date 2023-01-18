@@ -5,11 +5,13 @@ import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import com.sparta.moviefinalproject.entities.Theater;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TheaterDAO implements com.sparta.moviefinalproject.daos.interfaces.TheaterDAO {
 
     private final TheaterRepository theaterRepo;

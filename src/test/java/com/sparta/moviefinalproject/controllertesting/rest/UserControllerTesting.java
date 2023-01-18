@@ -2,10 +2,8 @@ package com.sparta.moviefinalproject.controllertesting.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.moviefinalproject.MovieFinalProjectApplication;
-import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +64,6 @@ public class UserControllerTesting {
     }
 
     @Test
-//    @Disabled
     @DisplayName("Test @PostMapping for create method for users")
     public void CreateUser_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
@@ -77,27 +74,31 @@ public class UserControllerTesting {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("63c7ce95ee2c8ed6f138622e"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2@gmail.com"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("yash2"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("yash2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
     @Test
-//    @Disabled
+    @DisplayName("Test @PutMapping for update method for users")
     public void UpdateUser_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/api/users/{id}", "63c7ce95ee2c8ed6f138622e")
+                        .put("/api/users/{id}", "59b99db6cfa9a34dcd7885bc")
                         .content(asJsonString(new User(
-                                new ObjectId("63c7ce95ee2c8ed6f138622e"), "yash4@gmail.com", "yash4", "yash4"
+                                new ObjectId("59b99db6cfa9a34dcd7885bc"), "iain_glen@gameofthron.es",
+                                "Jorah Mormont",
+                                "$2b$12$K8bKkwnpkrjsBPzASZxO/.yj7d9kvupiVtO6JA3Xl106AKXr3pXFK"
                         )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("63c7cad96262308ea7a96b77"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash4@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash4"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("yash4"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id.timestamp").value(1505336758))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id.date").value("2017-09-13T21:05:58.000+00:00"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("iain_glen@gameofthron.es"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Jorah Mormont"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("$2b$12$K8bKkwnpkrjsBPzASZxO/.yj7d9kvupiVtO6JA3Xl106AKXr3pXFK"));
     }
+
 }
