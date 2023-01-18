@@ -43,18 +43,10 @@ public class TheaterController {
 
     @PutMapping("/{id}")
     public TheaterDTO update(@RequestBody TheaterDTO theater, @PathVariable("id") String id) {
-        Optional<TheaterDTO> theaterOptional = this.theaterDAO.findById(new ObjectId(id));
 
-        if (theaterOptional.isPresent()) {
-            TheaterDTO original = theaterOptional.get();
-            if (theater.getLocation() != null) {
-                original.setLocation(theater.getLocation());
-            }
-            this.theaterDAO.create(original);
-            return original;
-        }
+        theaterDAO.update(new ObjectId(id), theater);
+        return theater;
 
-        return new TheaterDTO();
     }
 
 }

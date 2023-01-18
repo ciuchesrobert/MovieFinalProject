@@ -42,23 +42,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public UserDTO update(@RequestBody UserDTO user, @PathVariable("id") String id) {
-        Optional<UserDTO> userOptional = this.userDAO.findById(new ObjectId(id));
+        userDAO.update(new ObjectId(id), user);
+        return user;
 
-        if (userOptional.isPresent()) {
-            UserDTO original = userOptional.get();
-            if (user.getEmail() != null) {
-                original.setEmail(user.getEmail());
-            }
-            if (user.getName() != null){
-                original.setName(user.getName());
-            }
-            if (user.getPassword() != null){
-                original.setPassword(user.getPassword());
-            }
-            this.userDAO.create(original);
-            return user;
-        }
-
-        return new UserDTO();
     }
 }
