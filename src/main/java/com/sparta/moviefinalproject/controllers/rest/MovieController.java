@@ -23,30 +23,30 @@ public class MovieController {
         this.movieDAO = movieDAO;
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public Optional<MovieDTO> findById(@PathVariable("id") String id) {
         return movieDAO.findById(new ObjectId(id));
     }
 
-    @GetMapping("/findAll")
+    @GetMapping
     public List<MovieDTO> findAll() {
         return movieDAO.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody MovieDTO movieDTO){
 
         this.movieDAO.create(movieDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id){
         this.movieDAO.deleteById(new ObjectId(id));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public void update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id) {
         this.movieDAO.update(new ObjectId(id), movieDTO);
     }
