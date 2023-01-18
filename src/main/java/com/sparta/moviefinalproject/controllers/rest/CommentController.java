@@ -3,6 +3,7 @@ package com.sparta.moviefinalproject.controllers.rest;
 import com.sparta.moviefinalproject.entities.Comment;
 import com.sparta.moviefinalproject.repositories.CommentRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +29,14 @@ public class CommentController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Comment create(@RequestBody Comment comment){
 
         return this.commentRepository.save(comment);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id){
         this.commentRepository.deleteById(new ObjectId(id));
     }
