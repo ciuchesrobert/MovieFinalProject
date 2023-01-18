@@ -20,7 +20,7 @@ public class MovieWebController {
         this.movieDAO = movieDAO;
     }
 
-    @RequestMapping("/moviesHome")
+    @RequestMapping("/home")
     public String moviesHome(Model model){
         return "moviesHome/moviesHome";
     }
