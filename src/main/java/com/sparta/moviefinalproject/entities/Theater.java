@@ -1,6 +1,6 @@
 package com.sparta.moviefinalproject.entities;
 
-import com.sparta.moviefinalproject.entities.subEntities.Location;
+import com.sparta.moviefinalproject.entities.subentities.Location;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

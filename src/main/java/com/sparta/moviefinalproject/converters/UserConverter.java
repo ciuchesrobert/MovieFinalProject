@@ -1,12 +1,12 @@
 package com.sparta.moviefinalproject.converters;
 
-import com.sparta.moviefinalproject.dtos.UserDto;
+import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
 
-public class UserConverter implements Converter<UserDto, User> {
+public class UserConverter implements Converter<UserDTO, User> {
 
     @Override
-    public User dtoToEntity(UserDto userDto) {
+    public User dtoToEntity(UserDTO userDto) {
         return new User(userDto.getId(),
                 userDto.getEmail(),
                 userDto.getName(),
@@ -14,8 +14,8 @@ public class UserConverter implements Converter<UserDto, User> {
     }
 
     @Override
-    public UserDto entityToDto(User user) {
-        return new UserDto(user.getId(),
+    public UserDTO entityToDto(User user) {
+        return new UserDTO(user.getId(),
                 user.getEmail(),
                 user.getName(),
                 user.getPassword());

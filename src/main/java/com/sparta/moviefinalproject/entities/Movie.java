@@ -2,9 +2,9 @@ package com.sparta.moviefinalproject.entities;
 
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
-import com.sparta.moviefinalproject.entities.subEntities.Award;
-import com.sparta.moviefinalproject.entities.subEntities.Imdb;
-import com.sparta.moviefinalproject.entities.subEntities.Tomato;
+import com.sparta.moviefinalproject.entities.subentities.Award;
+import com.sparta.moviefinalproject.entities.subentities.Imdb;
+import com.sparta.moviefinalproject.entities.subentities.Tomato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Document(collection = "movies")
 public class Movie {
@@ -64,7 +65,7 @@ public class Movie {
     private Tomato tomatoes;
     @Column(name = "year")
     @NonNull
-    private Integer year;
+    private String year;
     @Embedded
     @Column(name = "imdb")
     @NonNull

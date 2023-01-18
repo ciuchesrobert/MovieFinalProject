@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Theater</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="/navbar/navbar.html :: navbar">  </div>
+<br><br>
+<h3>Create a Theater</h3>
+<div class="container">
+    <form th:action="@{createTheaterSuccess}" th:object="${theater}" method ="POST">
+        <label for="id">Id: </label>
+        <input type="text" id="id" name="id" th:field="*{id}">
+        <br/><br/>
+        <label for="theaterId">Theater Id: </label>
+        <input type="text" id="theaterId" name="theaterId" th:field="*{theaterId}">
+        <br/><br/>
+        <label for="city">City: </label>
+        <input type="text" id="city" name="city" th:field="*{theater.location.address.city}">
+        <br/><br/>
+        <label for="state">State: </label>
+        <input type="text" id="state" name="state" th:field="*{theater.location.address.state}">
+        <br/><br/>
+        <label for="street">Street: </label>
+        <input type="text" id="street" name="street" th:field="*{theater.location.address.street}">
+        <br/><br/>
+        <label for="zipcode">Zipcode: </label>
+        <input type="text" id="zipcode" name="zipcode" th:field="*{theater.location.address.zipcode}">
+        <br/><br/>
+        <label for="latitude">Latitude : </label>
+        <input type="number"  id="latitude" name="latitude" th:field="*{theater.location.geo.coordinates[0]}">
+        <br/><br/>
+        <label for="longitude">Longitute : </label>
+        <input type="number"  id="longitude" name="longitude" th:field="*{theater.location.geo.coordinates[1]}">
+        <br/><br/>
+        <label for="type">Geo type: </label>
+        <input type="number" id="type" name="type" th:field="*{theater.location.geo.type}">
+        <br/><br/>
+        <input type="submit">
+    </form>
+    <br>
+    <!--    <a th:href="@{/home}">Go Back</a>-->
+</div>
+</body>
+</html>
