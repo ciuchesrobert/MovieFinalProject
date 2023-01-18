@@ -11,7 +11,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import com.sparta.moviefinalproject.converters.subtypes.AwardConverter;
+import com.sparta.moviefinalproject.converters.subtypes.ImdbConverter;
+import com.sparta.moviefinalproject.converters.subtypes.TomatoConverter;
+import com.sparta.moviefinalproject.dtos.MovieDTO;
+import com.sparta.moviefinalproject.dtos.UserDTO;
 import java.time.LocalDateTime;
 
 
@@ -23,11 +27,9 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    @NonNull
     private ObjectId id;
     @Embedded
     @Column(name = "awards")
-    @NonNull
     private Award awards;
     @Column(name = "directors")
     @Nullable
@@ -45,7 +47,6 @@ public class Movie {
     @Nullable
     private String plot;
     @Column(name = "title")
-    @NonNull
     private String title;
     @Column(name = "writers")
     @Nullable
@@ -64,11 +65,9 @@ public class Movie {
     @Nullable
     private Tomato tomatoes;
     @Column(name = "year")
-    @NonNull
     private String year;
     @Embedded
     @Column(name = "imdb")
-    @NonNull
     private Imdb imdb;
     @Column(name = "rated")
     @Nullable
@@ -86,7 +85,37 @@ public class Movie {
     @Nullable
     private String[] countries;
     @Column(name = "type")
-    @NonNull
     private String type;
+
+    public boolean entityEqualsDto(MovieDTO obj) {
+        Award awardConverted = new AwardConverter().dtoToEntity(obj.getAwards());
+        Tomato tomatoConverted = new TomatoConverter().dtoToEntity(obj.getTomatoes());
+        //Imdb imdbConverted = new ImdbConverter().dtoToEntity(obj.getImdb());
+        if (this.getId() == obj.getId() &&
+                this.getAwards().equals(awardConverted) &&
+                this.getDirectors() == obj.getDirectors() &&
+                this.getFullPlot() == obj.getFullPlot() &&
+                this.getLanguages() == obj.getLanguages() &&
+                this.getNumMflixComments() == obj.getNumMflixComments() &&
+                this.getPlot() == obj.getPlot() &&
+                this.getTitle() == obj.getTitle() &&
+                this.getWriters() == obj.getWriters() &&
+                this.getGenres() == obj.getGenres() &&
+                this.getLastUpdated() == obj.getLastUpdated() &&
+                this.getPoster() == obj.getPoster() &&
+                this.getTomatoes().equals(tomatoConverted) &&
+                this.getYear() == obj.getYear() &&
+                this.getImdb().equals(new ImdbConverter().dtoToEntity(obj.getImdb())) &&
+                this.getRated() == obj.getRated() &&
+                this.getReleased() == obj.getReleased() &&
+                this.getCast() == obj.getCast() &&
+                this.getRuntime() == obj.getRuntime() &&
+                this.getCountries() == obj.getCountries() &&
+                this.getType() == obj.getType()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

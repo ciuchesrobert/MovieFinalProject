@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CriticDTO {
-    private int meter;
-    private int numReviews;
-    private double rating;
+    private Integer meter;
+    private Integer numReviews;
+    private Double rating;
 }
