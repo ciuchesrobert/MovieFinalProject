@@ -3,6 +3,7 @@ package com.sparta.moviefinalproject.controllers.rest;
 import com.sparta.moviefinalproject.entities.User;
 import com.sparta.moviefinalproject.repositories.UserRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +29,14 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody User user){
 
         return this.userRepository.save(user);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String id){
         this.userRepository.deleteById(new ObjectId(id));
     }
