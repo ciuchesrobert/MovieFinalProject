@@ -1,11 +1,11 @@
 package com.sparta.moviefinalproject.exceptionhandler;
 
 import com.sparta.moviefinalproject.exceptionhandler.customexceptions.KeyDoesNotExistException;
+import jakarta.servlet.ServletException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,26 +17,34 @@ import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.thymeleaf.exceptions.TemplateInputException;
 
+import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
 import java.util.NoSuchElementException;
 
 
 @RestControllerAdvice
-@ControllerAdvice
 @Log4j2
 public class AdviceController {
-
-    @ExceptionHandler(ResourceAccessException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleResourceNotFoundException(ResourceAccessException e){
-        log.error(e.getMessage());
-        return "<h1>Missing resource...</h1>";
-    }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotHandledException(NoHandlerFoundException e) {
         log.error(e.getMessage());
         return "<h1>Looks like something went wrong...</h1>";
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleFileNotFoundException(FileNotFoundException e) {
+        log.error(e.getMessage());
+        return "<h1>Mapping not found...<h1>";
+    }
+
+    @ExceptionHandler(ResourceAccessException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleResourceNotFoundException(ResourceAccessException e) {
+        log.error(e.getMessage());
+        return "<h1>Missing resource...</h1>";
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -48,16 +56,18 @@ public class AdviceController {
 
     @ExceptionHandler(HttpServerErrorException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleHttpServerErrorException(HttpServerErrorException e) {
+    public String handleHttpServerErrorException(ServletException e) {
         log.error(e.getMessage());
         return "<h1>Server error...</h1>";
     }
+
     @ExceptionHandler({HttpClientErrorException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleHttpClientErrorException(HttpClientErrorException e) {
         log.error(e.getMessage());
-        return "<h1>Looks like we have an error...</h1>";
+        return "<h1>We couldn't find what you were looking for...</h1>";
     }
+
     @ExceptionHandler(HttpStatusCodeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleHttpStatusCodeException(HttpStatusCodeException e) {
@@ -65,17 +75,9 @@ public class AdviceController {
         return "<h1>Something went wrong...</h1>";
     }
 
-    @ExceptionHandler(HttpClientErrorException.NotFound.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleNotFoundException(HttpClientErrorException.NotFound e) {
-        log.error(e.getMessage());
-        return "<h1>We couldn't find what you were looking for...</h1>";
-    }
-
-
     @ExceptionHandler(KeyDoesNotExistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleMethodKeyDoesNotExistException(KeyDoesNotExistException e){
+    public String handleMethodKeyDoesNotExistException(KeyDoesNotExistException e) {
         log.error(e.getMessage());
         return "<h1>You provided an invalid key...</h1>";
     }
@@ -103,28 +105,28 @@ public class AdviceController {
 
     @ExceptionHandler(IndexOutOfBoundsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleMethodIndexOutOfBoundsExceptions(IndexOutOfBoundsException e){
+    public String handleMethodIndexOutOfBoundsExceptions(IndexOutOfBoundsException e) {
         log.error(e.getMessage());
         return "<h1>Index out of bounds...</h1>";
     }
 
     @ExceptionHandler(MethodNotAllowedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public String handleMethodExceptions(MethodNotAllowedException e){
+    public String handleMethodExceptions(MethodNotAllowedException e) {
         log.error(e.getMessage());
         return "<h1>Method not allowed...</h1>";
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleIllegalArgsException(IllegalArgumentException e){
+    public String handleIllegalArgsException(IllegalArgumentException e) {
         log.error(e.getMessage());
         return "<h1>Argument type not allowed...</h1>";
     }
 
     @ExceptionHandler(TemplateInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleIllegalArgsException(TemplateInputException e){
+    public String handleIllegalArgsException(TemplateInputException e) {
         log.error(e.getMessage());
         return "<h1>Input type not allowed...</h1>";
     }
