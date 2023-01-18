@@ -3,7 +3,6 @@ package com.sparta.moviefinalproject.controllers.rest;
 import com.sparta.moviefinalproject.daos.implementations.UserDAO;
 import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
-import com.sparta.moviefinalproject.repositories.UserDAO;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
