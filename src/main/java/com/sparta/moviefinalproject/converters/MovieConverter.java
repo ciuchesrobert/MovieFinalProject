@@ -14,7 +14,7 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movieDto.getDirectors(),
                 movieDto.getFullPlot(),
                 movieDto.getLanguages(),
-                movieDto.getNumMflixComments(),
+                null,
                 movieDto.getPlot(),
                 movieDto.getTitle(),
                 movieDto.getWriters(),
@@ -30,6 +30,12 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movieDto.getRuntime(),
                 movieDto.getCountries(),
                 movieDto.getType());
+
+        if (movieDto.getNumMflixComments() == null){
+            movie.setNumMflixComments(0);
+        } else {
+            movie.setNumMflixComments(movieDto.getNumMflixComments());
+        }
 
         if(movieDto.getAwards() != null) {
             movie.setAwards(new AwardConverter().dtoToEntity(movieDto.getAwards()));
@@ -51,7 +57,7 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movie.getDirectors(),
                 movie.getFullPlot(),
                 movie.getLanguages(),
-                movie.getNumMflixComments(),
+                null,
                 movie.getPlot(),
                 movie.getTitle(),
                 movie.getWriters(),
@@ -67,6 +73,12 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movie.getRuntime(),
                 movie.getCountries(),
                 movie.getType());
+
+        if (movie.getNumMflixComments() == null){
+            movieDto.setNumMflixComments(0);
+        } else {
+            movieDto.setNumMflixComments(movieDto.getNumMflixComments());
+        }
 
         if(movie.getAwards() != null) {
             movieDto.setAwards(new AwardConverter().entityToDto(movie.getAwards()));
