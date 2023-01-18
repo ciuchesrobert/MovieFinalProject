@@ -18,7 +18,7 @@ public class UserWebController {
 
 
     // ---------------- READ
-    @GetMapping("/search")
+    @GetMapping("/basic/search")
     public String findUserById(Model model, ObjectId id){
         UserDTO user = new UserDTO();
         model.addAttribute("user",user);
@@ -26,14 +26,14 @@ public class UserWebController {
         return "userDisplay";
     }
 
-    @PostMapping("/search/success")
+    @PostMapping("/basic/search/success")
     public String findUserByIdSuccess(@ModelAttribute("user") UserDTO user, Model model){
         user = userDao.findById( user.getId() ).orElse(null);
         model.addAttribute("user",user);
         return "userDisplaySuccess";
     }
 
-    @GetMapping
+    @GetMapping("/basic")
     public String getAllUsers(Model model){
         Page<User> users = userDao.findAllUsers();
         model.addAttribute("users", users);
@@ -41,14 +41,14 @@ public class UserWebController {
     }
 
     // ------------------ CREATE
-    @GetMapping("/create")
+    @GetMapping("/admin/create")
     public String createUser(Model model){
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
         return "createUser";
     }
 
-    @PostMapping("/create/success")
+    @PostMapping("/admin/create/success")
     public String creatUserSuccess(@ModelAttribute("user") UserDTO user){
         user.setId(user.getId());
         userDao.create(user);
@@ -57,7 +57,7 @@ public class UserWebController {
 
 
     // ------------------------ UPDATE
-    @GetMapping("/update/{id}")
+    @GetMapping("/admin/update/{id}")
     public String updateUser(@PathVariable("id") ObjectId id, Model model){
         UserDTO user = userDao.findById(id).orElse(null);
         model.addAttribute("user", user);
@@ -65,7 +65,7 @@ public class UserWebController {
 
     }
 
-    @PostMapping("/update/success")
+    @PostMapping("/admin/update/success")
     public String updateUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
 
         // check if records with given ID exists
@@ -81,14 +81,14 @@ public class UserWebController {
 
 
     // ------------------------ DELETE
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String deleteUser(@PathVariable ObjectId id, Model model){
         UserDTO userDto = userDao.findById(id).orElse(null);
         model.addAttribute( "user", userDto );
         return "userDelete";
     }
 
-    @PostMapping("/delete/success")
+    @PostMapping("/admin/delete/success")
     public String deleteUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
 
         // check if records with given ID exists
