@@ -19,11 +19,13 @@ public class MovieWebController {
     }
 
     // ------------- READ
-    @GetMapping("/basic/search")
-    public String findMovieById(Model model, ObjectId id){
-        Movie movie = new Movie();
+    @GetMapping("/basic/search/{id}")
+    public String findMovieById(Model model, String id){
+        ObjectId objectId = new ObjectId(id);
+        Movie movie = movieRepository.findById(objectId).orElse(null);
+        System.out.println(movie);
         model.addAttribute("movie", movie);
-        return "movieDisplay";
+        return "movie/displayMovie";
     }
 
     @PostMapping("/basic/search/success")
@@ -33,7 +35,7 @@ public class MovieWebController {
         return "movieDisplaySuccess";
     }
 
-    @GetMapping("/basic")
+    @GetMapping("/basic/search/all")
     public String getAllMovies(Model model){
         List<Movie> movies = movieRepository.findAll();
         model.addAttribute("movies", movies);
@@ -45,39 +47,44 @@ public class MovieWebController {
     @GetMapping("/admin/create")
     public String createMovie(Model model){
         Movie movie = new Movie();
+        ObjectId objectId = new ObjectId();
+        movie.setId(objectId);
         model.addAttribute("movie", movie);
-        return "movieCreate";
+        return "movie/createMovie";
     }
 
     @PostMapping("/admin/create/success")
     public String createMovieSuccess(@ModelAttribute("movie")Movie movie){
+        System.out.println(movie);
         movieRepository.save(movie);
-        return "movieCreateSuccess";
+        return "movie/createMovieSuccess";
     }
 
     // ------------------------ UPDATE
     @GetMapping("/admin/update/{id}")
-    public String updateMovie(@PathVariable("id")ObjectId id, Model model){
-        Movie movie = movieRepository.findById(id).orElse(null);
+    public String updateMovie(@PathVariable("id")String id, Model model){
+        ObjectId objectId = new ObjectId(id);
+        Movie movie = movieRepository.findById(objectId).orElse(null);
         model.addAttribute( "movie", movie);
-        return "movieUpdate";
+        return "movie/updateMovie";
     }
 
     @PostMapping("/admin/update/success")
     public String updateMovieSuccess(@ModelAttribute("movie")Movie movie, Model model){
         movieRepository.save(movie); // - needs updating
-        return "movieUpdateSucces";
+        return "movie/updateMovieSuccess";
     }
 
     // ------------------------ DELETE
     @DeleteMapping("/admin/delete/{id}")
-    public String deleteMovie(@PathVariable ObjectId id, Model model){
-        Movie movie = movieRepository.findById(id).orElse(null);
+    public String deleteMovie(@PathVariable String id, Model model){
+        ObjectId objectId = new ObjectId(id);
+        Movie movie = movieRepository.findById(objectId).orElse(null);
         if (movie != null){
             movieRepository.delete(movie);
         }
         model.addAttribute("movie", movie);
-        return "movieDelete";
+        return "movie/deleteMovie";
     }
     @PostMapping("/admin/delete/success")
     public String deleteMovieSuccess(@ModelAttribute("movie")Movie movie, Model model){
