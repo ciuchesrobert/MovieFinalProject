@@ -38,11 +38,11 @@ public class UserWebController {
         return "userDisplaySuccess";
     }
 
-    @GetMapping("/basic")
+    @GetMapping("basic")
     public String getAllUsers(Model model){
         Page<User> users = userDAO.findAllUsers();
         model.addAttribute("users", users);
-        return "userDisplayAll";
+        return "user/displayAllUsers";
     }
 
     // ------------------ CREATE

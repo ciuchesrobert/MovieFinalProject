@@ -6,26 +6,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!--    <link type="text/css" rel="stylesheet" th:href="@{/tableStyle.css}">-->
 
-    <title>User</title>
+    <title>All theaters</title>
 </head>
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 
-<h4>User</h4>
+<h4>List of All Theater</h4>
 </br>
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>User Id</th>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Password</th>
+        <th> Id</th>
+        <th>Theater</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zipcode</th>
     </thead>
-    <tr>
-        <td th:text="${id}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.password}"></td>
+    <tr th:each="theater:${theaters}">
+        <td th:text="${theater.id}"></td>
+        <td th:text="${theater.theaterId}"></td>
+        <td th:text="${theater.location.address.street1}"></td>
+        <td th:text="${theater.location.address.city}"></td>
+        <td th:text="${theater.location.address.state}"></td>
+        <td th:text="${theater.location.address.zipcode}"></td>
     </tr>
 </table>
 </body>

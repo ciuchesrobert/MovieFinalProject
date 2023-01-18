@@ -6,26 +6,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!--    <link type="text/css" rel="stylesheet" th:href="@{/tableStyle.css}">-->
 
-    <title>User</title>
+    <title>All Comments</title>
 </head>
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 
-<h4>User</h4>
+<h4>List of All Comments</h4>
 </br>
-<table class="table">
+<table>
     <thead>
     <tr>
-        <th>User Id</th>
+        <th>Comment Id</th>
+        <th>Date</th>
         <th>Email</th>
+        <th>Movie Id</th>
         <th>Name</th>
-        <th>Password</th>
+        <th>Text</th>
     </thead>
-    <tr>
-        <td th:text="${id}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.password}"></td>
+    <tr th:each="comment:${comments}">
+        <td th:text="${comment.id}"></td>
+        <td th:text="${comment.date}"></td>
+        <td th:text="${comment.email}"></td>
+        <td th:text="${comment.movieId}"></td>
+        <td th:text="${comment.name}"></td>
+        <td th:text="${comment.text}"></td>
     </tr>
 </table>
 </body>

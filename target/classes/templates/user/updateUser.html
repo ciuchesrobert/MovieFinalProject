@@ -2,15 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create User</title>
+    <title>Update User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
 </head>
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
 <div class="container">
-    <form th:action="@{createSuccess}" th:object="${user}" method ="POST">
-        <label for="id">User Id: </label>
+    <form action="updateSuccess" th:object="${user}" method ="POST">
+        User Id: <span th:text="*{id}"></span>
         <input type="hidden" id="id" name="id" th:field="*{id}">
         <br/><br/>
         <label for="email">Email: </label>
@@ -22,10 +23,8 @@
         <label for="password">Password: </label>
         <input type="text" id="password" name="password" th:field="*{password}">
         <br/><br/>
-        <input type="submit">
+        <input type="submit" value="Update User">
     </form>
-    <br>
-    <!--    <a th:href="@{/home}">Go Back</a>-->
 </div>
 </body>
 </html>
