@@ -19,21 +19,21 @@ public class TheaterWebController {
     }
 
     // ------------- READ
-    @GetMapping("/search")
+    @GetMapping("/basic/search")
     public String findTheaterById(Model model){
         Theater theater = new Theater();
         model.addAttribute("theater",theater);
         return "theaterDisplay";
     }
 
-    @PostMapping("/search/success")
+    @PostMapping("/basic/search/success")
     public String findTheaterByIdSuccess(@ModelAttribute("theater") Theater theater, Model model){
         theater = theaterRepository.findById( theater.getId() ).orElse(null);
         model.addAttribute("theater",theater);
         return "theaterDisplaySuccess";
     }
 
-    @GetMapping
+    @GetMapping("/basic")
     public String getAllTheaters(Model model){
         List<Theater> theaters = theaterRepository.findAll();
         model.addAttribute("theaters", theaters);
@@ -41,14 +41,14 @@ public class TheaterWebController {
     }
 
     // ------------------ CREATE
-    @GetMapping("/create")
+    @GetMapping("/admin/create")
     public String createTheater(Model model){
         Theater theater = new Theater();
         model.addAttribute("theater", theater);
         return "createTheater";
     }
 
-    @PostMapping("/create/success")
+    @PostMapping("/admin/create/success")
     public String createTheaterSuccess(@ModelAttribute("theater")Theater theater){
         theater.setId(theater.getId());
         theaterRepository.save(theater);
@@ -56,7 +56,7 @@ public class TheaterWebController {
     }
 
     // ------------------------ UPDATE
-    @GetMapping("/update/{id}")
+    @GetMapping("/admin/update/{id}")
     public String updateTheater(@PathVariable("id") ObjectId id, Model model){
         Theater theater = theaterRepository.findById(id).orElse(null);
         model.addAttribute("theater", theater);
@@ -64,7 +64,7 @@ public class TheaterWebController {
 
     }
 
-    @PostMapping("/update/success")
+    @PostMapping("/admin/update/success")
     public String updateTheaterSuccess(@ModelAttribute("theater")Theater theater, Model model){
 
         // check if records with given ID exists
@@ -79,7 +79,7 @@ public class TheaterWebController {
 
 
     // ------------------------ DELETE
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String deleteTheater(@PathVariable ObjectId id, Model model){
         Theater theater = theaterRepository.findById(id).orElse(null);
         if(theater != null){
@@ -89,7 +89,7 @@ public class TheaterWebController {
         return "theaterDelete";
     }
 
-    @PostMapping("/delete/success")
+    @PostMapping("/admin/delete/success")
     public String deleteTheaterSuccess(@ModelAttribute("theater")Theater theater, Model model){
         theater = theaterRepository.findById( theater.getId() ).get();
         theaterRepository.deleteById(theater.getId());
