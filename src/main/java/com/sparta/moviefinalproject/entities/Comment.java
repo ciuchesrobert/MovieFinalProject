@@ -2,6 +2,8 @@ package com.sparta.moviefinalproject.entities;
 
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
+import com.sparta.moviefinalproject.dtos.CommentDto;
+import com.sparta.moviefinalproject.dtos.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @NoArgsConstructor
@@ -35,4 +38,18 @@ public class Comment {
     private String text;
     @NonNull
     private LocalDateTime date;
+
+    public boolean entityEqualsDto(CommentDto obj) {
+        if (this.getId() == obj.getId() &&
+        this.getDate() == obj.getDate() &&
+        this.getEmail() == obj.getEmail() &&
+        this.getMovieId() == obj.getMovieId() &&
+        this.getText() == obj.getText() &&
+        this.getName() == obj.getName()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

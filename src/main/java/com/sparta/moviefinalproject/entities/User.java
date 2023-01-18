@@ -2,6 +2,7 @@ package com.sparta.moviefinalproject.entities;
 
 
 import com.mongodb.lang.Nullable;
+import com.sparta.moviefinalproject.dtos.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,4 +31,17 @@ public class User {
     private String name;
     @NonNull
     private String password;
+
+
+    public boolean entityEqualsDto(UserDto obj) {
+        if (this.getId() == obj.getId() &&
+        this.getEmail() == obj.getEmail() &&
+        this.getName() == obj.getName() &&
+        this.getPassword() == obj.getPassword()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

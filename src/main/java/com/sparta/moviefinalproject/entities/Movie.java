@@ -2,6 +2,11 @@ package com.sparta.moviefinalproject.entities;
 
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
+import com.sparta.moviefinalproject.converters.subtypeconverters.AwardConverter;
+import com.sparta.moviefinalproject.converters.subtypeconverters.ImdbConverter;
+import com.sparta.moviefinalproject.converters.subtypeconverters.TomatoConverter;
+import com.sparta.moviefinalproject.dtos.MovieDto;
+import com.sparta.moviefinalproject.dtos.UserDto;
 import com.sparta.moviefinalproject.entities.subentities.Award;
 import com.sparta.moviefinalproject.entities.subentities.Imdb;
 import com.sparta.moviefinalproject.entities.subentities.Tomato;
@@ -88,5 +93,36 @@ public class Movie {
     @Column(name = "type")
     @NonNull
     private String type;
+
+    public boolean entityEqualsDto(MovieDto obj) {
+        Award awardConverted = new AwardConverter().dtoToEntity(obj.getAwards());
+        Tomato tomatoConverted = new TomatoConverter().dtoToEntity(obj.getTomatoes());
+        Imdb imdbConverted = new ImdbConverter().dtoToEntity(obj.getImdb());
+        if (this.getId() == obj.getId() &&
+        this.getAwards().equals(awardConverted) &&
+        this.getDirectors() == obj.getDirectors() &&
+                this.getFullPlot() == obj.getFullPlot() &&
+                this.getLanguages() == obj.getLanguages() &&
+                this.getNumMflixComments() == obj.getNumMflixComments() &&
+                this.getPlot() == obj.getPlot() &&
+                this.getTitle() == obj.getTitle() &&
+                this.getWriters() == obj.getWriters() &&
+                this.getGenres() == obj.getGenres() &&
+                this.getLastUpdated() == obj.getLastUpdated() &&
+                this.getPoster() == obj.getPoster() &&
+                this.getTomatoes().equals(tomatoConverted) &&
+                this.getYear() == obj.getYear() &&
+                this.getImdb().equals(imdbConverted) &&
+                this.getRated() == obj.getRated() &&
+                this.getReleased() == obj.getReleased() &&
+                this.getCast() == obj.getCast() &&
+                this.getRuntime() == obj.getRuntime() &&
+                this.getCountries() == obj.getCountries() &&
+                this.getType() == obj.getType()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

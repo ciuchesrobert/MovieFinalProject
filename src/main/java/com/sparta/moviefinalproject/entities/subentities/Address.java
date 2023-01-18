@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.util.Objects;
+
 @Embeddable
 @Data
 @AllArgsConstructor
@@ -19,4 +21,17 @@ public class Address {
     private String street;
     @NonNull
     private String zipcode;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return city.equals(address.city) && state.equals(address.state) && street.equals(address.street) && zipcode.equals(address.zipcode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, state, street, zipcode);
+    }
 }
