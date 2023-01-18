@@ -90,7 +90,7 @@ public class Movie {
     public boolean entityEqualsDto(MovieDTO obj) {
         Award awardConverted = new AwardConverter().dtoToEntity(obj.getAwards());
         Tomato tomatoConverted = new TomatoConverter().dtoToEntity(obj.getTomatoes());
-        Imdb imdbConverted = new ImdbConverter().dtoToEntity(obj.getImdb());
+        //Imdb imdbConverted = new ImdbConverter().dtoToEntity(obj.getImdb());
         if (this.getId() == obj.getId() &&
                 this.getAwards().equals(awardConverted) &&
                 this.getDirectors() == obj.getDirectors() &&
@@ -105,7 +105,7 @@ public class Movie {
                 this.getPoster() == obj.getPoster() &&
                 this.getTomatoes().equals(tomatoConverted) &&
                 this.getYear() == obj.getYear() &&
-                this.getImdb().equals(imdbConverted) &&
+                this.getImdb().equals(new ImdbConverter().dtoToEntity(obj.getImdb())) &&
                 this.getRated() == obj.getRated() &&
                 this.getReleased() == obj.getReleased() &&
                 this.getCast() == obj.getCast() &&
