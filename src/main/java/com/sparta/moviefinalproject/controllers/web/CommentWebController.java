@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/comments")
+@RequestMapping("/comments/")
 public class CommentWebController {
 
     final CommentRepository commentRepository;
@@ -21,21 +21,21 @@ public class CommentWebController {
 
 
     // ------------- READ
-    @GetMapping("/search")
+    @GetMapping("basic/search")
     public String findCommentById(Model model, ObjectId id){
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
         return "comment/displayComment";
     }
 
-    @PostMapping("/search/success")
+    @PostMapping("basic/search/success")
     public String findCommentByIdSuccess(@ModelAttribute("comment") Comment comment, Model model){
         comment = commentRepository.findById( comment.getId() ).orElse(null);
         model.addAttribute("comment", comment);
         return "comment/displayCommentSuccess";
     }
 
-    @GetMapping
+    @GetMapping("basic")
     public String getAllComments(Model model){
         List<Comment> comments = commentRepository.findAll();
         model.addAttribute("comments", comments);
@@ -43,35 +43,35 @@ public class CommentWebController {
     }
 
     // ------------------ CREATE
-    @GetMapping("/create")
+    @GetMapping("admin/create")
     public String createComment(Model model){
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
         return "commentCreate";
     }
 
-    @PostMapping("/create/success")
+    @PostMapping("admin/create/success")
     public String createCommentSuccess(@ModelAttribute("comment") Comment comment){
         commentRepository.save(comment);
         return "commentCreateSuccess";
     }
 
     // ------------------------ UPDATE
-    @GetMapping("/update{id}")
+    @GetMapping("admin/update{id}")
     public String updateComment(@PathVariable("id")ObjectId id, Model model){
         Comment comment = commentRepository.findById(id).orElse(null);
         model.addAttribute("comment", comment);
         return "commentUpdate";
     }
 
-    @PostMapping("/update/success")
+    @PostMapping("admin/update/success")
     public String updateCommentSuccess(@ModelAttribute("comment")Comment comment, Model model){
         commentRepository.save(comment); // - needs updating
         return "commentUpdateSuccess";
     }
 
     // ------------------------ DELETE
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("admin/delete/{id}")
     public String deleteComment(@PathVariable ObjectId id, Model model){
         Comment comment = commentRepository.findById(id).orElse(null);
         if (comment != null){
@@ -81,7 +81,7 @@ public class CommentWebController {
         return "commentDelete";
     }
 
-    @PostMapping("/delete/success")
+    @PostMapping("admin/delete/success")
     public String deleteCommentSuccess(@ModelAttribute("comment")Comment comment, Model model){
         comment = commentRepository.findById(comment.getId()).get();
         commentRepository.deleteById(comment.getId());

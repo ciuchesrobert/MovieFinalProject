@@ -34,10 +34,16 @@ public class WebSecurityConfig {
         @Bean
         public SecurityFilterChain configurePolicy(HttpSecurity http) throws Exception {
             return http.authorizeRequests(auth -> {
-                        auth.requestMatchers("")
+                        auth.requestMatchers("/comments/basic/**",
+                                        "/movies/basic/**",
+                                        "/theaters/basic/**",
+                                        "/users/basic/**")
                                 .hasRole("ADMIN");
 
-                        auth.requestMatchers("")
+                        auth.requestMatchers("/comments/admin/**",
+                                        "/movies/admin/**",
+                                        "/theaters/admin/**",
+                                        "/users/admin/**")
                                 .hasAnyRole("ADMIN", "BASIC");
                     })
                     .formLogin().loginPage("/login")
