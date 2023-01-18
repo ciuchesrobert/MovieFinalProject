@@ -19,12 +19,12 @@ public class CommentController {
         this.commentDAO = commentDAO;
     }
 
-    @GetMapping("find/{id}")
+    @GetMapping("/{id}")
     public Optional<CommentDTO> findById(@PathVariable("id") String id) {
         return commentDAO.findById(new ObjectId(id));
     }
 
-    @GetMapping("/findAll")
+    @GetMapping
     public List<CommentDTO> findAll() {
         return commentDAO.findAll();
     }
@@ -36,7 +36,7 @@ public class CommentController {
         this.commentDAO.create(commentDTO);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id){
         this.commentDAO.deleteById(new ObjectId(id));
