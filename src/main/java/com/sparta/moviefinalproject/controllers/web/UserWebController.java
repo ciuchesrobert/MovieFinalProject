@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserWebController {
 
-    private final UserDAO userDao;
+    private final UserDAO userDAO;
     public UserWebController(UserDAO userDao) {
-        this.userDao = userDao;
+        this.userDAO = userDao;
     }
     
     @RequestMapping("/usersHome")
