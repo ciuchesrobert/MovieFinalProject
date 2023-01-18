@@ -19,7 +19,7 @@ public class TheaterWebController {
         this.theaterDAO = theaterDAO;
     }
 
-    @RequestMapping("/theatersHome")
+    @RequestMapping("/home")
     public String theatersHome(Model model){
         return "theatersHome/theatersHome";
     }
