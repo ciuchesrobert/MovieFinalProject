@@ -43,7 +43,7 @@ public class CommentControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on comments with ID of 5a9427648b0beebeb69579e7")
     public void FindCommentById_SuccessIfExists() throws Exception {
-        mvc.perform(get("/api/comments/{id}", "5a9427648b0beebeb69579e7")
+        mvc.perform(get("/api/comments/{id}?apikey=ndlkjdlksajkdsajkaksdlksaj2132", "5a9427648b0beebeb69579e7")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -58,7 +58,7 @@ public class CommentControllerTesting {
     @Test
     @DisplayName("Test @GetMapping for findAll method for comments")
     public void FindAllComments_SuccessIfExists() throws Exception {
-        mvc.perform(get("/api/comments")
+        mvc.perform(get("/api/comments?apikey=ndlkjdlksajkdsajkaksdlksaj2132")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
