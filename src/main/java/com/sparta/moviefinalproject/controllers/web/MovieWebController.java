@@ -20,7 +20,7 @@ public class MovieWebController {
 
     // ------------- READ
     @GetMapping("/basic/search/{id}")
-    public String findMovieById(Model model, ObjectId id){
+    public String findMovieById(Model model, String id){
         ObjectId objectId = new ObjectId(id);
         Movie movie = movieRepository.findById(objectId).orElse(null);
         System.out.println(movie);
