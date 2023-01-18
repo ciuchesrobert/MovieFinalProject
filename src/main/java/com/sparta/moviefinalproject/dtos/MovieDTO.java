@@ -1,38 +1,32 @@
 package com.sparta.moviefinalproject.dtos;
 
-import com.mongodb.lang.NonNull;
-import com.mongodb.lang.Nullable;
+import com.sparta.moviefinalproject.converters.subtypes.AwardConverter;
+import com.sparta.moviefinalproject.converters.subtypes.ImdbConverter;
+import com.sparta.moviefinalproject.converters.subtypes.TomatoConverter;
 import com.sparta.moviefinalproject.dtos.subdtos.AwardDTO;
 import com.sparta.moviefinalproject.dtos.subdtos.ImdbDTO;
 import com.sparta.moviefinalproject.dtos.subdtos.TomatoDTO;
-import com.sparta.moviefinalproject.entities.subentities.Award;
-import com.sparta.moviefinalproject.entities.subentities.Imdb;
-import com.sparta.moviefinalproject.entities.subentities.Tomato;
-import jakarta.persistence.*;
+import com.sparta.moviefinalproject.entities.Movie;
+import jakarta.persistence.Embedded;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-import com.sparta.moviefinalproject.converters.subtypes.AwardConverter;
-import com.sparta.moviefinalproject.converters.subtypes.ImdbConverter;
-import com.sparta.moviefinalproject.converters.subtypes.TomatoConverter;
+
 import java.time.LocalDateTime;
-import com.sparta.moviefinalproject.entities.Movie;
-import com.sparta.moviefinalproject.entities.subentities.Award;
-import com.sparta.moviefinalproject.entities.subentities.Imdb;
-import com.sparta.moviefinalproject.entities.subentities.Tomato;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieDTO {
+
     private ObjectId id;
     @Embedded
     private AwardDTO awards;
     private String[] directors;
     private String fullPlot;
     private String[] languages;
-    private int numMflixComments;
+    private Integer numMflixComments;
     private String plot;
     private String title;
     private String[] writers;
