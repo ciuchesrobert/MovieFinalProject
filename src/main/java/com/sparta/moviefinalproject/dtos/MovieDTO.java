@@ -20,51 +20,29 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieDTO {
-
-    @NonNull
     private ObjectId id;
     @Embedded
-    @NonNull
     private AwardDTO awards;
-    @Nullable
     private String[] directors;
-    @Nullable
     private String fullPlot;
-    @Nullable
     private String[] languages;
-    @Nullable
-    private Integer numMflixComments;
-    @Nullable
+    private int numMflixComments;
     private String plot;
-    @NonNull
     private String title;
-    @Nullable
     private String[] writers;
-    @Nullable
     private String[] genres;
-    @Nullable
     private LocalDateTime lastUpdated;
-    @Nullable
     private String poster;
     @Embedded
-    @Nullable
     private TomatoDTO tomatoes;
-    @NonNull
     private String year;
     @Embedded
-    @NonNull
-    private Imdb imdb;
-    @Nullable
+    private ImdbDTO imdb;
     private String rated;
-    @Nullable
     private LocalDateTime released;
-    @Nullable
     private String[] cast;
-    @Nullable
     private Integer runtime;
-    @Nullable
     private String[] countries;
-    @NonNull
     private String type;
 
 
