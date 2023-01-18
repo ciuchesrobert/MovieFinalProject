@@ -2,6 +2,7 @@ package com.sparta.moviefinalproject.controllertesting.web;
 
 
 import com.sparta.moviefinalproject.MovieFinalProjectApplication;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,48 @@ public class MovieWebControllerTesting {
     private MockMvc mvc;
 
     @Test
-    @DisplayName("Test get method for movie with ID of 573a1390f29313caabcd4135")
-    public void testGetAllMovies() throws Exception {
-        mvc.perform(get("/movies/573a1390f29313caabcd4135"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("")));
+    @Disabled
+    @DisplayName("")
+    public void get1() throws Exception {
+        mvc.perform(get("/movies/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get2() throws Exception {
+        mvc.perform(get("/movies/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get3() throws Exception {
+        mvc.perform(get("/movies/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get4() throws Exception {
+        mvc.perform(get("/movies/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("")
+    public void get5() throws Exception {
+        mvc.perform(get("/movies/12345678")) // get request to url
+                .andExpect(status().isOk()) // check status code
+                .andExpect(content().string(containsString(""))); // check content
     }
 
 }

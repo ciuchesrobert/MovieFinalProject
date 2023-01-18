@@ -3,6 +3,7 @@ package com.sparta.moviefinalproject.controllers.rest;
 import com.sparta.moviefinalproject.entities.User;
 import com.sparta.moviefinalproject.repositories.UserRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,34 +18,31 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-//    @GetMapping("/test")
-//    public Optional<User> test() {
-//        return userRepository.findById(new ObjectId("573a1390f29313caabcd4135"));
-//    }
-
-    @GetMapping("/")
-    public Optional<User> findById(@RequestParam String id) {
+    @GetMapping("/{id}")
+    public Optional<User> findById(@PathVariable("id") String id) {
         return userRepository.findById(new ObjectId(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody User user){
 
         return this.userRepository.save(user);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestParam String id){
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id){
         this.userRepository.deleteById(new ObjectId(id));
     }
 
-    @PutMapping("/update")
-    public User update(@RequestBody User user, @RequestParam String id) {
+    @PutMapping("/{id}")
+    public User update(@RequestBody User user, @PathVariable("id") String id) {
         Optional<User> userOptional = this.userRepository.findById(new ObjectId(id));
 
         if (userOptional.isPresent()) {

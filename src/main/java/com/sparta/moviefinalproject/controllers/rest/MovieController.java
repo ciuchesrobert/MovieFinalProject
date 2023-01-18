@@ -4,41 +4,46 @@ package com.sparta.moviefinalproject.controllers.rest;
 import com.sparta.moviefinalproject.entities.Movie;
 import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/movies/")
+@RequestMapping("/api/movies")
 public class MovieController {
-    final MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
+
     public MovieController(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    @GetMapping("/")
-    public Optional<Movie> findById(@RequestParam String id) {
+    @GetMapping("/{id}")
+    public Optional<Movie> findById(@PathVariable("id") String id) {
         return movieRepository.findById(new ObjectId(id));
     }
 
-//    @GetMapping("/all")
-//    public List<Movie> findAll() {
-//        return movieRepository.findAll();
-//    }
+    @GetMapping
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
+    }
 
-    @PostMapping("/create")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Movie create(@RequestBody Movie movie){
 
         return this.movieRepository.save(movie);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestParam String id){
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") String id){
         this.movieRepository.deleteById(new ObjectId(id));
     }
 
-    @PutMapping("/update")
-    public Movie update(@RequestBody Movie movie, @RequestParam String id) {
+    @PutMapping("/{id}")
+    public Movie update(@RequestBody Movie movie, @PathVariable("id") String id) {
         Optional<Movie> movieOptional = this.movieRepository.findById(new ObjectId(id));
 
         if (movieOptional.isPresent()) {
