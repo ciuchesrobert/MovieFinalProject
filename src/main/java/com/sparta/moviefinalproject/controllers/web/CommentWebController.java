@@ -1,7 +1,7 @@
 package com.sparta.moviefinalproject.controllers.web;
 
-import com.sparta.moviefinalproject.entities.Comment;
-import com.sparta.moviefinalproject.repositories.CommentRepository;
+import com.sparta.moviefinalproject.daos.implementations.CommentDAO;
+import com.sparta.moviefinalproject.dtos.CommentDTO;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,84 +10,82 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/comments")
+@RequestMapping("/comments/")
 public class CommentWebController {
 
-    final CommentRepository commentRepository;
+    final CommentDAO commentDao;
 
-    public CommentWebController(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
+    public CommentWebController(CommentDAO commentDao) {
+        this.commentDao = commentDao;
     }
 
 
     // ------------- READ
-    @GetMapping("/search")
+    @GetMapping("basic/search")
     public String findCommentById(Model model, ObjectId id){
-        Comment comment = commentRepository.findById(id).orElse(null);
+        CommentDTO comment = new CommentDTO();
         model.addAttribute("comment", comment);
-//        Comment comment = new Comment();
-//        model.addAttribute("comment", comment);
         return "comment/displayComment";
     }
 
-//    @PostMapping("/search/success")
-//    public String findCommentByIdSuccess(@ModelAttribute("comment") Comment comment, Model model){
-////        comment = commentRepository.findById( comment.getId() ).orElse(null);
-//        model.addAttribute("comment", comment);
-//        return "comment/displayCommentSuccess";
-//    }
+    @PostMapping("basic/search/success")
+    public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
+        comment = commentDao.findById( comment.getId() ).orElse(null);
+        model.addAttribute("comment", comment);
+        return "comment/displayCommentSuccess";
+    }
 
-    @GetMapping
+    @GetMapping("basic")
     public String getAllComments(Model model){
-        List<Comment> comments = commentRepository.findAll();
+        List<CommentDTO> comments = commentDao.findAll();
         model.addAttribute("comments", comments);
         return "comment/displayAllComments";
     }
 
-    // ------------------ CREATE
-    @GetMapping("/create")
+    @GetMapping("admin/create")
     public String createComment(Model model){
-        Comment comment = new Comment();
+        CommentDTO comment = new CommentDTO();
         model.addAttribute("comment", comment);
         return "commentCreate";
     }
 
-    @PostMapping("/create/success")
-    public String createCommentSuccess(@ModelAttribute("comment") Comment comment){
-        commentRepository.save(comment);
+    @PostMapping("admin/create/success")
+    public String createCommentSuccess(@ModelAttribute("comment") CommentDTO comment){
+        commentDAO.create(comment);
         return "commentCreateSuccess";
     }
 
-    // ------------------------ UPDATE
-    @GetMapping("/update{id}")
+    @GetMapping("admin/update{id}")
     public String updateComment(@PathVariable("id")ObjectId id, Model model){
-        Comment comment = commentRepository.findById(id).orElse(null);
+        CommentDTO comment = commentDAO.findById(id).orElse(null);
         model.addAttribute("comment", comment);
         return "commentUpdate";
     }
 
-    @PostMapping("/update/success")
-    public String updateCommentSuccess(@ModelAttribute("comment")Comment comment, Model model){
-        commentRepository.save(comment); // - needs updating
+    @PostMapping("admin/update/success")
+    public String updateCommentSuccess(@ModelAttribute("comment")CommentDTO comment, Model model){
+        commentDAO.update(comment.getId(), comment); // - needs updating
         return "commentUpdateSuccess";
     }
 
-    // ------------------------ DELETE
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("admin/delete/{id}")
     public String deleteComment(@PathVariable ObjectId id, Model model){
-        Comment comment = commentRepository.findById(id).orElse(null);
-        if (comment != null){
-            commentRepository.delete(comment);
-        }
+        CommentDTO comment = commentDAO.findById(id).orElse(null);
         model.addAttribute("comment", comment);
         return "commentDelete";
     }
 
-    @PostMapping("/delete/success")
-    public String deleteCommentSuccess(@ModelAttribute("comment")Comment comment, Model model){
-        comment = commentRepository.findById(comment.getId()).get();
-        commentRepository.deleteById(comment.getId());
+    @PostMapping("admin/delete/success")
+    public String deleteCommentSuccess(@ModelAttribute("comment")CommentDTO comment, Model model){
+        // check if records with given ID exists
+        if( comment == null){
+            model.addAttribute("comment", null);
+            return "commentDeleteSuccess";
+        }
+        // otherwise delete from DB
+        commentDAO.deleteById(comment.getId());
         model.addAttribute("comment", comment);
         return "commentDeleteSuccess";
     }
+
 }
