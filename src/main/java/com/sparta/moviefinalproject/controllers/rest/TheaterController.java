@@ -1,5 +1,7 @@
 package com.sparta.moviefinalproject.controllers.rest;
 
+import com.sparta.moviefinalproject.daos.implementations.TheaterDAO;
+import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import com.sparta.moviefinalproject.entities.Theater;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
@@ -12,48 +14,41 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/theaters")
 public class TheaterController {
-    private final TheaterRepository theaterRepository;
+    private final TheaterDAO theaterDAO;
 
-    public TheaterController(TheaterRepository theaterRepository) {
-        this.theaterRepository = theaterRepository;
+    public TheaterController(TheaterDAO theaterDAO) {
+        this.theaterDAO = theaterDAO;
     }
 
     @GetMapping("/{id}")
-    public Optional<Theater> findById(@PathVariable("id") String id) {
-        return theaterRepository.findById(new ObjectId(id));
+    public Optional<TheaterDTO> findById(@PathVariable("id") String id) {
+        return theaterDAO.findById(new ObjectId(id));
     }
 
     @GetMapping
-    public List<Theater> findAll() {
-        return theaterRepository.findAll();
+    public List<TheaterDTO> findAll() {
+        return theaterDAO.findAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Theater create(@RequestBody Theater theater){
-
-        return this.theaterRepository.save(theater);
+    public TheaterDTO create(@RequestBody TheaterDTO theater){
+        this.theaterDAO.create(theater);
+        return theater;
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id){
-        this.theaterRepository.deleteById(new ObjectId(id));
+        this.theaterDAO.deleteById(new ObjectId(id));
     }
 
     @PutMapping("/{id}")
-    public Theater update(@RequestBody Theater theater, @PathVariable("id") String id) {
-        Optional<Theater> theaterOptional = this.theaterRepository.findById(new ObjectId(id));
+    public TheaterDTO update(@RequestBody TheaterDTO theater, @PathVariable("id") String id) {
 
-        if (theaterOptional.isPresent()) {
-            Theater original = theaterOptional.get();
-            if (theater.getLocation() != null) {
-                original.setLocation(theater.getLocation());
-            }
-            return this.theaterRepository.save(original);
-        }
+        theaterDAO.update(new ObjectId(id), theater);
+        return theater;
 
-        return new Theater();
     }
 
 }
