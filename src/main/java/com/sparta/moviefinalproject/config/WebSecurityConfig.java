@@ -8,11 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
-    @Configuration
-    @EnableWebSecurity
-    public class SpringWebSecurityConfig {
         @Bean
         //Creates user registry
         public InMemoryUserDetailsManager configureUsers() {
@@ -38,13 +36,13 @@ public class WebSecurityConfig {
                                         "/movies/basic/**",
                                         "/theaters/basic/**",
                                         "/users/basic/**")
-                                .hasRole("ADMIN");
+                                .hasAnyRole("ADMIN", "BASIC");;
 
                         auth.requestMatchers("/comments/admin/**",
                                         "/movies/admin/**",
                                         "/theaters/admin/**",
                                         "/users/admin/**")
-                                .hasAnyRole("ADMIN", "BASIC");
+                                .hasRole("ADMIN");
                     })
                     .formLogin().loginPage("/login")
                     .successForwardUrl("/home") // better to send to where user was going
@@ -59,5 +57,4 @@ public class WebSecurityConfig {
                     .and()
                     .build();
         }
-    }
 }
