@@ -1,7 +1,9 @@
 package com.sparta.moviefinalproject.controllers.rest;
 
+import com.sparta.moviefinalproject.daos.implementations.UserDAO;
+import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
-import com.sparta.moviefinalproject.repositories.UserRepository;
+import com.sparta.moviefinalproject.repositories.UserDAO;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,39 +13,40 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    final UserRepository userRepository;
+    final UserDAO userDAO;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @GetMapping("/{id}")
-    public Optional<User> findById(@PathVariable("id") String id) {
-        return userRepository.findById(new ObjectId(id));
+    public Optional<UserDTO> findById(@PathVariable("id") String id) {
+        return userDAO.findById(new ObjectId(id));
     }
 
     @GetMapping
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        return userDAO.findAll();
     }
 
     @PostMapping
-    public User create(@RequestBody User user){
+    public UserDTO create(@RequestBody UserDTO user){
 
-        return this.userRepository.save(user);
+        this.userDAO.create(user);
+        return user;
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id){
-        this.userRepository.deleteById(new ObjectId(id));
+        this.userDAO.deleteById(new ObjectId(id));
     }
 
     @PutMapping("/{id}")
-    public User update(@RequestBody User user, @PathVariable("id") String id) {
-        Optional<User> userOptional = this.userRepository.findById(new ObjectId(id));
+    public UserDTO update(@RequestBody UserDTO user, @PathVariable("id") String id) {
+        Optional<UserDTO> userOptional = this.userDAO.findById(new ObjectId(id));
 
         if (userOptional.isPresent()) {
-            User original = userOptional.get();
+            UserDTO original = userOptional.get();
             if (user.getEmail() != null) {
                 original.setEmail(user.getEmail());
             }
@@ -53,9 +56,10 @@ public class UserController {
             if (user.getPassword() != null){
                 original.setPassword(user.getPassword());
             }
-            return this.userRepository.save(original);
+            this.userDAO.create(original);
+            return user;
         }
 
-        return new User();
+        return new UserDTO();
     }
 }
