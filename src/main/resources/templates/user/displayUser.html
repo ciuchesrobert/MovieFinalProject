@@ -13,7 +13,7 @@
 
 <h4>User</h4>
 </br>
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>User Id</th>
@@ -21,10 +21,11 @@
         <th>Name</th>
         <th>Password</th>
     </thead>
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.password}"></td>
+    <tr>
+        <td th:text="${id}"></td>
+        <td th:text="${email}"></td>
+        <td th:text="${name}"></td>
+        <td th:text="${password}"></td>
     </tr>
 </table>
 </body>

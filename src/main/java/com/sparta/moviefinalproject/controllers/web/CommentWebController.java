@@ -23,8 +23,10 @@ public class CommentWebController {
     // ------------- READ
     @GetMapping("basic/search")
     public String findCommentById(Model model, ObjectId id){
-        Comment comment = new Comment();
+        Comment comment = commentRepository.findById(id).orElse(null);
         model.addAttribute("comment", comment);
+//        Comment comment = new Comment();
+//        model.addAttribute("comment", comment);
         return "comment/displayComment";
     }
 
