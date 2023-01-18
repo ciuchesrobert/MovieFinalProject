@@ -9,8 +9,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AwardDTO {
-    private int wins;
-    private int nominations;
+    private Integer wins;
+    private Integer nominations;
     private String text;
 
     @Override

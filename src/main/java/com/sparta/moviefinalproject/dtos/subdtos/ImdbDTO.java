@@ -8,9 +8,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImdbDTO {
-    private int id;
-    private double rating;
-    private int votes;
+    private Integer id;
+    private Double rating;
+    private Integer votes;
 
     @Override
     public boolean equals(Object o) {
@@ -24,4 +24,5 @@ public class ImdbDTO {
     public int hashCode() {
         return Objects.hash(id, rating, votes);
     }
+
 }
