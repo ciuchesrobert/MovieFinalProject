@@ -74,8 +74,8 @@ public class CommentControllerTesting {
     public void CreateComment_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/comments")
-                        .content(asJsonString(new CommentDTO(new ObjectId("no idea what to put for id"),
-                                "yash", "yash@gmail.com", new ObjectId("no idea what to put for id"),
+                        .content(asJsonString(new CommentDTO(new ObjectId("https://observablehq.com/@hugodf/mongodb-objectid-generator"),
+                                "name", "email", new ObjectId("movieId"),
                                 "text", LocalDateTime.now())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -91,15 +91,17 @@ public class CommentControllerTesting {
     public void UpdateComment_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/comments/{id}", "no idea what to put for id")
-                        .content(asJsonString(new CommentDTO(new ObjectId("no idea what to put for id"),
-                                "yash2", "yash2@gmail.com", new ObjectId("no idea what to put for id"),
-                                "text2", LocalDateTime.now())))
+                        .put("/comments/{id}", "id")
+                        .content(asJsonString(new CommentDTO(new ObjectId("id"),
+                                "name", "email", new ObjectId("movieId"),
+                                "text", LocalDateTime.now())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text2"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id.timestamp").value(12345678))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id.date").value("date"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("email"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text"));
     }
 }

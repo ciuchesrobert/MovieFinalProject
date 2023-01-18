@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/users")
 public class UserWebController {
-    private final UserDAO userDao;
-    public UserWebController(UserDAO userDao) {
-        this.userDao = userDao;
+    private final UserDAO userDAO;
+    public UserWebController(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
 
@@ -28,14 +28,14 @@ public class UserWebController {
 
     @PostMapping("/basic/search/success")
     public String findUserByIdSuccess(@ModelAttribute("user") UserDTO user, Model model){
-        user = userDao.findById( user.getId() ).orElse(null);
+        user = userDAO.findById( user.getId() ).orElse(null);
         model.addAttribute("user",user);
         return "userDisplaySuccess";
     }
 
     @GetMapping("/basic")
     public String getAllUsers(Model model){
-        Page<User> users = userDao.findAllUsers();
+        Page<User> users = userDAO.findAllUsers();
         model.addAttribute("users", users);
         return "userDisplayAll";
     }
@@ -51,7 +51,7 @@ public class UserWebController {
     @PostMapping("/admin/create/success")
     public String creatUserSuccess(@ModelAttribute("user") UserDTO user){
         user.setId(user.getId());
-        userDao.create(user);
+        userDAO.create(user);
         return "createUserSuccess";
     }
 
@@ -59,7 +59,7 @@ public class UserWebController {
     // ------------------------ UPDATE
     @GetMapping("/admin/update/{id}")
     public String updateUser(@PathVariable("id") ObjectId id, Model model){
-        UserDTO user = userDao.findById(id).orElse(null);
+        UserDTO user = userDAO.findById(id).orElse(null);
         model.addAttribute("user", user);
         return "userUpdate";
 
@@ -74,7 +74,7 @@ public class UserWebController {
             return "userUpdateSuccess";
         }
 
-        userDao.update(user.getId(), user);
+        userDAO.update(user.getId(), user);
         model.addAttribute("user", user);
         return "userUpdateSuccess";
     }
@@ -83,7 +83,7 @@ public class UserWebController {
     // ------------------------ DELETE
     @GetMapping("/admin/delete/{id}")
     public String deleteUser(@PathVariable ObjectId id, Model model){
-        UserDTO userDto = userDao.findById(id).orElse(null);
+        UserDTO userDto = userDAO.findById(id).orElse(null);
         model.addAttribute( "user", userDto );
         return "userDelete";
     }
@@ -97,7 +97,7 @@ public class UserWebController {
             return "userDeleteSuccess";
         }
         // otherwise delete from DB
-        userDao.deleteById(user.getId());
+        userDAO.deleteById(user.getId());
         model.addAttribute("user", user);
         return "userDeleteSuccess";
     }
