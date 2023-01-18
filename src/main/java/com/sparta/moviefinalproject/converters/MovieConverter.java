@@ -9,51 +9,87 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
 
     @Override
     public Movie dtoToEntity(MovieDTO movieDto) {
-        return new Movie(movieDto.getId(),
-                new AwardConverter().dtoToEntity(movieDto.getAwards()),
+        Movie movie = new Movie(movieDto.getId(),
+                null,
                 movieDto.getDirectors(),
                 movieDto.getFullPlot(),
                 movieDto.getLanguages(),
-                movieDto.getNumMflixComments(),
+                null,
                 movieDto.getPlot(),
                 movieDto.getTitle(),
                 movieDto.getWriters(),
                 movieDto.getGenres(),
                 movieDto.getLastUpdated(),
                 movieDto.getPoster(),
-                new TomatoConverter().dtoToEntity(movieDto.getTomatoes()),
+                null,
                 movieDto.getYear(),
-                new ImdbConverter().dtoToEntity(movieDto.getImdb()),
+                null,
                 movieDto.getRated(),
                 movieDto.getReleased(),
                 movieDto.getCast(),
                 movieDto.getRuntime(),
                 movieDto.getCountries(),
                 movieDto.getType());
+
+        if (movieDto.getNumMflixComments() == null){
+            movie.setNumMflixComments(0);
+        } else {
+            movie.setNumMflixComments(movieDto.getNumMflixComments());
+        }
+
+        if(movieDto.getAwards() != null) {
+            movie.setAwards(new AwardConverter().dtoToEntity(movieDto.getAwards()));
+        }
+        if(movieDto.getTomatoes() != null) {
+            movie.setTomatoes(new TomatoConverter().dtoToEntity(movieDto.getTomatoes()));
+        }
+        if(movieDto.getImdb() != null) {
+            movie.setImdb(new ImdbConverter().dtoToEntity(movieDto.getImdb()));
+        }
+
+        return movie;
     }
 
     @Override
     public MovieDTO entityToDto(Movie movie) {
-        return new MovieDTO(movie.getId(),
-                new AwardConverter().entityToDto(movie.getAwards()),
+        MovieDTO movieDto = new MovieDTO(movie.getId(),
+                null,
                 movie.getDirectors(),
                 movie.getFullPlot(),
                 movie.getLanguages(),
-                movie.getNumMflixComments(),
+                null,
                 movie.getPlot(),
                 movie.getTitle(),
                 movie.getWriters(),
                 movie.getGenres(),
                 movie.getLastUpdated(),
                 movie.getPoster(),
-                new TomatoConverter().entityToDto(movie.getTomatoes()),
+                null,
                 movie.getYear(),
-                new ImdbConverter().entityToDto(movie.getImdb()),
+                null,
                 movie.getRated(),
                 movie.getReleased(),
                 movie.getCast(),
                 movie.getRuntime(),
                 movie.getCountries(),
                 movie.getType());
+
+        if (movie.getNumMflixComments() == null){
+            movieDto.setNumMflixComments(0);
+        } else {
+            movieDto.setNumMflixComments(movieDto.getNumMflixComments());
+        }
+
+        if(movie.getAwards() != null) {
+            movieDto.setAwards(new AwardConverter().entityToDto(movie.getAwards()));
+        }
+        if(movie.getTomatoes() != null) {
+            movieDto.setTomatoes(new TomatoConverter().entityToDto(movie.getTomatoes()));
+        }
+        if(movie.getImdb() != null) {
+            movieDto.setImdb(new ImdbConverter().entityToDto(movie.getImdb()));
+        }
+
+        return movieDto;
     }
 }

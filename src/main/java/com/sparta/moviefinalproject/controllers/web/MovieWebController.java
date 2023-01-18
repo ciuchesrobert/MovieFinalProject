@@ -15,9 +15,12 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieWebController {
     private final MovieDAO movieDAO;
+    private final MovieRepository movieRepository;
 
-    public MovieWebController(MovieDAO movieDAO) {
+    public MovieWebController(MovieDAO movieDAO,
+                              MovieRepository movieRepository) {
         this.movieDAO = movieDAO;
+        this.movieRepository = movieRepository;
     }
 
     @RequestMapping("/home")
@@ -27,7 +30,7 @@ public class MovieWebController {
 
     // ------------- READ
     @GetMapping("/basic/search/{id}")
-    public String findMovieById(Model model, String id){
+    public String findMovieById(Model model,@PathVariable String id){
         ObjectId objectId = new ObjectId(id);
         MovieDTO movie = movieDAO.findById(objectId).orElse(null);
         System.out.println(movie);
@@ -78,27 +81,31 @@ public class MovieWebController {
 
     @PostMapping("/admin/update/success")
     public String updateMovieSuccess(@ModelAttribute("movie")MovieDTO movie, Model model){
+        System.out.println(movie);
         movieDAO.update(movie.getId(), movie); // - needs updating
         return "movie/updateMovieSuccess";
     }
 
     // ------------------------ DELETE
-    @DeleteMapping("/admin/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String deleteMovie(@PathVariable String id, Model model){
         ObjectId objectId = new ObjectId(id);
         MovieDTO movie = movieDAO.findById(objectId).orElse(null);
+        System.out.println(movie);
         if (movie != null){
-            movieDAO.deleteById(movie.getId());
+            model.addAttribute("id", movie.getId());
         }
-        model.addAttribute("movie", movie);
+        else {
+        model.addAttribute("id", null);
+        }
         return "movie/deleteMovie";
     }
     @PostMapping("/admin/delete/success")
-    public String deleteMovieSuccess(@ModelAttribute("movie")MovieDTO movie, Model model){
-        movie = movieDAO.findById(movie.getId()).get();
-        movieDAO.deleteById(movie.getId());
+    public String deleteMovieSuccess(@ModelAttribute("movie") String movie, Model model){
+        MovieDTO movieDto = movieDAO.findById(new ObjectId(movie)).get();
+        movieDAO.deleteById(movieDto.getId());
         model.addAttribute("movie", model);
-        return "movieDeleteSuccess";
+        return "movie/deleteMovieSuccess";
     }
 
 
