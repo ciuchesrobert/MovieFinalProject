@@ -3,6 +3,7 @@ package com.sparta.moviefinalproject.controllers.rest;
 import com.sparta.moviefinalproject.entities.Theater;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +29,14 @@ public class TheaterController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Theater create(@RequestBody Theater theater){
 
         return this.theaterRepository.save(theater);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id){
         this.theaterRepository.deleteById(new ObjectId(id));
     }
