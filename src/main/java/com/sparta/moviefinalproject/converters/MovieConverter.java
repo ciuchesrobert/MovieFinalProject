@@ -9,8 +9,8 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
 
     @Override
     public Movie dtoToEntity(MovieDTO movieDto) {
-        return new Movie(movieDto.getId(),
-                new AwardConverter().dtoToEntity(movieDto.getAwards()),
+        Movie movie = new Movie(movieDto.getId(),
+                null,
                 movieDto.getDirectors(),
                 movieDto.getFullPlot(),
                 movieDto.getLanguages(),
@@ -21,21 +21,33 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movieDto.getGenres(),
                 movieDto.getLastUpdated(),
                 movieDto.getPoster(),
-                new TomatoConverter().dtoToEntity(movieDto.getTomatoes()),
+                null,
                 movieDto.getYear(),
-                movieDto.getImdb(),
+                null,
                 movieDto.getRated(),
                 movieDto.getReleased(),
                 movieDto.getCast(),
                 movieDto.getRuntime(),
                 movieDto.getCountries(),
                 movieDto.getType());
+
+        if(movieDto.getAwards() != null) {
+            movie.setAwards(new AwardConverter().dtoToEntity(movieDto.getAwards()));
+        }
+        if(movieDto.getTomatoes() != null) {
+            movie.setTomatoes(new TomatoConverter().dtoToEntity(movieDto.getTomatoes()));
+        }
+        if(movieDto.getImdb() != null) {
+            movie.setImdb(new ImdbConverter().dtoToEntity(movieDto.getImdb()));
+        }
+
+        return movie;
     }
 
     @Override
     public MovieDTO entityToDto(Movie movie) {
-        return new MovieDTO(movie.getId(),
-                new AwardConverter().entityToDto(movie.getAwards()),
+        MovieDTO movieDto = new MovieDTO(movie.getId(),
+                null,
                 movie.getDirectors(),
                 movie.getFullPlot(),
                 movie.getLanguages(),
@@ -46,14 +58,26 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movie.getGenres(),
                 movie.getLastUpdated(),
                 movie.getPoster(),
-                new TomatoConverter().entityToDto(movie.getTomatoes()),
+                null,
                 movie.getYear(),
-                movie.getImdb(),
+                null,
                 movie.getRated(),
                 movie.getReleased(),
                 movie.getCast(),
                 movie.getRuntime(),
                 movie.getCountries(),
                 movie.getType());
+
+        if(movie.getAwards() != null) {
+            movieDto.setAwards(new AwardConverter().entityToDto(movie.getAwards()));
+        }
+        if(movie.getTomatoes() != null) {
+            movieDto.setTomatoes(new TomatoConverter().entityToDto(movie.getTomatoes()));
+        }
+        if(movie.getImdb() != null) {
+            movieDto.setImdb(new ImdbConverter().entityToDto(movie.getImdb()));
+        }
+
+        return movieDto;
     }
 }
