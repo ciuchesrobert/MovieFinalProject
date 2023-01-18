@@ -2,13 +2,14 @@ package com.sparta.moviefinalproject.exceptionhandler;
 
 import com.sparta.moviefinalproject.exceptionhandler.customexceptions.KeyDoesNotExistException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -18,13 +19,12 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.thymeleaf.exceptions.TemplateInputException;
 
 import java.io.FileNotFoundException;
-import java.lang.annotation.Annotation;
 import java.util.NoSuchElementException;
 
 
 @RestControllerAdvice
 @Log4j2
-public class AdviceController {
+public class AdviceController implements ErrorController{
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -47,6 +47,7 @@ public class AdviceController {
         return "<h1>Missing resource...</h1>";
     }
 
+
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNullPointerException(NullPointerException e) {
@@ -56,12 +57,12 @@ public class AdviceController {
 
     @ExceptionHandler(HttpServerErrorException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleHttpServerErrorException(ServletException e) {
+    public String handleHttpServerErrorException(HttpServerErrorException e) {
         log.error(e.getMessage());
         return "<h1>Server error...</h1>";
     }
 
-    @ExceptionHandler({HttpClientErrorException.class})
+    @ExceptionHandler(HttpClientErrorException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleHttpClientErrorException(HttpClientErrorException e) {
         log.error(e.getMessage());
