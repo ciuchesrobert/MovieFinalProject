@@ -12,11 +12,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Imdb {
-    @Nullable
     private Integer id;
-    @Nullable
     private Double rating;
-    @Nullable
     private Integer votes;
 
     @Override
