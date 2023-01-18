@@ -17,7 +17,7 @@ public class UserWebController {
         this.userDAO = userDao;
     }
     
-    @RequestMapping("/usersHome")
+    @RequestMapping("/home")
     public String usersHome(Model model){
         return "usersHome/usersHome";
     }
