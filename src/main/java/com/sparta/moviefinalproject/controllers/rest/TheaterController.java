@@ -5,6 +5,7 @@ import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import com.sparta.moviefinalproject.entities.Theater;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,13 +31,14 @@ public class TheaterController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public TheaterDTO create(@RequestBody TheaterDTO theater){
-
         this.theaterDAO.create(theater);
         return theater;
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id){
         this.theaterDAO.deleteById(new ObjectId(id));
     }

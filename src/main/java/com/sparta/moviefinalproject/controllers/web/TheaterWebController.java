@@ -1,7 +1,7 @@
 package com.sparta.moviefinalproject.controllers.web;
 
-import com.sparta.moviefinalproject.entities.Theater;
-import com.sparta.moviefinalproject.repositories.TheaterRepository;
+import com.sparta.moviefinalproject.daos.implementations.TheaterDAO;
+import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,92 +12,93 @@ import java.util.List;
 @Controller
 @RequestMapping("/theaters")
 public class TheaterWebController {
-    final TheaterRepository theaterRepository;
 
-    public TheaterWebController(TheaterRepository theaterRepository) {
-        this.theaterRepository = theaterRepository;
+    private final TheaterDAO theaterDAO;
+
+    public TheaterWebController(TheaterDAO theaterDAO) {
+        this.theaterDAO = theaterDAO;
+    }
+
+    @RequestMapping("/home")
+    public String theatersHome(Model model){
+        return "theatersHome/theatersHome";
     }
 
     // ------------- READ
-    @GetMapping("/search")
+    @GetMapping("/basic/search")
     public String findTheaterById(Model model){
-        Theater theater = new Theater();
+        TheaterDTO theater = new TheaterDTO();
         model.addAttribute("theater",theater);
         return "theaterDisplay";
     }
 
-    @PostMapping("/search/success")
-    public String findTheaterByIdSuccess(@ModelAttribute("theater") Theater theater, Model model){
-        theater = theaterRepository.findById( theater.getId() ).orElse(null);
-        model.addAttribute("theater",theater);
+
+   @PostMapping("/basic/search/success")
+    public String findTheaterByIdSuccess(@ModelAttribute("theater") TheaterDTO theater, Model model){
+        theater = theaterDAO.findById( theater.getId() ).orElse(null);
         return "theaterDisplaySuccess";
     }
 
-    @GetMapping
+    @GetMapping("/basic")
     public String getAllTheaters(Model model){
-        List<Theater> users = theaterRepository.findAll();
-        model.addAttribute("users", users);
+        List<TheaterDTO> theaters = theaterDAO.findAll();
+        model.addAttribute("theaters", theaters);
         return "theaterDisplayAll";
     }
 
     // ------------------ CREATE
-    @GetMapping("/create")
+    @GetMapping("/admin/create")
     public String createTheater(Model model){
-        Theater theater = new Theater();
+        TheaterDTO theater = new TheaterDTO();
         model.addAttribute("theater", theater);
         return "createTheater";
     }
 
-    @PostMapping("/create/success")
-    public String createTheaterSuccess(@ModelAttribute("theater")Theater theater){
+    @PostMapping("/admin/create/success")
+    public String createTheaterSuccess(@ModelAttribute("theater")TheaterDTO theater){
         theater.setId(theater.getId());
-        theaterRepository.save(theater);
+        theaterDAO.create(theater);
         return "createTheaterSuccess";
     }
 
     // ------------------------ UPDATE
-    @GetMapping("/update/{id}")
+    @GetMapping("/admin/update/{id}")
     public String updateTheater(@PathVariable("id") ObjectId id, Model model){
-        Theater theater = theaterRepository.findById(id).orElse(null);
+        TheaterDTO theater = theaterDAO.findById(id).orElse(null);
         model.addAttribute("theater", theater);
         return "theaterUpdate";
-
     }
 
-    @PostMapping("/update/success")
-    public String updateTheaterSuccess(@ModelAttribute("theater")Theater theater, Model model){
-
+    @PostMapping("/admin/update/success")
+    public String updateTheaterSuccess(@ModelAttribute("theater")TheaterDTO theater, Model model){
         // check if records with given ID exists
         if( theater == null ){
             model.addAttribute("theater", null);
             return "theaterUpdateSuccess";
         }
-        theaterRepository.save(theater);    // - needs updating
+        theaterDAO.update(theater.getId(), theater);
         model.addAttribute("theater", theater);
         return "userUpdateSuccess";
     }
 
-
     // ------------------------ DELETE
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String deleteTheater(@PathVariable ObjectId id, Model model){
-        Theater theater = theaterRepository.findById(id).orElse(null);
-        if(theater != null){
-            theaterRepository.deleteById(id);
-        }
+        TheaterDTO theater = theaterDAO.findById(id).orElse(null);
         model.addAttribute( "theater", theater );
         return "theaterDelete";
     }
 
-    @PostMapping("/delete/success")
-    public String deleteTheaterSuccess(@ModelAttribute("theater")Theater theater, Model model){
-        theater = theaterRepository.findById( theater.getId() ).get();
-        theaterRepository.deleteById(theater.getId());
+    @PostMapping("/admin/delete/success")
+    public String deleteTheaterSuccess(@ModelAttribute("theater")TheaterDTO theater, Model model){
+        // check if records with given ID exists
+        if( theater == null){
+            model.addAttribute("theater", null);
+            return "theaterDeleteSuccess";
+        }
+        // otherwise delete from DB
+        theaterDAO.deleteById(theater.getId());
         model.addAttribute("theater", theater);
         return "theaterDeleteSuccess";
     }
-
-
-
-
 }

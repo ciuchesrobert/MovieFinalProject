@@ -4,6 +4,7 @@ import com.sparta.moviefinalproject.daos.implementations.UserDAO;
 import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +30,14 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@RequestBody UserDTO user){
-
         this.userDAO.create(user);
         return user;
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String id){
         this.userDAO.deleteById(new ObjectId(id));
     }

@@ -10,81 +10,81 @@
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
 <div class="container">
-    <form th:action="@{updateSuccess}" th:object="${movie}" method ="POST">
+    <form th:action="@{success}" th:object="${movie}" method ="POST">
         Movie Number: <span th:text="*{id}"></span>
         <input type="hidden" id="id" name="id" th:field="*{id}">
         <br/><br/>
         <label for="directors">Directors: </label>
-        <input type="text" id="directors" name="directors" th:field="*{directors}" required>
+        <input type="text" id="directors" name="directors" th:field="*{directors}" >
         <br/><br/>
         <label for="fullplot">Fullplot: </label>
-        <input type="text" id="fullplot" name="fullplot" th:field="*{fullPlot}" required>
+        <input type="text" id="fullplot" name="fullplot" th:field="*{fullPlot}" >
         <br/><br/>
         <label for="numMflixComments">Number of comments: </label>
-        <input type="text" id="numMflixComments" name="numMflixComments" th:field="*{numMflixComments}" required>
+        <input type="text" id="numMflixComments" name="numMflixComments" th:field="*{numMflixComments}">
         <br/><br/>
         <label for="plot">Plot: </label>
-        <input type="text" id="plot" name="plot" th:field="*{plot}" required>
+        <input type="text" id="plot" name="plot" th:field="*{plot}">
         <br/><br/>
         <label for="title">Title: </label>
-        <input type="text" id="title" name="title" th:field="*{title}" required>
+        <input type="text" id="title" name="title" th:field="*{title}">
         <br/><br/>
         <label for="writers">Writers: </label>
-        <input type="text" id="writers" name="writers" th:field="*{writers}" required>
+        <input type="text" id="writers" name="writers" th:field="*{writers}">
         <br/><br/>
         <label for="awardsNominations">Nominations: </label>
-            <input type="number" id="awardsNominations" name="awardsNominations" th:field="*{awards.nominations}" required>
-        <label for="awardsWins">Wins: </label><input type="number" id="awardsWins" name="awardsWins" th:field="*{awards.wins}" required>
-        <label for="awardsText">Text: </label><input type="text" id="awardsText" name="awardsText" th:field="*{awards.text}" required>
+            <input type="number" id="awardsNominations" name="awardsNominations" th:field="*{awards.nominations}">
+        <label for="awardsWins">Wins: </label><input type="number" id="awardsWins" name="awardsWins" th:field="*{awards.wins}">
+        <label for="awardsText">Text: </label><input type="text" id="awardsText" name="awardsText" th:field="*{awards.text}">
         <br/><br/>
         <label for="genres">Genre: </label>
-        <input type="text" id="genres" name="genres" th:field="*{genres}" required>
+        <input type="text" id="genres" name="genres" th:field="*{genres}">
         <br/><br/>
         <label for="lastupdated">Last Updated: </label>
-        <input type="datetime-local" id="lastupdated" name="lastupdated" th:field="*{lastUpdated}" required>
+        <input type="datetime-local" id="lastupdated" name="lastupdated" th:field="*{lastUpdated}">
         <br/><br/>
         <label for="poster">Poster: </label>
-        <input type="text" id="poster" name="poster" th:field="*{poster}" required>
+        <input type="text" id="poster" name="poster" th:field="*{poster}">
         <br/><br/>
-        <label for="tomatoesConsensus">Consensus: </label><input type="text" id="tomatoesConsensus" name="tomatoes" th:field="*{tomatoes.consensus}" required><br/><br/>
-        <label for="tomatoesCriticRating">Critic Rating: </label><input type="number" id="tomatoesCriticRating" name="tomatoes" th:field="*{tomatoes.critic.rating}" required><br/><br/>
-        <label for="tomatoesCriticMeter">Critic Meter: </label><input type="number" id="tomatoesCriticMeter" name="tomatoes" th:field="*{tomatoes.critic.meter}" required> <br/><br/>
-        <label for="tomatoesCriticNumReviews">Total Critic Reviews: </label><input type="number" id="tomatoesCriticNumReviews" name="tomatoes" th:field="*{tomatoes.critic.numReviews}" required><br/><br/>
-        <label for="tomatoesDvd">DVD Release Date: </label><input type="datetime-local" id="tomatoesDvd" name="tomatoes" th:field="*{tomatoes.dvd}" required> <br/><br/>
-        <label for="tomatoesFresh">RT Freshness: </label><input type="number" id="tomatoesFresh" name="tomatoes" th:field="*{tomatoes.fresh}" required> <br/><br/>
-        <label for="tomatoesLastUpdated">Last Updated: </label><input type="datetime-local" id="tomatoesLastUpdated" name="tomatoes" th:field="*{tomatoes.lastUpdated}" required><br/><br/>
-        <label for="tomatoesProduction">Production Company: </label><input type="text" id="tomatoesProduction" name="tomatoes" th:field="*{tomatoes.production}" required> <br/><br/>
-        <label for="tomatoesRotten">RT Rotten Score: </label><input type="number" id="tomatoesRotten" name="tomatoes" th:field="*{tomatoes.rotten}" required> <br/><br/>
-        <label for="tomatoesViewerRating">Viewer Rating: </label><input type="number" id="tomatoesViewerRating" name="tomatoes" th:field="*{tomatoes.viewer.rating}" required><br/><br/>
-        <label for="tomatoesViewerMeter">Viewer Meter: </label><input type="number" id="tomatoesViewerMeter" name="tomatoes" th:field="*{tomatoes.viewer.meter}" required> <br/><br/>
-        <label for="tomatoesViewerNumReviews">Total Viewer Reviews: </label><input type="number" id="tomatoesViewerNumReviews" name="tomatoes" th:field="*{tomatoes.viewer.numReviews}" required><br/><br/>
-        <label for="tomatoesWebsite">Website Link: </label><input type="text" id="tomatoesWebsite" name="tomatoes" th:field="*{tomatoes.website}" required>
+        <label for="tomatoesConsensus">Consensus: </label><input type="text" id="tomatoesConsensus" name="tomatoes" th:field="*{tomatoes.consensus}"><br/><br/>
+        <label for="tomatoesCriticRating">Critic Rating: </label><input type="number" id="tomatoesCriticRating" name="tomatoes" th:field="*{tomatoes.critic.rating}"><br/><br/>
+        <label for="tomatoesCriticMeter">Critic Meter: </label><input type="number" id="tomatoesCriticMeter" name="tomatoes" th:field="*{tomatoes.critic.meter}"> <br/><br/>
+        <label for="tomatoesCriticNumReviews">Total Critic Reviews: </label><input type="number" id="tomatoesCriticNumReviews" name="tomatoes" th:field="*{tomatoes.critic.numReviews}"><br/><br/>
+        <label for="tomatoesDvd">DVD Release Date: </label><input type="datetime-local" id="tomatoesDvd" name="tomatoes" th:field="*{tomatoes.dvd}"> <br/><br/>
+        <label for="tomatoesFresh">RT Freshness: </label><input type="number" id="tomatoesFresh" name="tomatoes" th:field="*{tomatoes.fresh}"> <br/><br/>
+        <label for="tomatoesLastUpdated">Last Updated: </label><input type="datetime-local" id="tomatoesLastUpdated" name="tomatoes" th:field="*{tomatoes.lastUpdated}"><br/><br/>
+        <label for="tomatoesProduction">Production Company: </label><input type="text" id="tomatoesProduction" name="tomatoes" th:field="*{tomatoes.production}"> <br/><br/>
+        <label for="tomatoesRotten">RT Rotten Score: </label><input type="number" id="tomatoesRotten" name="tomatoes" th:field="*{tomatoes.rotten}"> <br/><br/>
+        <label for="tomatoesViewerRating">Viewer Rating: </label><input type="number" id="tomatoesViewerRating" name="tomatoes" th:field="*{tomatoes.viewer.rating}"><br/><br/>
+        <label for="tomatoesViewerMeter">Viewer Meter: </label><input type="number" id="tomatoesViewerMeter" name="tomatoes" th:field="*{tomatoes.viewer.meter}"> <br/><br/>
+        <label for="tomatoesViewerNumReviews">Total Viewer Reviews: </label><input type="number" id="tomatoesViewerNumReviews" name="tomatoes" th:field="*{tomatoes.viewer.numReviews}"><br/><br/>
+        <label for="tomatoesWebsite">Website Link: </label><input type="text" id="tomatoesWebsite" name="tomatoes" th:field="*{tomatoes.website}">
         <br/><br/>
         <label for="year">Year: </label>
-        <input type="number" id="year" name="year" th:field="*{year}" required>
+        <input type="number" id="year" name="year" th:field="*{year}">
         <br/><br/>
         <label for="imdbId">IMDB ID: </label>
-        <input type="number" id="imdbId" name="imdbId" th:field="*{imdb.id}" required>
-        <label for="imdbRating">IMDB Rating: </label><input type="number" step="0.1" id="imdbRating" name="imdbRating" th:field="*{imdb.rating}" required>
-        <label for="imdbVotes">IMDB Votes: </label><input type="number" id="imdbVotes" name="imdbVotes" th:field="*{imdb.votes}" required>
+        <input type="number" id="imdbId" name="imdbId" th:field="*{imdb.id}">
+        <label for="imdbRating">IMDB Rating: </label><input type="number" step="0.1" id="imdbRating" name="imdbRating" th:field="*{imdb.rating}">
+        <label for="imdbVotes">IMDB Votes: </label><input type="number" id="imdbVotes" name="imdbVotes" th:field="*{imdb.votes}">
         <br/><br/>
         <label for="rated">Rated: </label>
-        <input type="text" id="rated" name="rated" th:field="*{rated}" required>
+        <input type="text" id="rated" name="rated" th:field="*{rated}">
         <br/><br/>
         <label for="released">Released: </label>
-        <input type="text" id="released" name="released" th:field="*{released}" required>
+        <input type="text" id="released" name="released" th:field="*{released}">
         <br/><br/>
         <label for="runtime">Runtime: </label>
-        <input type="text" id="runtime" name="runtime" th:field="*{runtime}" required>
+        <input type="text" id="runtime" name="runtime" th:field="*{runtime}">
         <br/><br/>
         <label for="cast">Cast: </label>
-        <input type="text" id="cast" name="cast" th:field="*{cast}" required>
+        <input type="text" id="cast" name="cast" th:field="*{cast}">
         <br/><br/>
         <label for="countries">Countries: </label>
-        <input type="text" id="countries" name="countries" th:field="*{countries}" required>
+        <input type="text" id="countries" name="countries" th:field="*{countries}">
         <br/><br/>
         <label for="type">Type: </label>
-        <input type="text" id="type" name="type" th:field="*{type}" required>
+        <input type="text" id="type" name="type" th:field="*{type}">
         <br/><br/>
         <input type="submit" value="Update Movie">
     </form>

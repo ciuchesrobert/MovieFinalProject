@@ -21,7 +21,6 @@ import java.util.NoSuchElementException;
 
 
 @RestControllerAdvice
-@ControllerAdvice
 @Log4j2
 public class AdviceController {
 

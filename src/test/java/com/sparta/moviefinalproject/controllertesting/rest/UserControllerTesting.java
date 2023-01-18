@@ -2,8 +2,8 @@ package com.sparta.moviefinalproject.controllertesting.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.moviefinalproject.MovieFinalProjectApplication;
-import com.sparta.moviefinalproject.dtos.UserDTO;
-import org.junit.jupiter.api.Disabled;
+import com.sparta.moviefinalproject.entities.User;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,33 +64,41 @@ public class UserControllerTesting {
     }
 
     @Test
-    @Disabled
-    @DisplayName("Test @PostMapping for create method for comments")
+    @DisplayName("Test @PostMapping for create method for users")
     public void CreateUser_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .post("/comments")
-                        .content(asJsonString(new UserDTO()))
+                        .post("/api/users")
+                        .content(asJsonString(new User(
+                                new ObjectId("63c7cf248b1a8a9b4bf831a0"), "yash2@gmail.com", "yash2", "yash2"
+                        )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2@gmail.com"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("yash2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
     @Test
-    @Disabled
+    @DisplayName("Test @PutMapping for update method for users")
     public void UpdateUser_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/comments/{id}", "no idea what to put for id")
-                        .content(asJsonString(new UserDTO()))
+                        .put("/api/users/{id}", "59b99db6cfa9a34dcd7885bc")
+                        .content(asJsonString(new User(
+                                new ObjectId("59b99db6cfa9a34dcd7885bc"), "iain_glen@gameofthron.es",
+                                "Jorah Mormont",
+                                "$2b$12$K8bKkwnpkrjsBPzASZxO/.yj7d9kvupiVtO6JA3Xl106AKXr3pXFK"
+                        )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text2"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id.timestamp").value(1505336758))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id.date").value("2017-09-13T21:05:58.000+00:00"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("iain_glen@gameofthron.es"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Jorah Mormont"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("$2b$12$K8bKkwnpkrjsBPzASZxO/.yj7d9kvupiVtO6JA3Xl106AKXr3pXFK"));
     }
+
 }
