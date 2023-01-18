@@ -21,7 +21,13 @@ public class UserWebController {
     public String usersHome(Model model){
         return "usersHome/usersHome";
     }
-   
+
+    @GetMapping("/adminHome")
+    public String adminHome(Model model){
+        return "adminExtras/adminExtras";
+    }
+
+
     // ---------------- READ
     @GetMapping("/basic/search")
     public String findUserById(Model model, ObjectId id){
@@ -42,7 +48,7 @@ public class UserWebController {
     public String getAllUsers(Model model){
         Page<User> users = userDAO.findAllUsers();
         model.addAttribute("users", users);
-        return "userDisplayAll";
+        return "user/displayAllUsers";
     }
 
     // ------------------ CREATE
