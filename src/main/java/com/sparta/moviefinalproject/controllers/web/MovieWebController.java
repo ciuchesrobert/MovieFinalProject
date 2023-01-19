@@ -3,8 +3,10 @@ package com.sparta.moviefinalproject.controllers.web;
 import com.sparta.moviefinalproject.daos.implementations.MovieDAO;
 import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.entities.Movie;
+import com.sparta.moviefinalproject.entities.User;
 import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +17,9 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieWebController {
     private final MovieDAO movieDAO;
-    private final MovieRepository movieRepository;
 
-    public MovieWebController(MovieDAO movieDAO,
-                              MovieRepository movieRepository) {
+    public MovieWebController(MovieDAO movieDAO) {
         this.movieDAO = movieDAO;
-        this.movieRepository = movieRepository;
     }
 
     @RequestMapping("/home")
@@ -48,6 +47,13 @@ public class MovieWebController {
     @GetMapping("/basic/search/all")
     public String getAllMovies(Model model){
         List<MovieDTO> movies = movieDAO.findAll();
+        model.addAttribute("movies", movies);
+        return "movie/displayAllMovies";
+    }
+
+    @GetMapping("/basic/search/all/{pageNum}")
+    public String getAllUsers(Model model, @PathVariable int pageNum){
+        Page<Movie> movies = movieDAO.findAllMoviesPagination(pageNum);
         model.addAttribute("movies", movies);
         return "movie/displayAllMovies";
     }
@@ -108,7 +114,4 @@ public class MovieWebController {
         model.addAttribute("movie", movieDto);
         return "movie/deleteMovieSuccess";
     }
-
-
-
 }

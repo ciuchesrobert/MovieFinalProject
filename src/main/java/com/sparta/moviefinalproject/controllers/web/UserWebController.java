@@ -25,6 +25,11 @@ public class UserWebController {
         return "usersHome/usersHome";
     }
 
+    @GetMapping("/adminHome")
+    public String adminHome(Model model){
+        return "adminExtras/adminExtras";
+    }
+
 //    This is a method for finding user by id:
     @GetMapping("/basic/searchById/{id}")
     public String getUserById(@PathVariable ObjectId id, Model model){

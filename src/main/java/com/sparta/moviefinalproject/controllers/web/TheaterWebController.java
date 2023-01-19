@@ -2,7 +2,9 @@ package com.sparta.moviefinalproject.controllers.web;
 
 import com.sparta.moviefinalproject.daos.implementations.TheaterDAO;
 import com.sparta.moviefinalproject.dtos.TheaterDTO;
+import com.sparta.moviefinalproject.entities.Theater;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,13 @@ public class TheaterWebController {
         List<TheaterDTO> theaters = theaterDAO.findAll();
         model.addAttribute("theaters", theaters);
         return "theaterDisplayAll";
+    }
+
+    @GetMapping("/basic/all/{pageNum}")
+    public String getAllTheaters(Model model, @PathVariable int pageNum){
+        Page<Theater> theaters = theaterDAO.findAllTheatersPagination(pageNum);
+        model.addAttribute("theaters", theaters);
+        return "theater/displayAllTheaters";
     }
 
     // ------------------ CREATE
