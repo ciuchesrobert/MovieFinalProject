@@ -127,7 +127,7 @@ public class MovieController {
                     this.movieDAO.deleteById(new ObjectId(id));
                     responseEntity = new ResponseEntity<>("{\"message\":\"Movie with ID " + id + " has been deleted successfully!\"}", httpHeaders, HttpStatus.OK);
                 }else{
-                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add new movie!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add a new movie!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
                 }
             }else {
                 responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
