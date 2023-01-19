@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
@@ -25,8 +26,8 @@ public class CommentTests {
     @Test
     void createNewComment(){
 
-        CommentDTO comment = new CommentDTO(new ObjectId("432qas1iv7dw985pgkincsvu"), "Killer Bean Forever",
-                "KillrBean@bestmovie.com", null, "Best Movie", now());
+        CommentDTO comment = new CommentDTO(new ObjectId(), "Killer Bean Forever 2",
+                "KillrBean@bestmovie.com", new ObjectId("573a1390f29313caabcd587d"), "Best Movie", now());
         commentDao.create(comment);
         Optional<CommentDTO> found = commentDao.findById(comment.getId());
         CommentDTO foundComment = found.get();
@@ -35,22 +36,22 @@ public class CommentTests {
     }
 
     @Test
-    void findCOmmentByID() {
-        Optional<CommentDTO> comment = commentDao.findById(new ObjectId("59a47286cfa9a3a73e51e73f"));
+    void findCommentByID() {
+        Optional<CommentDTO> comment = commentDao.findById(new ObjectId("63c9168450909b3adf3e6017"));
         if (comment.isPresent()) {
             CommentDTO Sherman = comment.get();
             System.out.println(Sherman);
-            assertEquals("1023", Sherman.getId());
+            assertEquals("Best Movie", Sherman.getText());
         } else {
             fail();
         }
     }
 
     @Test
-    void findTheatreByEmail() {
-        Optional<CommentDTO> comment = commentDao.findById(new ObjectId("59a47286cfa9a3a73e51e73f"));
-        if (comment.isPresent()) {
-            CommentDTO Sherman = comment.get();
+    void findCommentByEmail() {
+        List<CommentDTO> comments = commentDao.findAllByEmail("KillrBean@bestmovie.com");
+        if (comments != null) {
+            CommentDTO Sherman = comments.get(0);
             System.out.println(Sherman);
             assertEquals("KillrBean@bestmovie.com", Sherman.getEmail());
         } else {
@@ -61,10 +62,10 @@ public class CommentTests {
     @Test
     void deleteComment(){
 
-        Optional<CommentDTO> resultBeforeDelete = commentDao.findById(new ObjectId("432qas1iv7dw985pgkincsvu"));
+        Optional<CommentDTO> resultBeforeDelete = commentDao.findById(new ObjectId("63c913dccd44932f53fcccc6"));
         if(resultBeforeDelete.isEmpty()) fail();
-        commentDao.deleteById(new ObjectId("432qas1iv7dw985pgkincsvu"));
-        Optional<CommentDTO> resultAfterDelete = commentDao.findById(new ObjectId("432qas1iv7dw985pgkincsvu"));
+        commentDao.deleteById(new ObjectId("63c913dccd44932f53fcccc6"));
+        Optional<CommentDTO> resultAfterDelete = commentDao.findById(new ObjectId("63c913dccd44932f53fcccc6"));
         assertFalse(resultAfterDelete.isPresent());
     }
 }

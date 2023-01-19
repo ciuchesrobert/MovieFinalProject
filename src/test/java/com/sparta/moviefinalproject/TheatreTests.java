@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class TheatreTests {
     @Test
     void createNewTheatre(){
 
-        TheaterDTO theatre = new TheaterDTO(new ObjectId("432qas1iv7dw985pgkincsvu"),
+        TheaterDTO theatre = new TheaterDTO(new ObjectId("63c9134757ca840c6332de36"),
                 wimLocation,
                 "2022");
         theaterDao.create(theatre);
@@ -65,10 +66,10 @@ public class TheatreTests {
 
     @Test
     void updateTheatre(){
-        TheaterDTO theatre = new TheaterDTO(new ObjectId("432qas1iv7dw985pgkincsvu"),
+        TheaterDTO theatre = new TheaterDTO(new ObjectId("63c9134757ca840c6332de36"),
                 stretLocation,
                 "3017");
-        theaterDao.update(new ObjectId("432qas1iv7dw985pgkincsvu"), theatre);
+        theaterDao.update(new ObjectId("63c9134757ca840c6332de36"), theatre);
         assertEquals("3017", theatre.getTheaterId());
         }
 
@@ -76,10 +77,10 @@ public class TheatreTests {
     @Test
     void deleteTheatre(){
 
-        Optional<TheaterDTO> resultBeforeDelete = theaterDao.findById(new ObjectId("432qas1iv7dw985pgkincsvu"));
+        Optional<TheaterDTO> resultBeforeDelete = theaterDao.findById(new ObjectId("63c9134757ca840c6332de36"));
         if(resultBeforeDelete.isEmpty()) fail();
-        theaterDao.deleteById(new ObjectId("432qas1iv7dw985pgkincsvu"));
-        Optional<TheaterDTO> resultAfterDelete = theaterDao.findById(new ObjectId("432qas1iv7dw985pgkincsvu"));
+        theaterDao.deleteById(new ObjectId("63c9134757ca840c6332de36"));
+        Optional<TheaterDTO> resultAfterDelete = theaterDao.findById(new ObjectId("63c9134757ca840c6332de36"));
         assertFalse(resultAfterDelete.isPresent());
     }
 }
