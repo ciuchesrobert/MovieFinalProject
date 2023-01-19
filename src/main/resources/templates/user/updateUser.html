@@ -12,7 +12,7 @@
 <div class="container">
     <form th:action="@{updateSuccess}" th:object="${user}" method ="POST">
         User Id: <span th:text="*{id}"></span>
-        <input type="hidden" id="id" name="id" th:field="*{id}">
+        <input type="text" id="id" name="id" th:field="*{id}">
         <br/><br/>
         <label for="email">Email: </label>
         <input type="text" id="email" name="email" th:field="*{email}">
