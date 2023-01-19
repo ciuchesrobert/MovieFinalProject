@@ -21,7 +21,6 @@
         <tr>
 <!--            <th>Movie Id</th>-->
 <!--            <th>Directors</th>-->
-            <th>Number of comments</th>
             <th>Title</th>
             <th>Year</th>
             <th>Rated</th>
@@ -45,8 +44,9 @@
 <!--                    </tr>-->
 <!--                </table>-->
 <!--            </td>-->
-            <td th:text="*{movie.numMflixComments}"></td>
-            <td th:text="*{movie.title}"></td>
+            <td>
+                <a th:text="*{movie.title}" th:href="@{/movies/basic/search/{id}(id=${movie.id})}"></a>
+            </td>
             <td th:text="*{movie.year}"></td>
             <td th:text="*{movie.rated}"></td>
             <td>
@@ -56,7 +56,13 @@
                     </tr>
                 </table>
             </td>
-            <td th:text="*{movie.awards}"></td>
+            <td>
+                <table th:unless="${movie.awards == null}">
+                    <tr th:unless="${movie.awards.text == null}">
+                        <td th:text="*{movie.awards.text}"></td>
+                    </tr>
+                </table>
+            </td>
             <td>
                 <table>
                     <tr th:each="genre : ${movie.genres}">
@@ -64,11 +70,29 @@
                     </tr>
                 </table>
             </td>
-            <td><img style="width: 70px; height: 70px;" th:src="*{movie.poster}" alt="Not found"></td>
-            <td th:text="*{movie.tomatoes}"></td>
-            <td th:text="*{movie.imdb}"></td>
+            <td><a th:href="*{movie.poster}"><img style="width: 100px; height: 90px;" th:src="*{movie.poster}" alt="Not found"></a></td>
+            <td>
+                <table th:unless="${movie.tomatoes == null}">
+                    <tr th:unless="${movie.tomatoes.critic == null}">
+                        <td th:text="*{'Critic Score: ' + movie.tomatoes.critic.rating}"></td>
+                    </tr>
+                    <tr th:unless="${movie.tomatoes.viewer == null}">
+                        <td th:text="*{'Audience Score: ' + movie.tomatoes.viewer.rating}"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr th:unless="${movie.imdb == null}">
+                        <td th:text="*{'Rating: ' + movie.imdb.rating}"></td>
+                    </tr>
+                    <tr th:unless="${movie.imdb == null}">
+                        <td th:text="*{'Votes: ' + movie.imdb.votes}"></td>
+                    </tr>
+                </table>
+            </td>
             <td th:text="*{movie.released}"></td>
-            <td th:text="*{movie.runtime}"></td>
+            <td th:text="*{movie.runtime + ' minutes'}"></td>
             <td>
                 <table>
                     <tr th:each="cast : ${movie.cast}">
