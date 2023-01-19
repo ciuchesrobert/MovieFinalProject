@@ -1,8 +1,10 @@
 package com.sparta.moviefinalproject;
 
+import com.sparta.moviefinalproject.converters.MovieConverter;
 import com.sparta.moviefinalproject.daos.implementations.MovieDAO;
 import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.dtos.subdtos.*;
+import com.sparta.moviefinalproject.entities.Movie;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,6 +78,15 @@ public class MovieTests {
         } else {
             fail();
         }
+    }
+
+    @Test
+    void findAllMoviesByTitleContainingIgnoreCase() {
+        List<MovieDTO> movies = movieDao.findAllMoviesByTitleContainingIgnoreCase("blacksmith");
+        MovieDTO movie = movieDao.findById(new ObjectId("573a1390f29313caabcd4135")).orElse(new MovieDTO());
+        List<ObjectId> movieIDs = new ArrayList<>();
+        movies.forEach(m -> movieIDs.add(m.getId()));
+        assertTrue(movieIDs.contains(movie.getId()));
     }
 
     @Test

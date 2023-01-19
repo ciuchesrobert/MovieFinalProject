@@ -64,12 +64,13 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
         return movieDTOs;
     }
 
-    public Page<Movie> findAllMoviesPagination(int pageNum){
+    public Page<MovieDTO> findAllMoviesPagination(int pageNum){
         return moviesPage(PageRequest.of(pageNum, 10));
     }
 
-    public Page<Movie> moviesPage(Pageable pageable){
-        return movieRepo.findAll(pageable);
+
+    public Page<MovieDTO> moviesPage(Pageable pageable){
+        return movieRepo.findAll(pageable).map(movie -> new MovieConverter().entityToDto(movie));
     }
 
     @Override

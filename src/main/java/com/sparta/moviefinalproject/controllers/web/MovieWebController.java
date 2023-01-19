@@ -53,7 +53,7 @@ public class MovieWebController {
 
     @GetMapping("/basic/search/all/{pageNum}")
     public String getAllUsers(Model model, @PathVariable int pageNum){
-        Page<Movie> movies = movieDAO.findAllMoviesPagination(pageNum);
+        Page<MovieDTO> movies = movieDAO.findAllMoviesPagination(pageNum);
         model.addAttribute("movies", movies);
         return "movie/displayAllMovies";
     }
