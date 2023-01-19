@@ -61,4 +61,9 @@ public class CommentDAO implements com.sparta.moviefinalproject.daos.interfaces.
         }
         return commentDTOs;
     }
+
+    @Override
+    public List<CommentDTO> findAllCommentsByMovieId(ObjectId objectId) {
+        return commentRepo.findAllCommentsByMovieId(objectId);
+    }
 }
