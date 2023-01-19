@@ -8,6 +8,7 @@ import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,11 @@ public class MovieController {
     @GetMapping("/{id}")
     public Optional<MovieDTO> findById(@PathVariable("id") String id) {
         return movieDAO.findById(new ObjectId(id));
+    }
+
+    @GetMapping("/search")
+    public List<MovieDTO> findByTitle(@RequestParam("title") String title) {
+        return movieDAO.findAllMoviesByTitleContainingIgnoreCase(title);
     }
 
     @GetMapping
