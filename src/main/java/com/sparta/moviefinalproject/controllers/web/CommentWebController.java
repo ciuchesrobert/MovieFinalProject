@@ -2,7 +2,10 @@ package com.sparta.moviefinalproject.controllers.web;
 
 import com.sparta.moviefinalproject.daos.implementations.CommentDAO;
 import com.sparta.moviefinalproject.dtos.CommentDTO;
+import com.sparta.moviefinalproject.entities.Comment;
+import com.sparta.moviefinalproject.entities.Movie;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +61,13 @@ public class CommentWebController {
     @GetMapping("/basic")
     public String getAllComments(Model model){
         List<CommentDTO> comments = commentDAO.findAll();
+        model.addAttribute("comments", comments);
+        return "comment/displayAllComments";
+    }
+
+    @GetMapping("/basic/search/all/{pageNum}")
+    public String getAllComments(Model model, @PathVariable int pageNum){
+        Page<Comment> comments = commentDAO.findAllCommentsPagination(pageNum);
         model.addAttribute("comments", comments);
         return "comment/displayAllComments";
     }

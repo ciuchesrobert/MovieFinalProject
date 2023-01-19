@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,6 +59,11 @@ public class MovieController {
             responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
+    }
+
+    @GetMapping("/search")
+    public List<MovieDTO> findByTitle(@RequestParam("title") String title) {
+        return movieDAO.findAllMoviesByTitleContainingIgnoreCase(title);
     }
 
     @GetMapping
