@@ -67,7 +67,7 @@ public class UserControllerTesting {
     @DisplayName("Test @PostMapping for create method for users")
     public void CreateUser_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .post("/api/users")
+                        .post("/api/users?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .content(asJsonString(new User(
                                 new ObjectId("63c7cf248b1a8a9b4bf831a0"), "yash2@gmail.com", "yash2", "yash2"
                         )))
@@ -85,7 +85,7 @@ public class UserControllerTesting {
     public void UpdateUser_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/api/users/{id}", "59b99db6cfa9a34dcd7885bc")
+                        .put("/api/users/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N", "59b99db6cfa9a34dcd7885bc")
                         .content(asJsonString(new User(
                                 new ObjectId("59b99db6cfa9a34dcd7885bc"), "iain_glen@gameofthron.es",
                                 "Jorah Mormont",

@@ -68,7 +68,7 @@ public class TheaterControllerTesting {
     @DisplayName("Test @PostMapping for create method for comments")
     public void CreateTheater_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .post("/comments")
+                        .post("/comments?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .content(asJsonString(new TheaterDTO()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -84,7 +84,7 @@ public class TheaterControllerTesting {
     public void UpdateTheater_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/comments/{id}", "no idea what to put for id")
+                        .put("/comments/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N", "no idea what to put for id")
                         .content(asJsonString(new TheaterDTO()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

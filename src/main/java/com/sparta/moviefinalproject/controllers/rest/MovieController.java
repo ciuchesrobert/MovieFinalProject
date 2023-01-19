@@ -37,12 +37,12 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public void findById(@PathVariable("id") String id, String apikey) throws JsonProcessingException {
+    public Optional<MovieDTO> findById(@PathVariable("id") String id, String apikey) throws JsonProcessingException {
         Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
         if(!apikeyOptional.isPresent()){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "API key is not authorized!");
         }
-        this.movieDAO.findById(new ObjectId(id));
+        return this.movieDAO.findById(new ObjectId(id));
     }
 
     @GetMapping("/search")

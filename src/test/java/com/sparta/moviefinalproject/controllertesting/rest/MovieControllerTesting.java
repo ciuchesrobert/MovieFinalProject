@@ -39,7 +39,7 @@ public class MovieControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on movie with ID of 573a1390f29313caabcd4135")
     public void FindMovieById_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/movies/{id}","573a1390f29313caabcd4135")
+        mvc.perform(get("/api/movies/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N","573a1390f29313caabcd4135")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -50,7 +50,7 @@ public class MovieControllerTesting {
     @Test
     @DisplayName("Test @GetMapping for findAll method for movies")
     public void FindAllMovies_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/movies")
+        mvc.perform(get("/api/movies?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -65,7 +65,7 @@ public class MovieControllerTesting {
     @DisplayName("Test @PostMapping for create method for comments")
     public void CreateMovie_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .post("/movies")
+                        .post("/movies?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .content(asJsonString(new MovieDTO()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -81,7 +81,7 @@ public class MovieControllerTesting {
     public void UpdateMovie_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/movies/{id}", "no idea what to put for id")
+                        .put("/movies/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N", "no idea what to put for id")
                         .content(asJsonString(new MovieDTO()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
