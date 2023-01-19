@@ -30,10 +30,11 @@ public class ScheduleDAO implements com.sparta.moviefinalproject.daos.interfaces
 
 
     @Override
-    public void create(ScheduleDTO scheduleDTO) {
+    public ScheduleDTO create(ScheduleDTO scheduleDTO) {
         scheduleDTO.setId(new ObjectId());
         Schedule schedule = new ScheduleConverter().dtoToEntity(scheduleDTO);
-        scheduleRepo.insert(schedule);
+        return new ScheduleConverter().entityToDto(scheduleRepo.insert(schedule));
+
     }
 
     @Override
@@ -47,10 +48,10 @@ public class ScheduleDAO implements com.sparta.moviefinalproject.daos.interfaces
     }
 
     @Override
-    public void update(ObjectId id, ScheduleDTO updatedSchedule) {
+    public ScheduleDTO update(ObjectId id, ScheduleDTO updatedSchedule) {
         Schedule schedule = new ScheduleConverter().dtoToEntity(updatedSchedule);
         schedule.setId(id);
-        scheduleRepo.save(schedule);
+        return new ScheduleConverter().entityToDto(scheduleRepo.save(schedule));
     }
 
     @Override
