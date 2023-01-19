@@ -16,6 +16,8 @@ import com.sparta.moviefinalproject.converters.subtypes.ImdbConverter;
 import com.sparta.moviefinalproject.converters.subtypes.TomatoConverter;
 import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.dtos.UserDTO;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.time.LocalDateTime;
 
 
@@ -42,6 +44,7 @@ public class Movie {
     private String[] languages;
     @Column(name = "num_mflix_comments")
     @Nullable
+    @Field("num_mflix_comments")
     private Integer numMflixComments;
     @Column(name = "plot")
     @Nullable

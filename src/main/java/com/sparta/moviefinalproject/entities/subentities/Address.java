@@ -12,13 +12,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
-    @NonNull
     private String city;
-    @NonNull
     private String state;
-    @NonNull
     private String street1;
-    @NonNull
     private String zipcode;
 
     @Override
