@@ -6,6 +6,7 @@ import com.sparta.moviefinalproject.dtos.CommentDTO;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +32,8 @@ public class CommentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CommentDTO commentDTO){
-
-        this.commentDAO.create(commentDTO);
+    public CommentDTO create(@RequestBody CommentDTO commentDTO){
+        return this.commentDAO.create(commentDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -43,9 +43,8 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody CommentDTO commentDTO, @PathVariable("id") String id) {
-        this.commentDAO.update(new ObjectId(id), commentDTO);
-
+    public CommentDTO update(@RequestBody CommentDTO commentDTO, @PathVariable("id") String id) {
+        return this.commentDAO.update(new ObjectId(id), commentDTO);
     }
 
 }

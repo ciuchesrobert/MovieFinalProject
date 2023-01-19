@@ -58,10 +58,7 @@ public class TheaterController {
 
     @PutMapping("/{id}")
     public TheaterDTO update(@RequestBody TheaterDTO theater, @PathVariable("id") String id) {
-
-        theaterDAO.update(new ObjectId(id), theater);
-        return theater;
-
+        return theaterDAO.update(new ObjectId(id), theater);
     }
 
 }

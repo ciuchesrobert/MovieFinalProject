@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DAO<T> {
-    void create(T t);
+    T create(T t);
 
     Optional<T> findById(ObjectId id);
 
-    void update(ObjectId id, T t);
+    T update(ObjectId id, T t);
 
     void deleteById(ObjectId id);
 
