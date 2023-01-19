@@ -49,7 +49,7 @@ public class UserController {
             System.out.println(key);
             responseEntity = new ResponseEntity<>(userString, httpHeaders, HttpStatus.OK);
         }else {
-            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
     }
@@ -72,28 +72,81 @@ public class UserController {
             System.out.println(key);
             responseEntity = new ResponseEntity<>(usersString, httpHeaders, HttpStatus.OK);
         }else {
-            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO create(@RequestBody UserDTO user){
-        this.userDAO.create(user);
-        return user;
+    public ResponseEntity<String> create(@RequestBody UserDTO user, String apikey) throws JsonProcessingException {
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(apikeyOptional.isPresent()){
+            key = apikeyOptional.get();
+            if ("admin".equals(key.getRole())) {
+                user.setId(new ObjectId());
+                this.userDAO.create(user);
+                responseEntity = new ResponseEntity<>("{\"message\":\"User with ID " + user.getId() + " has been created successfully!\"}", httpHeaders, HttpStatus.CREATED);
+            } else {
+                responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add new user!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }else {
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+        }
+        return responseEntity;
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable String id){
-        this.userDAO.deleteById(new ObjectId(id));
+    public ResponseEntity<String> delete(@PathVariable String id, String apikey) {
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(!userDAO.findById(new ObjectId(id)).isPresent()) {
+            responseEntity = new ResponseEntity<>("{\"message\":\"User with ID " + id + " not found!\"}", httpHeaders, HttpStatus.NOT_FOUND);
+        } else {
+            if(apikeyOptional.isPresent()){
+                key = apikeyOptional.get();
+                if ("admin".equals(key.getRole())) {
+                    this.userDAO.deleteById(new ObjectId(id));
+                    responseEntity = new ResponseEntity<>("{\"message\":\"User with ID " + id + " has been successfully deleted!\"}", httpHeaders, HttpStatus.OK);
+                } else {
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to delete a user!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                }
+            }else {
+                responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }
+        return responseEntity;
     }
 
     @PutMapping("/{id}")
-    public UserDTO update(@RequestBody UserDTO user, @PathVariable("id") String id) {
-        userDAO.update(new ObjectId(id), user);
-        return user;
-
+    public ResponseEntity<String> update(@RequestBody UserDTO user, @PathVariable("id") String id, String apikey) {
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(!userDAO.findById(new ObjectId(id)).isPresent()) {
+            responseEntity = new ResponseEntity<>("{\"message\":\"User with ID " + id + " not found!\"}", httpHeaders, HttpStatus.NOT_FOUND);
+        } else {
+            if(apikeyOptional.isPresent()){
+                key = apikeyOptional.get();
+                if ("admin".equals(key.getRole())) {
+                    user.setId(new ObjectId(id));
+                    userDAO.update(new ObjectId(id), user);
+                    responseEntity = new ResponseEntity<>("{\"message\":\"User with ID " + id + " has been successfully updated!\"}", httpHeaders, HttpStatus.OK);
+                } else {
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to update a user!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                }
+            }else {
+                responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }
+        return responseEntity;
     }
 }

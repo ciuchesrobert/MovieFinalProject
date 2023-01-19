@@ -40,7 +40,7 @@ public class TheaterControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on theater with ID of 59a47286cfa9a3a73e51e72c")
     public void FindCommentById_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/theaters/{id}?apikey=ndlkjdlksajkdsajkaksdlksaj2132","59a47286cfa9a3a73e51e72c")
+        mvc.perform(get("/api/theaters/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N","59a47286cfa9a3a73e51e72c")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -53,7 +53,7 @@ public class TheaterControllerTesting {
     @Test
     @DisplayName("Test @GetMapping for findAll method for theaters")
     public void FindAllComments_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/theaters?apikey=ndlkjdlksajkdsajkaksdlksaj2132")
+        mvc.perform(get("/api/theaters?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()

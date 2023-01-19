@@ -39,7 +39,7 @@ public class UserControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on users with ID of 59b99db4cfa9a34dcd7885b6")
     public void FindUserById_IfExistsReturnSuccess() throws Exception {
-        mvc.perform(get("/api/users/{id}?apikey=ndlkjdlksajkdsajkaksdlksaj2132","59b99db4cfa9a34dcd7885b6")
+        mvc.perform(get("/api/users/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N","59b99db4cfa9a34dcd7885b6")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -53,7 +53,7 @@ public class UserControllerTesting {
     @Test
     @DisplayName("Test @GetMapping for findAll method for users")
     public void FindAllUsers() throws Exception {
-        mvc.perform(get("/api/users?apikey=ndlkjdlksajkdsajkaksdlksaj2132")
+        mvc.perform(get("/api/users?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()

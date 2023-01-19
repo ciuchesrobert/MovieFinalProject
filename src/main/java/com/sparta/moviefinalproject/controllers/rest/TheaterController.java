@@ -50,7 +50,7 @@ public class TheaterController {
             System.out.println(key);
             responseEntity = new ResponseEntity<>(theaterString, httpHeaders, HttpStatus.OK);
         }else {
-            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
     }
@@ -73,30 +73,82 @@ public class TheaterController {
             System.out.println(key);
             responseEntity = new ResponseEntity<>(theatersString, httpHeaders, HttpStatus.OK);
         }else {
-            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public TheaterDTO create(@RequestBody TheaterDTO theater){
-        this.theaterDAO.create(theater);
-        return theater;
+    public ResponseEntity<String> create(@RequestBody TheaterDTO theater, String apikey){
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(apikeyOptional.isPresent()){
+            key = apikeyOptional.get();
+            if ("admin".equals(key.getRole())) {
+                theater.setId(new ObjectId());
+                this.theaterDAO.create(theater);
+                responseEntity = new ResponseEntity<>("{\"message\":\"Theater with ID " + theater.getId() + " has been created successfully!\"}", httpHeaders, HttpStatus.CREATED);
+            } else {
+                responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add new theater!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }else {
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+        }
+        return responseEntity;
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") String id){
-        this.theaterDAO.deleteById(new ObjectId(id));
+    public ResponseEntity<String> delete(@PathVariable("id") String id, String apikey){
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(!theaterDAO.findById(new ObjectId(id)).isPresent()) {
+            responseEntity = new ResponseEntity<>("{\"message\":\"Theater with ID " + id + " not found!\"}", httpHeaders, HttpStatus.NOT_FOUND);
+        } else {
+            if(apikeyOptional.isPresent()){
+                key = apikeyOptional.get();
+                if ("admin".equals(key.getRole())) {
+                    this.theaterDAO.deleteById(new ObjectId(id));
+                    responseEntity = new ResponseEntity<>("{\"message\":\"Theater with ID " + id + " has been successfully deleted!\"}", httpHeaders, HttpStatus.OK);
+                } else {
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to delete a theater!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                }
+            }else {
+                responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }
+        return responseEntity;
     }
 
     @PutMapping("/{id}")
-    public TheaterDTO update(@RequestBody TheaterDTO theater, @PathVariable("id") String id) {
-
-        theaterDAO.update(new ObjectId(id), theater);
-        return theater;
-
+    public ResponseEntity<String> update(@RequestBody TheaterDTO theater, @PathVariable("id") String id, String apikey) {
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(!theaterDAO.findById(new ObjectId(id)).isPresent()) {
+            responseEntity = new ResponseEntity<>("{\"message\":\"Theater with ID " + id + " not found!\"}", httpHeaders, HttpStatus.NOT_FOUND);
+        } else {
+            if(apikeyOptional.isPresent()){
+                key = apikeyOptional.get();
+                if ("admin".equals(key.getRole())) {
+                    theater.setId(new ObjectId(id));
+                    theaterDAO.update(new ObjectId(id), theater);
+                    responseEntity = new ResponseEntity<>("{\"message\":\"Theater with ID " + id + " has been successfully updated!\"}", httpHeaders, HttpStatus.OK);
+                } else {
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to update a theater!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                }
+            }else {
+                responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }
+        return responseEntity;
     }
 
 }
