@@ -35,7 +35,7 @@ public class CommentTests {
     }
 
     @Test
-    void findCOmmentByID() {
+    void findCommentByID() {
         Optional<CommentDTO> comment = commentDao.findById(new ObjectId("59a47286cfa9a3a73e51e73f"));
         if (comment.isPresent()) {
             CommentDTO Sherman = comment.get();
@@ -47,7 +47,7 @@ public class CommentTests {
     }
 
     @Test
-    void findTheatreByEmail() {
+    void findCommentByEmail() {
         Optional<CommentDTO> comment = commentDao.findById(new ObjectId("59a47286cfa9a3a73e51e73f"));
         if (comment.isPresent()) {
             CommentDTO Sherman = comment.get();
