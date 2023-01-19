@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @NoArgsConstructor
@@ -25,5 +26,6 @@ public class Session {
     @NonNull
     private String jwt;
     @NonNull
+    @Field("user_id")
     private String userId;
 }

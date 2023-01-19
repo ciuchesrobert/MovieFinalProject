@@ -14,51 +14,64 @@
 <h4>List of All Movies</h4>
 </br>
 <div class="container">
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>Movie Id</th>
         <th>Directors</th>
-        <th>Full plot</th>
         <th>Number of comments</th>
-        <th>Plot</th>
         <th>Title</th>
+        <th>Year</th>
+        <th>Rated</th>
         <th>Writers</th>
         <th>Awards</th>
         <th>Genres</th>
-        <th>Last Updated</th>
         <th>Poster</th>
         <th>Tomatoes</th>
-        <th>Year</th>
         <th>Imdb</th>
-        <th>Rated</th>
         <th>Released</th>
         <th>Runtime</th>
         <th>Cast</th>
         <th>Countries</th>
-        <th>Type</th>
     </thead>
     <tr th:each="movie:${movies}">
-        <td th:text="${movie.id}"></td>
-        <td th:text="${movie.directors}"></td>
-        <td th:text="${movie.fullPlot}"></td>
-        <td th:text="${movie.numMflixComments}"></td>
-        <td th:text="${movie.plot}"></td>
-        <td th:text="${movie.title}"></td>
-        <td th:text="${movie.writers}"></td>
-        <td th:text="${movie.awards}"></td>
-        <td th:text="${movie.genres}"></td>
-        <td th:text="${movie.lastUpdated}"></td>
-        <td th:text="${movie.poster}"></td>
-        <td th:text="${movie.tomatoes}"></td>
-        <td th:text="${movie.year}"></td>
-        <td th:text="${movie.imdb}"></td>
-        <td th:text="${movie.rated}"></td>
-        <td th:text="${movie.released}"></td>
-        <td th:text="${movie.runtime}"></td>
-        <td th:text="${movie.cast}"></td>
-        <td th:text="${movie.countries}"></td>
-        <td th:text="${movie.type}"></td>
+        <td th:text="*{movie.id}"></td>
+        <td><table>
+            <tr th:each="director : ${movie.directors}">
+                <td th:text="*{director}" />
+            </tr>
+        </table>
+        </td>
+        <td th:text="*{movie.numMflixComments}"></td>
+        <td th:text="*{movie.title}"></td>
+        <td th:text="*{movie.year}"></td>
+        <td th:text="*{movie.rated}"></td>
+        <td><table>
+            <tr th:each="writer : ${movie.writers}">
+                <td th:text="*{writer}" />
+            </tr>
+        </table></td>
+        <td th:text="*{movie.awards}"></td>
+        <td><table>
+            <tr th:each="genre : ${movie.genres}">
+                <td th:text="*{genre}" />
+            </tr>
+        </table></td>
+        <td th:text="*{movie.poster}"></td>
+        <td th:text="*{movie.tomatoes}"></td>
+        <td th:text="*{movie.imdb}"></td>
+        <td th:text="*{movie.released}"></td>
+        <td th:text="*{movie.runtime}"></td>
+        <td><table>
+            <tr th:each="cast : ${movie.cast}">
+                <td th:text="*{cast}" />
+            </tr>
+        </table></td>
+        <td><table>
+            <tr th:each="country : ${movie.countries}">
+                <td th:text="*{country}" />
+            </tr>
+        </table></td>
     </tr>
 </table>
 </div>

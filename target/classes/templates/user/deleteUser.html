@@ -8,9 +8,9 @@
     <title>Delete User</title>
 </head>
 <body>
-<form action="deleteSuccess" th:object="${user}" method="POST">
-    Delete User with ID: <span th:text="${user.id}"></span>
-    <input class="form-control" id="id" name="id" th:field="*{id}">
+<form th:action="@{deleteSuccess}" th:object="${user}" method="POST">
+    Delete User with email: <span th:text="${user.email}"></span>
+    <input class="form-control" id="id" name="id" th:field="*{email}">
     <br/><br/>
     <input type="submit" value="Delete User">
 </form>

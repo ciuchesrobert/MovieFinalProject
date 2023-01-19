@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.controllers.web;
 import com.sparta.moviefinalproject.daos.implementations.UserDAO;
+import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
 import org.bson.types.ObjectId;
@@ -7,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -21,90 +24,83 @@ public class UserWebController {
     public String usersHome(Model model){
         return "usersHome/usersHome";
     }
-   
-    // ---------------- READ
-    @GetMapping("/basic/search")
-    public String findUserById(Model model, ObjectId id){
-        UserDTO user = new UserDTO();
-        model.addAttribute("user",user);
 
-        return "userDisplay";
+//    This is a method for finding user by id:
+    @GetMapping("/basic/searchById/{id}")
+    public String getUserById(@PathVariable ObjectId id, Model model){
+        Optional<UserDTO> userOptional = userDAO.findById(id);
+        UserDTO user = null;
+        if(userOptional.isPresent()){
+            user = userOptional.get();
+        }
+        model.addAttribute("user",user);
+        model.addAttribute("id",id);
+        return "user/displayUser";
     }
 
-    @PostMapping("/basic/search/success")
-    public String findUserByIdSuccess(@ModelAttribute("user") UserDTO user, Model model){
-        user = userDAO.findById( user.getId() ).orElse(null);
+    //    This is a method for finding user by email:
+    @GetMapping("/basic/searchByEmail/{email}")
+    public String getUserByEmail(@PathVariable String email, Model model){
+        Optional<UserDTO> userOptional = userDAO.findByEmail(email);
+        UserDTO user = null;
+        if(userOptional.isPresent()){
+            user = userOptional.get();
+        }
         model.addAttribute("user",user);
-        return "userDisplaySuccess";
+        model.addAttribute("email",email);
+        return "user/displayUser";
     }
 
-    @GetMapping("basic")
-    public String getAllUsers(Model model){
-        Page<User> users = userDAO.findAllUsers();
+    @GetMapping("/basic/{pageNum}")
+    public String getAllUsers(Model model, @PathVariable int pageNum){
+        Page<User> users = userDAO.findAllUsers(pageNum);
         model.addAttribute("users", users);
         return "user/displayAllUsers";
     }
 
-    // ------------------ CREATE
     @GetMapping("/admin/create")
     public String createUser(Model model){
         UserDTO user = new UserDTO();
+        user.setId(new ObjectId());
         model.addAttribute("user", user);
-        return "createUser";
+        return "user/createUser";
     }
 
-    @PostMapping("/admin/create/success")
-    public String creatUserSuccess(@ModelAttribute("user") UserDTO user){
-        user.setId(user.getId());
+    @PostMapping("/admin/createSuccess")
+    public String creatUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
+        model.addAttribute("user", user);
         userDAO.create(user);
-        return "createUserSuccess";
+
+
+        return "user/createUserSuccess";
     }
 
 
-    // ------------------------ UPDATE
-    @GetMapping("/admin/update/{id}")
-    public String updateUser(@PathVariable("id") ObjectId id, Model model){
-        UserDTO user = userDAO.findById(id).orElse(null);
+    @GetMapping("/admin/update")
+    public String updateUser(Model model, UserDTO user) {
         model.addAttribute("user", user);
-        return "userUpdate";
-
+        return "user/updateUser";
     }
-
-    @PostMapping("/admin/update/success")
-    public String updateUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
-
-        // check if records with given ID exists
-        if( user == null ){
-            model.addAttribute("user", null);
-            return "userUpdateSuccess";
+    @PostMapping("/admin/updateSuccess")
+    public String updateSuccess(@ModelAttribute("user") UserDTO user, Model model) {
+        Optional<UserDTO> userDTOOptional = userDAO.findById(user.getId());
+        if (userDTOOptional.isPresent()) {
+            userDAO.update(user.getId(),user);
         }
+        return "user/updateUserSuccess";
+    }
 
-        userDAO.update(user.getId(), user);
+    @GetMapping("/admin/delete")
+    public String deleteUser(Model model, UserDTO user) {
         model.addAttribute("user", user);
-        return "userUpdateSuccess";
+        return "user/deleteUser";
     }
-
-
-    // ------------------------ DELETE
-    @GetMapping("/admin/delete/{id}")
-    public String deleteUser(@PathVariable ObjectId id, Model model){
-        UserDTO userDto = userDAO.findById(id).orElse(null);
-        model.addAttribute( "user", userDto );
-        return "userDelete";
-    }
-
-    @PostMapping("/admin/delete/success")
-    public String deleteUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
-
-        // check if records with given ID exists
-        if( user == null){
-            model.addAttribute("user", null);
-            return "userDeleteSuccess";
+    @PostMapping("/admin/deleteSuccess")
+    public String deleteSuccess(@ModelAttribute("user") UserDTO user, Model model) {
+        Optional<UserDTO> userDTOOptional = userDAO.findByEmail(user.getEmail());
+        if (userDTOOptional.isPresent()) {
+            userDAO.deleteByEmail(user.getEmail());
         }
-        // otherwise delete from DB
-        userDAO.deleteById(user.getId());
-        model.addAttribute("user", user);
-        return "userDeleteSuccess";
+        return "user/deleteUserSuccess";
     }
-
 }

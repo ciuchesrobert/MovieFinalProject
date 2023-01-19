@@ -15,12 +15,9 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieWebController {
     private final MovieDAO movieDAO;
-    private final MovieRepository movieRepository;
 
-    public MovieWebController(MovieDAO movieDAO,
-                              MovieRepository movieRepository) {
+    public MovieWebController(MovieDAO movieDAO) {
         this.movieDAO = movieDAO;
-        this.movieRepository = movieRepository;
     }
 
     @RequestMapping("/home")
@@ -81,6 +78,7 @@ public class MovieWebController {
 
     @PostMapping("/admin/update/success")
     public String updateMovieSuccess(@ModelAttribute("movie")MovieDTO movie, Model model){
+        System.out.println(movie);
         movieDAO.update(movie.getId(), movie); // - needs updating
         return "movie/updateMovieSuccess";
     }
@@ -90,20 +88,21 @@ public class MovieWebController {
     public String deleteMovie(@PathVariable String id, Model model){
         ObjectId objectId = new ObjectId(id);
         MovieDTO movie = movieDAO.findById(objectId).orElse(null);
-        System.out.println(movie);
         if (movie != null){
-            model.addAttribute("id", movie.getId());
+            model.addAttribute("movie", movie);
         }
         else {
-        model.addAttribute("id", null);
+        model.addAttribute("movie", null);
         }
         return "movie/deleteMovie";
     }
     @PostMapping("/admin/delete/success")
-    public String deleteMovieSuccess(@ModelAttribute("movie") String movie, Model model){
-        MovieDTO movieDto = movieDAO.findById(new ObjectId(movie)).get();
+    public String deleteMovieSuccess(@ModelAttribute("id") String id, Model model){
+        System.out.println("The value of id is: " + id);
+        MovieDTO movieDto = movieDAO.findById(new ObjectId(id)).get();
+        System.out.println(movieDto);
         movieDAO.deleteById(movieDto.getId());
-        model.addAttribute("movie", model);
+        model.addAttribute("movie", movieDto);
         return "movie/deleteMovieSuccess";
     }
 

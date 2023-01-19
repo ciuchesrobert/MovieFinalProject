@@ -3,6 +3,7 @@ package com.sparta.moviefinalproject.daos.implementations;
 import com.sparta.moviefinalproject.converters.MovieConverter;
 import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.entities.Movie;
+import com.sparta.moviefinalproject.repositories.CommentRepository;
 import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,6 @@ import java.util.Optional;
 public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.MovieDAO {
 
     private final MovieRepository movieRepo;
-
     public MovieDAO(MovieRepository movieRepo) {
         this.movieRepo = movieRepo;
     }
@@ -50,11 +50,23 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
 
     @Override
     public List<MovieDTO> findAll() {
-        List<Movie> movies = movieRepo.findAll();
+        List<Movie> movies = movieRepo.findAll().stream()
+                .filter(movie -> movie.getYear().matches("^[0-9]{4}$"))
+                .toList();
         List<MovieDTO> movieDTOs = new ArrayList<>();
         for(Movie movie : movies) {
             movieDTOs.add(new MovieConverter().entityToDto(movie));
         }
         return movieDTOs;
+    }
+
+    @Override
+    public List<MovieDTO> findAllMoviesByTitleContaining(String name) {
+        List<MovieDTO> movieDTOS = new ArrayList<>();
+        List<Movie> movies = movieRepo.findAllMoviesByTitleContaining(name);
+        for(Movie movie : movies) {
+            movieDTOS.add(new MovieConverter().entityToDto(movie));
+        }
+        return movieDTOS;
     }
 }

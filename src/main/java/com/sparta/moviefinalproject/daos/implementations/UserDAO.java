@@ -37,6 +37,14 @@ public class UserDAO implements com.sparta.moviefinalproject.daos.interfaces.Use
         return Optional.empty();
     }
 
+    public Optional<UserDTO> findByEmail(String email) {
+        if(userRepo.findByEmail(email).isPresent()) {
+            User user = userRepo.findByEmail(email).get();
+            return Optional.of(new UserConverter().entityToDto(user));
+        }
+        return Optional.empty();
+    }
+
     @Override
     public void update(ObjectId id, UserDTO updatedUser) {
             User user = new UserConverter().dtoToEntity(updatedUser);
@@ -48,6 +56,12 @@ public class UserDAO implements com.sparta.moviefinalproject.daos.interfaces.Use
     public void deleteById(ObjectId id) {
         if(userRepo.findById(id).isPresent()) {
             userRepo.deleteById(id);
+        }
+    }
+
+    public void deleteByEmail(String email) {
+        if(userRepo.findByEmail(email).isPresent()) {
+            userRepo.deleteByEmail(email);
         }
     }
 
@@ -63,8 +77,8 @@ public class UserDAO implements com.sparta.moviefinalproject.daos.interfaces.Use
         return userDTOs;
     }
 
-    public Page<User> findAllUsers(){
-        return userPage(PageRequest.of(10, 10));
+    public Page<User> findAllUsers(int pageNum){
+        return userPage(PageRequest.of(pageNum, 10));
     }
 
     public Page<User> userPage(Pageable pageable){

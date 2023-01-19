@@ -1,7 +1,6 @@
 package com.sparta.moviefinalproject.entities;
 
-import com.mongodb.lang.NonNull;
-import com.mongodb.lang.Nullable;
+import com.sparta.moviefinalproject.dtos.CommentDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,10 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import com.sparta.moviefinalproject.dtos.CommentDTO;
-import com.sparta.moviefinalproject.dtos.UserDTO;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,17 +22,12 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    @NonNull
     private ObjectId id;
-    @NonNull
     private String name;
-    @NonNull
     private String email;
-    @Nullable
+    @Field("movie_id")
     private ObjectId movieId;
-    @NonNull
     private String text;
-    @NonNull
     private LocalDateTime date;
 
     public boolean entityEqualsDto(CommentDTO obj) {

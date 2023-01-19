@@ -12,11 +12,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Award {
-    @NonNull
     private Integer wins;
-    @NonNull
     private Integer nominations;
-    @NonNull
     private String text;
 
     @Override
