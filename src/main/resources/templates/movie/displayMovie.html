@@ -94,7 +94,7 @@
         </td>
     </tr>
 </table>
-    <span><a class="pageButton" th:href="@{/movies/home}"><button>Go Back</button></a></span>
+    <span><a class="pageButton" th:href="@{/movies/basic/search/all/0}"><button>Go Back</button></a></span>
 </div>
 <div class="container" th:unless="${comments == null}">
     <br>
@@ -114,7 +114,7 @@
             <td th:text="*{comment.date}"></td>
         </tr>
     </table>
-    <span><a class="pageButton" th:href="@{/movies/home}"><button>Go Back</button></a></span>
+    <span><a class="pageButton" th:href="@{/movies/basic/search/all/0}"><button>Go Back</button></a></span>
 </div>
 </body>
 </html>

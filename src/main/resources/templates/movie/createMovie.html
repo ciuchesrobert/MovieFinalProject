@@ -86,7 +86,7 @@
         <div class="row">
             <div class="col">
                 <label for="year">Release Year: </label>
-                <input class="form-control" type="number" id="year" name="year" min="1800" th:field="*{year}">
+                <input class="form-control" type="number" id="year" name="year" min="1800" th:default="1800" th:field="*{year}" required="required">
             </div>
             <div class="col">
                 <label for="imdbID">IMDB ID: </label>
