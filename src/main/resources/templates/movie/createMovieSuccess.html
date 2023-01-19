@@ -9,8 +9,12 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
+<div class="container">
+    <h4>Create a Movie</h4>
+    <br>
 <h1>Movie: <span th:text="${movie.title}"></span> Successfully Created!</h1>
 <br>
-<a th:href="@{/web/movies/}">Go Back</a>
+    <a style="color: #4285f4; text-decoration: none;" th:href="@{/movies/home}">Go Back</a>
+</div>
 </body>
 </html>

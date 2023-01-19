@@ -8,93 +8,155 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
-<h3>Create a movie</h3>
 <div class="container">
-    <form th:action="@{create/success}" th:object="${movie}" method ="POST">
+    <h4><a style="color: #4285f4; text-decoration: none;" th:href="@{/movies/home}">< Back |</a> Create a Movie</h4>
+    <br>
+    <form class = 'card p-3 bg-light' th:action="@{create/success}" th:object="${movie}" method ="POST">
+        <br>
         Movie Id: <label for="id" th:text="*{id}"></label>
         <input type="hidden" id="id" name="id" th:field="*{id}">
-        <br/><br/>
-            <label for="awardNominations">Nominations: </label>
-            <input type="number" id="awardNominations" name="awardNominations" th:field="*{awards.nominations}">
-            <br/><br/>
-            <label for="awardText">Award Info: </label>
-            <input type="text" id="awardText" name="awardText" th:field="*{awards.text}">
-            <br/><br/>
-            <label for="awardWins">Wins: </label>
-            <input type="number" id="awardWins" name="awardWins" th:field="*{awards.wins}">
-            <br/><br/>
-        <label for="directors">Directors: </label>
-        <input type="text" id="directors" name="directors" th:field="*{directors}">
-        <br/><br/>
-        <label for="fullplot">Plot: </label>
-        <input type="text" id="fullplot" name="fullplot" th:field="*{fullPlot}">
-        <br/><br/>
-        <label for="languages">Languages: </label>
-        <input type="text" id="languages" name="languages" th:field="*{languages}">
-        <br/><br/>
-        <label for="num_mflix_comments">Total Comments: </label>
-        <input type="number" id="num_mflix_comments" name="num_mflix_comments" th:field="*{numMflixComments}">
-        <br/><br/>
-        <label for="plot">Plot: </label>
-        <input type="text" id="plot" name="plot" th:field="*{plot}">
-        <br/><br/>
-        <label for="title">Title: </label>
-        <input type="text" id="title" name="title" th:field="*{title}">
-        <br/><br/>
-        <label for="writers">Writers: </label>
-        <input type="text" id="writers" name="writers" th:field="*{writers}">
-        <br/><br/>
-        <label for="genres">Genres: </label>
-        <input type="text" id="genres" name="genres" th:field="*{genres}">
-        <br/><br/>
-        <input type="hidden" id="lastUpdated" name="lastUpdated" th:field="*{lastUpdated}">
-        <label for="poster">Poster Link: </label>
-        <input type="text" id="poster" name="poster" th:field="*{poster}">
-        <br/><br/>
-        <label for="year">Release Year: </label>
-        <input type="number" id="year" name="year" min="1800" th:field="*{year}">
-        <br/><br/>
-            <label for="imdbID">IMDB ID: </label>
-            <input type="number" id="imdbID" name="imdbId" th:field="*{imdb.id}">
-            <br/><br/>
-            <label for="imdbRating">IMDB Rating: </label>
-            <input type="number" step="0.1" id="imdbRating" name="imdbRating" th:field="*{imdb.rating}">
-            <br/><br/>
-            <label for="imdbVotes">IMDB Votes: </label>
-            <input type="number" id="imdbVotes" name="imdbVotes" th:field="*{imdb.votes}">
-            <br/><br/>
-        <label for="rated">Age Rating: </label>
-        <select class="form-select" id="rated" th:field="*{rated}"><option value="%00">Select Rating</option>
-            <option value="UNRATED">UNRATED</option>
-            <option value="TV-G">TV-G</option>
-            <option value="G">G</option>
-            <option value="TV-PG">TV-PG</option>
-            <option value="PASSED">PASSED</option>
-            <option value="NOT RATED">NOT RATED</option>
-            <option value="UNRATED">UNRATED</option>
-            <option value="APPROVED">APPROVED</option>
-            <option value="PG-13">PG-13</option>
-            <option value="PG">PG</option>
-            <option value="R">R</option>
-            <option value="NC-17">NC-17</option>
-        </select>
-        <br/><br/>
-        <label for="released">Date Released: </label>
-        <input type="datetime-local" id="released" name="released" th:field="*{released}">
-        <br/><br/>
-        <label for="cast">Cast: </label>
-        <input type="text" id="cast" name="cast" th:field="*{cast}">
-        <br/><br/>
-        <label for="runtime">Runtime: </label>
-        <input type="number" id="runtime" name="runtime" th:field="*{runtime}">
-        <br/><br/>
-        <label for="countries">Countries: </label>
-        <input type="text" id="countries" name="countries" th:field="*{countries}">
-        <br/><br/>
-        <label for="type">Type: </label>
-        <input type="text" id="type" name="type" th:field="*{type}" th:value="movie">
-        <br/><br/>
-        <input type="submit">
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="awardNominations">Nominations: </label>
+                <input type="number" class="form-control" id="awardNominations" name="awardNominations" th:field="*{awards.nominations}">
+            </div>
+            <div class="col">
+                <label for="awardText">Award Info: </label>
+                <input class="form-control" type="text" id="awardText" name="awardText" th:field="*{awards.text}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="awardWins">Wins: </label>
+                <input type="number" class="form-control" id="awardWins" name="awardWins" th:field="*{awards.wins}">
+            </div>
+            <div class="col">
+                <label for="directors">Directors: </label>
+                <input type="text" class="form-control" id="directors" name="directors" th:field="*{directors}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="fullplot">Plot: </label>
+                <input type="text" class="form-control" id="fullplot" name="fullplot" th:field="*{fullPlot}">
+            </div>
+            <div class="col">
+                <label for="languages">Languages: </label>
+                <input type="text" class="form-control" id="languages" name="languages" th:field="*{languages}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="num_mflix_comments">Total Comments: </label>
+                <input type="number" class="form-control"  id="num_mflix_comments" name="num_mflix_comments" th:field="*{numMflixComments}">
+            </div>
+            <div class="col">
+                <label for="plot">Plot: </label>
+                <input type="text" class="form-control" id="plot" name="plot" th:field="*{plot}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="title">Title: </label>
+                <input class="form-control" type="text" id="title" name="title" th:field="*{title}">
+            </div>
+            <div class="col">
+                <label for="writers">Writers: </label>
+                <input class="form-control" type="text" id="writers" name="writers" th:field="*{writers}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="genres">Genres: </label>
+                <input class="form-control" type="text" id="genres" name="genres" th:field="*{genres}">
+            </div>
+            <div class="col">
+                <input type="hidden" id="lastUpdated" name="lastUpdated" th:field="*{lastUpdated}">
+                <label for="poster">Poster Link: </label>
+                <input class="form-control" type="text" id="poster" name="poster" th:field="*{poster}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="year">Release Year: </label>
+                <input class="form-control" type="number" id="year" name="year" min="1800" th:field="*{year}">
+            </div>
+            <div class="col">
+                <label for="imdbID">IMDB ID: </label>
+                <input class="form-control" type="number" id="imdbID" name="imdbId" th:field="*{imdb.id}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="imdbRating">IMDB Rating: </label>
+                <input class="form-control" type="number" step="0.1" id="imdbRating" name="imdbRating" th:field="*{imdb.rating}">
+            </div>
+            <div class="col">
+                <label for="imdbVotes">IMDB Votes: </label>
+                <input class="form-control" type="number" id="imdbVotes" name="imdbVotes" th:field="*{imdb.votes}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="rated">Age Rating: </label>
+                <select class="form-select" id="rated" th:field="*{rated}"><option value="%00">Select Rating</option>
+                    <option value="UNRATED">UNRATED</option>
+                    <option value="TV-G">TV-G</option>
+                    <option value="G">G</option>
+                    <option value="TV-PG">TV-PG</option>
+                    <option value="PASSED">PASSED</option>
+                    <option value="NOT RATED">NOT RATED</option>
+                    <option value="UNRATED">UNRATED</option>
+                    <option value="APPROVED">APPROVED</option>
+                    <option value="PG-13">PG-13</option>
+                    <option value="PG">PG</option>
+                    <option value="R">R</option>
+                    <option value="NC-17">NC-17</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="released">Date Released: </label>
+                <input class="form-control" type="datetime-local" id="released" name="released" th:field="*{released}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="cast">Cast: </label>
+                <input class="form-control" type="text" id="cast" name="cast" th:field="*{cast}">
+            </div>
+            <div class="col">
+                <label for="runtime">Runtime: </label>
+                <input class="form-control" type="number" id="runtime" name="runtime" th:field="*{runtime}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="countries">Countries: </label>
+                <input class="form-control" type="text" id="countries" name="countries" th:field="*{countries}">
+            </div>
+            <div class="col">
+                <label for="type">Type: </label>
+                <input class="form-control" type="text" id="type" name="type" th:field="*{type}" th:value="movie">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <input class="form-control btn btn-primary" type="submit">
+            </div>
+        </div>
+        <br>
     </form>
     <br>
 <!--    <a th:href="@{/home}">Go Back</a>-->

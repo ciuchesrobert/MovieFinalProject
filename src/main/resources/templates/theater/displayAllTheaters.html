@@ -14,8 +14,7 @@
 <br>
 <br>
 <div class="container">
-    <h4>List of all Theaters</h4>
-    <br>
+    <h4><a style="color: #4285f4; text-decoration: none;" th:href="@{/theaters/home}">< Back |</a> List of all Theaters</h4>
     <br>
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
@@ -36,11 +35,12 @@
             <td th:text="${theater.location.address.zipcode}"></td>
         </tr>
     </table>
-    <span><a class="pageButton" th:href="@{/theaters/home}"><button>Go Back</button></a></span>
+<!--    <span><a class="pageButton" th:href="@{/theaters/home}"><button>Go Back</button></a></span>-->
     <span th:if="${pageNum>1}"><a class="pageButton" th:href="@{'http://localhost:8080/theaters/basic/all/'+ ${pageNum -1}}"><button>Previous</button></a></span>
     <a class=pageButton th:href="@{'http://localhost:8080/theaters/basic/all/'+ ${pageNum + 1}}">
         <button>Next</button>
     </a>
 </div>
+<br>
 </body>
 </html>
