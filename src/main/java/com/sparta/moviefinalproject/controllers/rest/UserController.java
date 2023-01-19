@@ -35,6 +35,10 @@ public class UserController {
         this.userDAO.create(user);
         return user;
     }
+    @PutMapping("/create")
+    public String testPost(){
+        return "hello";
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

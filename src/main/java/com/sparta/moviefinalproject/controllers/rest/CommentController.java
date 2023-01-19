@@ -57,7 +57,7 @@ public class CommentController {
         return responseEntity;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<String> findAll(@RequestParam String apikey) throws JsonProcessingException {
         Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
         Apikey key = null;
@@ -83,7 +83,8 @@ public class CommentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody CommentDTO commentDTO){
-
+        System.out.println("creating new comment");
+        //commentDTO.setId(new ObjectId());
         this.commentDAO.create(commentDTO);
     }
 
