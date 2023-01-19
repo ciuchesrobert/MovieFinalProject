@@ -55,6 +55,8 @@ public class WebSecurityConfig {
                     .and()
                     .rememberMe()
                     .and()
+                    .csrf()
+                    .disable()
                     .build();
         }
 
