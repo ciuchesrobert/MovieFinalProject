@@ -29,5 +29,5 @@ public class Schedule {
     @Field("theater_id")
     private ObjectId theaterId;
     @Field("date_time")
-    private LocalDateTime dateTime;
+    private List<LocalDateTime> dateTime;
 }
