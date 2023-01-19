@@ -15,12 +15,9 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieWebController {
     private final MovieDAO movieDAO;
-    private final MovieRepository movieRepository;
 
-    public MovieWebController(MovieDAO movieDAO,
-                              MovieRepository movieRepository) {
+    public MovieWebController(MovieDAO movieDAO) {
         this.movieDAO = movieDAO;
-        this.movieRepository = movieRepository;
     }
 
     @RequestMapping("/home")

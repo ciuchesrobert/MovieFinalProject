@@ -36,6 +36,13 @@ public class CommentDAO implements com.sparta.moviefinalproject.daos.interfaces.
         return Optional.empty();
     }
 
+    public List<CommentDTO> findAllByEmail(String email){
+        if (commentRepo.findAllByEmail(email).size()>0){
+            return commentRepo.findAllByEmail(email);
+        }
+        else return null;
+    }
+
     @Override
     public void update(ObjectId id, CommentDTO updatedComment) {
         Comment comment = new CommentConverter().dtoToEntity(updatedComment);
