@@ -3,9 +3,13 @@ package com.sparta.moviefinalproject.daos.implementations;
 import com.sparta.moviefinalproject.converters.MovieConverter;
 import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.entities.Movie;
+import com.sparta.moviefinalproject.entities.User;
 import com.sparta.moviefinalproject.repositories.CommentRepository;
 import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,6 +60,14 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
             movieDTOs.add(new MovieConverter().entityToDto(movie));
         }
         return movieDTOs;
+    }
+
+    public Page<Movie> findAllMoviesPagination(int pageNum){
+        return moviesPage(PageRequest.of(pageNum, 10));
+    }
+
+    public Page<Movie> moviesPage(Pageable pageable){
+        return movieRepo.findAll(pageable);
     }
 
     @Override
