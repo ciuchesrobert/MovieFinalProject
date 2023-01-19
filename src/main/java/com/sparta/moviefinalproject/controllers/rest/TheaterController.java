@@ -2,12 +2,15 @@ package com.sparta.moviefinalproject.controllers.rest;
 
 import com.sparta.moviefinalproject.daos.implementations.TheaterDAO;
 import com.sparta.moviefinalproject.dtos.TheaterDTO;
+import com.sparta.moviefinalproject.dtos.subdtos.AddressDTO;
 import com.sparta.moviefinalproject.entities.Theater;
+import com.sparta.moviefinalproject.entities.subentities.Address;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +26,16 @@ public class TheaterController {
     @GetMapping("/{id}")
     public Optional<TheaterDTO> findById(@PathVariable("id") String id) {
         return theaterDAO.findById(new ObjectId(id));
+    }
+
+    @GetMapping("/search")
+    public List<TheaterDTO> findByAddress(@RequestParam("address") String address) {
+        List<TheaterDTO> theaters = new ArrayList<>();
+        theaters.addAll(theaterDAO.findAllTheatersByLocation_Address_Street1ContainingIgnoreCase(address));
+        theaters.addAll(theaterDAO.findAllTheatersByLocation_Address_CityContainingIgnoreCase(address));
+        theaters.addAll(theaterDAO.findAllTheatersByLocation_Address_StateContainingIgnoreCase(address));
+        theaters.addAll(theaterDAO.findAllTheatersByLocation_Address_ZipcodeContainingIgnoreCase(address));
+        return theaters.stream().distinct().toList();
     }
 
     @GetMapping

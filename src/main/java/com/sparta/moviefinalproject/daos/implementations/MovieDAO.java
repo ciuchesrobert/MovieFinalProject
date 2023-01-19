@@ -61,9 +61,9 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
     }
 
     @Override
-    public List<MovieDTO> findAllMoviesByTitleContaining(String name) {
+    public List<MovieDTO> findAllMoviesByTitleContainingIgnoreCase(String name) {
         List<MovieDTO> movieDTOS = new ArrayList<>();
-        List<Movie> movies = movieRepo.findAllMoviesByTitleContaining(name);
+        List<Movie> movies = movieRepo.findAllMoviesByTitleContainingIgnoreCase(name);
         for(Movie movie : movies) {
             movieDTOS.add(new MovieConverter().entityToDto(movie));
         }

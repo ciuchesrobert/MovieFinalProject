@@ -3,6 +3,7 @@ package com.sparta.moviefinalproject.daos.implementations;
 import com.sparta.moviefinalproject.converters.TheaterConverter;
 import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import com.sparta.moviefinalproject.entities.Theater;
+import com.sparta.moviefinalproject.entities.subentities.Address;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,56 @@ public class TheaterDAO implements com.sparta.moviefinalproject.daos.interfaces.
     @Override
     public List<TheaterDTO> findAll() {
         List<Theater> theaters = theaterRepo.findAll();
+        List<TheaterDTO> theaterDTOs = new ArrayList<>();
+        for(Theater theater : theaters) {
+            theaterDTOs.add(new TheaterConverter().entityToDto(theater));
+        }
+        return theaterDTOs;
+    }
+
+    @Override
+    public List<TheaterDTO> findAllTheatersByLocation_Address_ZipcodeContainingIgnoreCase(String name) {
+        List<Theater> theaters = theaterRepo.findAllTheatersByLocation_Address_ZipcodeContainingIgnoreCase(name);
+        List<TheaterDTO> theaterDTOs = new ArrayList<>();
+        for(Theater theater : theaters) {
+            theaterDTOs.add(new TheaterConverter().entityToDto(theater));
+        }
+        return theaterDTOs;
+    }
+
+    @Override
+    public List<TheaterDTO> findAllTheatersByLocation_AddressContaining(Address address) {
+        List<Theater> theaters = theaterRepo.findAllTheatersByLocation_AddressContaining(address);
+        List<TheaterDTO> theaterDTOs = new ArrayList<>();
+        for(Theater theater : theaters) {
+            theaterDTOs.add(new TheaterConverter().entityToDto(theater));
+        }
+        return theaterDTOs;
+    }
+
+    @Override
+    public List<TheaterDTO> findAllTheatersByLocation_Address_CityContainingIgnoreCase(String name) {
+        List<Theater> theaters = theaterRepo.findAllTheatersByLocation_Address_CityContainingIgnoreCase(name);
+        List<TheaterDTO> theaterDTOs = new ArrayList<>();
+        for(Theater theater : theaters) {
+            theaterDTOs.add(new TheaterConverter().entityToDto(theater));
+        }
+        return theaterDTOs;
+    }
+
+    @Override
+    public List<TheaterDTO> findAllTheatersByLocation_Address_StateContainingIgnoreCase(String name) {
+        List<Theater> theaters = theaterRepo.findAllTheatersByLocation_Address_StateContainingIgnoreCase(name);
+        List<TheaterDTO> theaterDTOs = new ArrayList<>();
+        for(Theater theater : theaters) {
+            theaterDTOs.add(new TheaterConverter().entityToDto(theater));
+        }
+        return theaterDTOs;
+    }
+
+    @Override
+    public List<TheaterDTO> findAllTheatersByLocation_Address_Street1ContainingIgnoreCase(String name) {
+        List<Theater> theaters = theaterRepo.findAllTheatersByLocation_Address_Street1ContainingIgnoreCase(name);
         List<TheaterDTO> theaterDTOs = new ArrayList<>();
         for(Theater theater : theaters) {
             theaterDTOs.add(new TheaterConverter().entityToDto(theater));

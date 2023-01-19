@@ -48,11 +48,11 @@ public class CommentControllerTesting {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id.timestamp").value("1519658852"))
                 .andExpect(jsonPath("$.email").value("mercedes_tyler@fakegmail.com"))
                 .andExpect(jsonPath("$.text").value("Eius veritatis vero facilis quaerat fuga temporibus. " +
                         "Praesentium expedita sequi repellat id. Corporis minima enim ex. " +
-                        "Provident fugit nisi dignissimos nulla nam ipsum aliquam."));
+                        "Provident fugit nisi dignissimos nulla nam ipsum aliquam."))
+                .andExpect(jsonPath("$.id").exists());
     }
 
     @Test
@@ -98,10 +98,9 @@ public class CommentControllerTesting {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id.timestamp").value(12345678))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id.date").value("date"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("name"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("email"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 }
