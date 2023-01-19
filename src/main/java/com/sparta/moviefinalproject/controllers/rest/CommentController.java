@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +54,7 @@ public class CommentController {
             System.out.println(key);
             responseEntity = new ResponseEntity<>(commentString, httpHeaders, HttpStatus.OK);
         }else {
-            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
     }
@@ -104,14 +106,58 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") String id){
-        this.commentDAO.deleteById(new ObjectId(id));
+    public ResponseEntity<String> delete(@PathVariable("id") String id, String apikey){
+        Optional<CommentDTO> commentDTOOptional = commentDAO.findById(new ObjectId(id));
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(commentDTOOptional.isPresent()){
+            Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+            Apikey key = null;
+            if(apikeyOptional.isPresent()){
+                key = apikeyOptional.get();
+                if("admin".equals(key.getRole())){
+                    this.commentDAO.deleteById(new ObjectId(id));
+                    responseEntity = new ResponseEntity<>("{\"message\":\"Comment with ID " + id + " has been deleted successfully!\"}", httpHeaders, HttpStatus.OK);
+                }else{
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add new comment!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                }
+            }else {
+                responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }else{
+            responseEntity = new ResponseEntity<>("{\"message\":\"The comment with ID " + id + " does not exist\"}", httpHeaders, HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody CommentDTO commentDTO, @PathVariable("id") String id) {
-        this.commentDAO.update(new ObjectId(id), commentDTO);
+    public ResponseEntity<String> update(@RequestBody CommentDTO commentDTO, @PathVariable("id") String id, String apikey) {
+
+        Optional<CommentDTO> commentDTOOptional = commentDAO.findById(new ObjectId(id));
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(commentDTOOptional.isPresent()){
+            Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+            Apikey key = null;
+            if(apikeyOptional.isPresent()){
+                key = apikeyOptional.get();
+                if("admin".equals(key.getRole())){
+                    commentDTO.setId(new ObjectId(id));
+                    commentDTO.setDate(LocalDateTime.now());
+                    this.commentDAO.update(new ObjectId(id), commentDTO);
+                    responseEntity = new ResponseEntity<>("{\"message\":\"Comment with ID " + id + " has been updated successfully!\"}", httpHeaders, HttpStatus.OK);
+                }else{
+                    responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add new comment!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+                }
+            }else {
+                responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }else{
+            responseEntity = new ResponseEntity<>("{\"message\":\"The comment with ID " + id + " does not exist\"}", httpHeaders, HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
 
     }
 
