@@ -50,7 +50,9 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
 
     @Override
     public List<MovieDTO> findAll() {
-        List<Movie> movies = movieRepo.findAll();
+        List<Movie> movies = movieRepo.findAll().stream()
+                .filter(movie -> movie.getYear().matches("^[0-9]{4}$"))
+                .toList();
         List<MovieDTO> movieDTOs = new ArrayList<>();
         for(Movie movie : movies) {
             movieDTOs.add(new MovieConverter().entityToDto(movie));
