@@ -114,7 +114,4 @@ public class MovieWebController {
         model.addAttribute("movie", movieDto);
         return "movie/deleteMovieSuccess";
     }
-
-
-
 }
