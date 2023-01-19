@@ -60,7 +60,7 @@ public class TheaterWebController {
     public String createTheater(Model model){
         TheaterDTO theater = new TheaterDTO();
         model.addAttribute("theater", theater);
-        return "createTheater";
+        return "theater/createTheater";
     }
 
     @PostMapping("/admin/create/success")

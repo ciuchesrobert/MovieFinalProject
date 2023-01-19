@@ -2,11 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Theater Success</title>
+    <title>Update a Theater</title>
 </head>
 <body>
-<h1>Movie: <span th:text="${theater.id}"></span> Successfully Updated!</h1>
-<br>
-<a th:href="@{/web/employees/basic/all/1}">Go Back</a>
+<div th:insert="/navbar/navbar.html :: navbar">  </div>
+<br><br>
+<div class="container">
+    <h4>Update a Theater</h4>
+    <br>
+    <h1>Theater with ID: <span th:text="${theater.id}"></span> Successfully Updated!</h1>
+    <br>
+    <a style="color: #4285f4; text-decoration: none;" th:href="@{/users/adminHome}">Go Back</a>
+</div>
 </body>
 </html>

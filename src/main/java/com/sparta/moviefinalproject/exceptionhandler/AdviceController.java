@@ -130,4 +130,6 @@ public class AdviceController {
         log.error(e.getMessage());
         return "<h1>Input type not allowed...</h1>";
     }
+
+
 }

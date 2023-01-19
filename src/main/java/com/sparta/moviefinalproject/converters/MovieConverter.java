@@ -31,12 +31,9 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movieDto.getCountries(),
                 movieDto.getType());
 
-        if (movieDto.getNumMflixComments() == null){
-            movie.setNumMflixComments(0);
-        } else {
+        if (movieDto.getNumMflixComments() != null){
             movie.setNumMflixComments(movieDto.getNumMflixComments());
         }
-
         if(movieDto.getAwards() != null) {
             movie.setAwards(new AwardConverter().dtoToEntity(movieDto.getAwards()));
         }
@@ -74,12 +71,9 @@ public class MovieConverter implements Converter<MovieDTO, Movie> {
                 movie.getCountries(),
                 movie.getType());
 
-        if (movie.getNumMflixComments() == null){
-            movieDto.setNumMflixComments(0);
-        } else {
-            movieDto.setNumMflixComments(movieDto.getNumMflixComments());
+        if (movie.getNumMflixComments() != null) {
+            movieDto.setNumMflixComments(movie.getNumMflixComments());
         }
-
         if(movie.getAwards() != null) {
             movieDto.setAwards(new AwardConverter().entityToDto(movie.getAwards()));
         }

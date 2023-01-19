@@ -7,8 +7,13 @@
 
 </head>
 <body>
-<h1>Movie: <span th:text="${movie.id}"></span> Successfully Updated!</h1>
-<br>
-<a th:href="@{/web/employees/basic/all/1}">Go Back</a>
+<br><br>
+<div class="container">
+    <h4>Update a Movie</h4>
+    <br>
+    <h1>Movie: <span th:text="${movie.title}"></span> Successfully Updated!</h1>
+    <br>
+    <a style="color: #4285f4; text-decoration: none;" th:href="@{/users/adminHome}">Go Back</a>
+</div>
 </body>
 </html>

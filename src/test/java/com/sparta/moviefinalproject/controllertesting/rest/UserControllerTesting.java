@@ -39,7 +39,8 @@ public class UserControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on users with ID of 59b99db4cfa9a34dcd7885b6")
     public void FindUserById_IfExistsReturnSuccess() throws Exception {
-        mvc.perform(get("/api/users/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N","59b99db4cfa9a34dcd7885b6")
+        String id = "59b99db4cfa9a34dcd7885b6";
+        mvc.perform(get("/api/users/" + id + "?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -82,10 +83,10 @@ public class UserControllerTesting {
 
     @Test
     @DisplayName("Test @PutMapping for update method for users")
-    public void UpdateUser_CheckIfUpdatesPersist() throws Exception
-    {
+    public void UpdateUser_CheckIfUpdatesPersist() throws Exception {
+        String id = "59b99db6cfa9a34dcd7885bc";
         mvc.perform( MockMvcRequestBuilders
-                        .put("/api/users/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N", "59b99db6cfa9a34dcd7885bc")
+                        .put("/api/users/" + id + "?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N\", \"59b99db6cfa9a34dcd7885bc")
                         .content(asJsonString(new User(
                                 new ObjectId("59b99db6cfa9a34dcd7885bc"), "iain_glen@gameofthron.es",
                                 "Jorah Mormont",

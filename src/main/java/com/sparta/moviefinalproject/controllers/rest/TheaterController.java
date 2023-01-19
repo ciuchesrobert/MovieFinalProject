@@ -74,13 +74,12 @@ public class TheaterController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody TheaterDTO theater, @PathVariable("id") String id, String apikey) {
+    public TheaterDTO update(@RequestBody TheaterDTO theater, @PathVariable("id") String id, String apikey) {
         Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
         if(!apikeyOptional.isPresent() && !"admin".equals(apikeyOptional.get().getRole())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "API key is not authorized!");
         }
-        theater.setId(new ObjectId(id));
-        theaterDAO.update(new ObjectId(id), theater);
+        return theaterDAO.update(new ObjectId(id), theater);
     }
 
 }

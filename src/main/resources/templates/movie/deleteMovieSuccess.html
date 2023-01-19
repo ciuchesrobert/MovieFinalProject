@@ -8,6 +8,13 @@
 </head>
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
-<h1>Movie with ID: <span th:text="${movie.id}"></span> Successfully Deleted!</h1>
+<br><br>
+<div class="container">
+    <h4>Delete a Movie</h4>
+    <br>
+    <h1>Movie: <span th:text="${movie.id}"></span> Successfully Deleted!</h1>
+    <br>
+    <a style="color: #4285f4; text-decoration: none;" th:href="@{/users/adminHome}">Go Back</a>
+</div>
 </body>
 </html>

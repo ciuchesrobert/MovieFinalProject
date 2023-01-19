@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.daos.implementations;
 
+import com.sparta.moviefinalproject.converters.MovieConverter;
 import com.sparta.moviefinalproject.converters.TheaterConverter;
 import com.sparta.moviefinalproject.dtos.TheaterDTO;
 import com.sparta.moviefinalproject.entities.Theater;
@@ -26,8 +27,8 @@ public class TheaterDAO implements com.sparta.moviefinalproject.daos.interfaces.
 
 
     @Override
-    public void create(TheaterDTO theaterDto) {
-        theaterRepo.insert(new TheaterConverter().dtoToEntity(theaterDto));
+    public TheaterDTO create(TheaterDTO theaterDto) {
+        return new TheaterConverter().entityToDto(theaterRepo.save(new TheaterConverter().dtoToEntity(theaterDto)));
     }
 
     @Override
@@ -40,10 +41,11 @@ public class TheaterDAO implements com.sparta.moviefinalproject.daos.interfaces.
     }
 
     @Override
-    public void update(ObjectId id, TheaterDTO updatedTheater) {
+    public TheaterDTO update(ObjectId id, TheaterDTO updatedTheater) {
         Theater theater = new TheaterConverter().dtoToEntity(updatedTheater);
         theater.setId(id);
         theaterRepo.save(theater);
+        return new TheaterConverter().entityToDto(theater);
     }
 
     @Override

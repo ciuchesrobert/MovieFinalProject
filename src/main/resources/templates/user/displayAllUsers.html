@@ -12,7 +12,7 @@
 <br>
 <br>
 <div class="container">
-    <h4>List of all Users</h4>
+    <h4><a style="color: #4285f4; text-decoration: none;" th:href="@{/users/adminHome}">< Back |</a> List of all Users</h4>
     <br>
     <br>
 <table class="table table-striped table-bordered">
@@ -30,7 +30,7 @@
         <td th:text="${user.password}"></td>
     </tr>
 </table>
-    <span><a class="pageButton" th:href="@{/users/adminHome}"><button>Go Back</button></a></span>
+<!--    <span><a class="pageButton" th:href="@{/users/adminHome}"><button>Go Back</button></a></span>-->
     <span th:if="${pageNum>1}"><a class="pageButton" th:href="@{'http://localhost:8080/users/basic/'+ ${pageNum -1}}"><button>Previous</button></a></span>
 <a class=pageButton th:href="@{'http://localhost:8080/users/basic/'+ ${pageNum + 1}}"><button>Next</button></a>
 </div>

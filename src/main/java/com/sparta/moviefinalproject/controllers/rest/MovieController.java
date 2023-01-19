@@ -65,14 +65,12 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody MovieDTO movieDTO, String apikey){
+    public MovieDTO create(@RequestBody MovieDTO movieDTO, String apikey){
         Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
         if(!apikeyOptional.isPresent() && !"admin".equals(apikeyOptional.get().getRole())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "API key is not authorized!");
         }
-        movieDTO.setId(new ObjectId());
-        movieDTO.setLastUpdated(LocalDateTime.now());
-        this.movieDAO.create(movieDTO);
+        return movieDAO.create(movieDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -85,13 +83,12 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id, String apikey) {
+    public MovieDTO update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id, String apikey) {
         Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
         if(!apikeyOptional.isPresent() && !"admin".equals(apikeyOptional.get().getRole())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "API key is not authorized!");
         }
-        movieDTO.setId(new ObjectId(id));
-        this.movieDAO.update(new ObjectId(id), movieDTO);
+        return this.movieDAO.update(new ObjectId(id), movieDTO);
     }
 
 }

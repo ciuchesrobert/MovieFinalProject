@@ -62,7 +62,6 @@ public class CommentController {
         if(!apikeyOptional.isPresent() && !"admin".equals(apikeyOptional.get().getRole())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "API key is not authorized!");
         }
-        commentDTO.setId(new ObjectId());
         this.commentDAO.create(commentDTO);
     }
 
@@ -77,14 +76,12 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody CommentDTO commentDTO, @PathVariable("id") String id, String apikey) {
+    public CommentDTO update(@RequestBody CommentDTO commentDTO, @PathVariable("id") String id, String apikey) {
         Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
         if(!apikeyOptional.isPresent() && !"admin".equals(apikeyOptional.get().getRole())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "API key is not authorized!");
         }
-        commentDTO.setId(new ObjectId(id));
-        commentDTO.setDate(LocalDateTime.now());
-        this.commentDAO.update(new ObjectId(id), commentDTO);
+        return this.commentDAO.update(new ObjectId(id), commentDTO);
 
     }
 
