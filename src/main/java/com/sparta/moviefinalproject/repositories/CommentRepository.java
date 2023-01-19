@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends MongoRepository<Comment, ObjectId> {
     List<CommentDTO> findAllCommentsByMovieId(ObjectId objectId);
+
+    List<CommentDTO> findAllByEmail(String email);
 }

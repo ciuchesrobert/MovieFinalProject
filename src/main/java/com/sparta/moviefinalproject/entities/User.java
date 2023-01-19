@@ -23,13 +23,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    @NonNull
+
     private ObjectId id;
-    @NonNull
+
     private String email;
-    @NonNull
+
     private String name;
-    @NonNull
+
     private String password;
 
     public boolean entityEqualsDto(UserDTO obj) {
