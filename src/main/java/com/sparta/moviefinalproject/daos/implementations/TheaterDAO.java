@@ -6,6 +6,9 @@ import com.sparta.moviefinalproject.entities.Theater;
 import com.sparta.moviefinalproject.entities.subentities.Address;
 import com.sparta.moviefinalproject.repositories.TheaterRepository;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,6 +62,13 @@ public class TheaterDAO implements com.sparta.moviefinalproject.daos.interfaces.
         }
         return theaterDTOs;
     }
+
+    public Page<Theater> findAllTheatersPagination(int pageNum){
+        return theaterPage(PageRequest.of(pageNum, 10));
+    }
+
+    public Page<Theater> theaterPage(Pageable pageable){
+        return theaterRepo.findAll(pageable);
 
     @Override
     public List<TheaterDTO> findAllTheatersByLocation_Address_ZipcodeContainingIgnoreCase(String name) {
