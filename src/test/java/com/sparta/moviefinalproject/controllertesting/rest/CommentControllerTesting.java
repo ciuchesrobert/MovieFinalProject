@@ -43,7 +43,7 @@ public class CommentControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on comments with ID of 5a9427648b0beebeb69579e7")
     public void FindCommentById_SuccessIfExists() throws Exception {
-        mvc.perform(get("/api/comments/{id}?apikey=ndlkjdlksajkdsajkaksdlksaj2132", "5a9427648b0beebeb69579e7")
+        mvc.perform(get("/api/comments/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N", "5a9427648b0beebeb69579e7")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -58,7 +58,7 @@ public class CommentControllerTesting {
     @Test
     @DisplayName("Test @GetMapping for findAll method for comments")
     public void FindAllComments_SuccessIfExists() throws Exception {
-        mvc.perform(get("/api/comments?apikey=ndlkjdlksajkdsajkaksdlksaj2132")
+        mvc.perform(get("/api/comments?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -73,7 +73,7 @@ public class CommentControllerTesting {
     @DisplayName("Test @PostMapping for create method for comments")
     public void CreateComment_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .post("/comments")
+                        .post("/comments?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .content(asJsonString(new CommentDTO(new ObjectId("https://observablehq.com/@hugodf/mongodb-objectid-generator"),
                                 "name", "email", new ObjectId("movieId"),
                                 "text", LocalDateTime.now())))
@@ -91,7 +91,7 @@ public class CommentControllerTesting {
     public void UpdateComment_CheckIfUpdatesPersist() throws Exception
     {
         mvc.perform( MockMvcRequestBuilders
-                        .put("/comments/{id}", "id")
+                        .put("/comments/{id}?apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N", "id")
                         .content(asJsonString(new CommentDTO(new ObjectId("id"),
                                 "name", "email", new ObjectId("movieId"),
                                 "text", LocalDateTime.now())))
