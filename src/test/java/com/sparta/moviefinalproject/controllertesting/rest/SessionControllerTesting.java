@@ -36,7 +36,8 @@ public class SessionControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on session with ID of 5a97f9c91c807bb9c6eb5fb4")
     public void FindCommentById_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/sessions/{id}","5a97f9c91c807bb9c6eb5fb4")
+        String id = "5a97f9c91c807bb9c6eb5fb4";
+        mvc.perform(get("/api/sessions/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()

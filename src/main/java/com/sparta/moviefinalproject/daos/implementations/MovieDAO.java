@@ -25,8 +25,8 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
     }
 
     @Override
-    public void create(MovieDTO movieDto) {
-        movieRepo.insert(new MovieConverter().dtoToEntity(movieDto));
+    public MovieDTO create(MovieDTO movieDto) {
+        return new MovieConverter().entityToDto(movieRepo.save(new MovieConverter().dtoToEntity(movieDto)));
     }
 
     @Override
@@ -39,10 +39,11 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
     }
 
     @Override
-    public void update(ObjectId id, MovieDTO updatedMovie) {
+    public MovieDTO update(ObjectId id, MovieDTO updatedMovie) {
         Movie movie = new MovieConverter().dtoToEntity(updatedMovie);
         movie.setId(id);
         movieRepo.save(movie);
+        return new MovieConverter().entityToDto(movie);
     }
 
     @Override
@@ -55,8 +56,7 @@ public class MovieDAO implements com.sparta.moviefinalproject.daos.interfaces.Mo
     @Override
     public List<MovieDTO> findAll() {
         List<Movie> movies = movieRepo.findAll().stream()
-                .filter(movie -> movie.getYear().matches("^[0-9]{4}$"))
-                .toList();
+                    .filter(movie -> movie.getYear().matches("^[0-9]{4}$")).toList();
         List<MovieDTO> movieDTOs = new ArrayList<>();
         for(Movie movie : movies) {
             movieDTOs.add(new MovieConverter().entityToDto(movie));

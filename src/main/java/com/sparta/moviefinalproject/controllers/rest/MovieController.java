@@ -41,9 +41,8 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody MovieDTO movieDTO){
-
-        this.movieDAO.create(movieDTO);
+    public MovieDTO create(@RequestBody MovieDTO movieDTO){
+        return movieDAO.create(movieDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -53,8 +52,8 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id) {
-        this.movieDAO.update(new ObjectId(id), movieDTO);
+    public MovieDTO update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id) {
+        return this.movieDAO.update(new ObjectId(id), movieDTO);
     }
 
 

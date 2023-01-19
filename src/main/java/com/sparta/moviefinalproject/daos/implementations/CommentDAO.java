@@ -1,6 +1,7 @@
 package com.sparta.moviefinalproject.daos.implementations;
 
 import com.sparta.moviefinalproject.converters.CommentConverter;
+import com.sparta.moviefinalproject.converters.MovieConverter;
 import com.sparta.moviefinalproject.dtos.CommentDTO;
 import com.sparta.moviefinalproject.entities.Comment;
 import com.sparta.moviefinalproject.entities.Theater;
@@ -25,8 +26,8 @@ public class CommentDAO implements com.sparta.moviefinalproject.daos.interfaces.
     }
 
     @Override
-    public void create(CommentDTO commentDto) {
-        commentRepo.insert(new CommentConverter().dtoToEntity(commentDto));
+    public CommentDTO create(CommentDTO commentDto) {
+        return new CommentConverter().entityToDto(commentRepo.insert(new CommentConverter().dtoToEntity(commentDto)));
     }
 
     @Override
@@ -48,10 +49,11 @@ public class CommentDAO implements com.sparta.moviefinalproject.daos.interfaces.
     }
 
     @Override
-    public void update(ObjectId id, CommentDTO updatedComment) {
+    public CommentDTO update(ObjectId id, CommentDTO updatedComment) {
         Comment comment = new CommentConverter().dtoToEntity(updatedComment);
         comment.setId(id);
         commentRepo.save(comment);
+        return new CommentConverter().entityToDto(comment);
     }
 
     @Override

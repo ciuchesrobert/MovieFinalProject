@@ -3,6 +3,10 @@ package com.sparta.moviefinalproject.controllertesting.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.moviefinalproject.MovieFinalProjectApplication;
 import com.sparta.moviefinalproject.dtos.TheaterDTO;
+import com.sparta.moviefinalproject.entities.subentities.Address;
+import com.sparta.moviefinalproject.entities.subentities.Geo;
+import com.sparta.moviefinalproject.entities.subentities.Location;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +44,8 @@ public class TheaterControllerTesting {
     @Test
     @DisplayName("Testing @GetMapping for findById method on theater with ID of 59a47286cfa9a3a73e51e72c")
     public void FindCommentById_SuccessIfExists() throws Exception{
-        mvc.perform(get("/api/theaters/{id}","59a47286cfa9a3a73e51e72c")
+        String id = "59a47286cfa9a3a73e51e72c";
+        mvc.perform(get("/api/theaters/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -67,25 +72,49 @@ public class TheaterControllerTesting {
     @Disabled
     @DisplayName("Test @PostMapping for create method for comments")
     public void CreateTheater_CheckIfExists() throws Exception {
+        String id = "63c97206dc255d54e5719597";
         mvc.perform(MockMvcRequestBuilders
                         .post("/comments")
-                        .content(asJsonString(new TheaterDTO()))
+                        .content(asJsonString(new TheaterDTO(
+                                new ObjectId(id),
+                                new Location(
+                                        new Address(
+                                                "City",
+                                                "State",
+                                                "Street",
+                                                "Zipcode"),
+                                                new Geo(
+                                                        "point",
+                                                        new Double[] {0.0, 0.0})),
+                                                        "123")
+                        ))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.location").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.theaterId").value("123"));
     }
 
     @Test
     @Disabled
-    public void UpdateTheater_CheckIfUpdatesPersist() throws Exception
-    {
+    public void UpdateTheater_CheckIfUpdatesPersist() throws Exception {
+        String id = "63c97206dc255d54e5719597";
         mvc.perform( MockMvcRequestBuilders
-                        .put("/comments/{id}", "no idea what to put for id")
-                        .content(asJsonString(new TheaterDTO()))
+                        .put("/comments/" + id)
+                        .content(asJsonString(new TheaterDTO(
+                                new ObjectId(id),
+                                new Location(
+                                        new Address(
+                                                "City",
+                                                "State",
+                                                "Street",
+                                                "Zipcode"),
+                                        new Geo(
+                                                "point",
+                                                new Double[] {0.0, 0.0})),
+                                "123")
+                        ))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
