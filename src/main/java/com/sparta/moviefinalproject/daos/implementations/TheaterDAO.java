@@ -67,9 +67,9 @@ public class TheaterDAO implements com.sparta.moviefinalproject.daos.interfaces.
         return theaterPage(PageRequest.of(pageNum, 10));
     }
 
-    public Page<Theater> theaterPage(Pageable pageable){
+    public Page<Theater> theaterPage(Pageable pageable) {
         return theaterRepo.findAll(pageable);
-
+    }
     @Override
     public List<TheaterDTO> findAllTheatersByLocation_Address_ZipcodeContainingIgnoreCase(String name) {
         List<Theater> theaters = theaterRepo.findAllTheatersByLocation_Address_ZipcodeContainingIgnoreCase(name);
