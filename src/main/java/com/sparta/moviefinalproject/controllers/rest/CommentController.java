@@ -75,17 +75,32 @@ public class CommentController {
             System.out.println(key);
             responseEntity = new ResponseEntity<>(commentString, httpHeaders, HttpStatus.OK);
         }else {
-            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
         }
         return responseEntity;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CommentDTO commentDTO){
-        System.out.println("creating new comment");
-        //commentDTO.setId(new ObjectId());
-        this.commentDAO.create(commentDTO);
+    public ResponseEntity<String> create(@RequestBody CommentDTO commentDTO, String apikey) throws JsonProcessingException {
+        Optional<Apikey> apikeyOptional = apikeyRepository.findByKey(apikey);
+        Apikey key = null;
+        ResponseEntity<String> responseEntity = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("content-type", "application/json");
+        if(apikeyOptional.isPresent()){
+            key = apikeyOptional.get();
+            if("admin".equals(key.getRole())){
+                commentDTO.setId(new ObjectId());
+                this.commentDAO.create(commentDTO);
+                responseEntity = new ResponseEntity<>("{\"message\":\"Comment with ID " + commentDTO.getId() + " has been created successfully!\"}", httpHeaders, HttpStatus.CREATED);
+            }else{
+                responseEntity =  new ResponseEntity<>("{\"message\":\"You do not have permission to add new comment!\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+        }else {
+            responseEntity = new ResponseEntity<>("{\"message\":\"API key " + apikey + " not valid\"}", httpHeaders, HttpStatus.UNAUTHORIZED);
+        }
+        return responseEntity;
     }
 
     @DeleteMapping("/{id}")
