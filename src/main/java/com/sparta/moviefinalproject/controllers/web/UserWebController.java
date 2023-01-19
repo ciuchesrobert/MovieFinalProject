@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.controllers.web;
 import com.sparta.moviefinalproject.daos.implementations.UserDAO;
+import com.sparta.moviefinalproject.dtos.MovieDTO;
 import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
 import org.bson.types.ObjectId;
@@ -74,21 +75,18 @@ public class UserWebController {
         return "user/createUserSuccess";
     }
 
+
     @GetMapping("/admin/update")
-    public String updateUser(UserDTO user, Model model){
-
+    public String updateUser(Model model, UserDTO user) {
+        model.addAttribute("user", user);
         return "user/updateUser";
-
     }
-
     @PostMapping("/admin/updateSuccess")
-    public String updateUserSuccess(@ModelAttribute("user") UserDTO user, Model model){
-
+    public String updateSuccess(@ModelAttribute("user") UserDTO user, Model model) {
         Optional<UserDTO> userDTOOptional = userDAO.findById(user.getId());
         if (userDTOOptional.isPresent()) {
-            userDAO.update(user.getId(), user);
+            userDAO.update(user.getId(),user);
         }
-        model.addAttribute("user", user);
         return "user/updateUserSuccess";
     }
 
