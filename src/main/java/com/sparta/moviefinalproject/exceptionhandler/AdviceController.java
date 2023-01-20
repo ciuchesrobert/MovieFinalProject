@@ -14,6 +14,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.exceptions.TemplateInputException;
 
 import java.io.FileNotFoundException;
@@ -23,7 +24,7 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 @Log4j2
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
-@RequestMapping("/")
+@EnableWebMvc
 public class AdviceController {
 
     @ExceptionHandler(Exception.class)
@@ -37,7 +38,7 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleFileNotFoundException(FileNotFoundException e) {
         log.error(e.getMessage());
-        return "<h1>Mapping not found...<h1>";
+        return "<h1>File not found...<h1>";
     }
 
     @ExceptionHandler(ResourceAccessException.class)
@@ -51,7 +52,7 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNullPointerException(NullPointerException e) {
         log.error(e.getMessage());
-        return "<h1>Looks like something is missing...</h1>";
+        return "<h1>Looks like it's missing...</h1>";
     }
 
     @ExceptionHandler(HttpServerErrorException.class)
