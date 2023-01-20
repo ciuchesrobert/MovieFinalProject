@@ -6,6 +6,7 @@ import com.sparta.moviefinalproject.entities.Comment;
 import com.sparta.moviefinalproject.entities.Movie;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,12 +46,12 @@ public class CommentWebController {
         return "comment/displayComment";
     }
 
-    @PostMapping("/basic/search/success")
-    public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
-        comment = commentDAO.findById( comment.getId() ).orElse(null);
-        model.addAttribute("comment", comment);
-        return "comment/displayComment";
-    }
+//    @PostMapping("/basic/search/success")
+//    public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
+//        comment = commentDAO.findById( comment.getId() ).orElse(null);
+//        model.addAttribute("comment", comment);
+//        return "comment/displayComment";
+//    }
 //    @PostMapping("/basic/search/success")
 //    public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
 //
@@ -80,6 +81,7 @@ public class CommentWebController {
     }
 
     @PostMapping("/admin/create/success")
+    @ResponseStatus(HttpStatus.OK)
     public String createCommentSuccess(@ModelAttribute("comment") CommentDTO comment){
         commentDAO.create(comment);
         return "comment/createCommentSuccess";
@@ -111,7 +113,7 @@ public class CommentWebController {
 //        return "comment/createCommentSuccess";
 //    }
 
-    @GetMapping("/admin/update{id}")
+    @GetMapping("/admin/update/{id}")
     public String updateComment(@PathVariable("id")ObjectId id, Model model){
         CommentDTO comment = commentDAO.findById(id).orElse(null);
         model.addAttribute("comment", comment);
@@ -139,7 +141,7 @@ public class CommentWebController {
 //        return "comment/updateCommentSuccess";
 //    }
 
-    @DeleteMapping("/admin/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String deleteComment(@PathVariable ObjectId id, Model model){
         CommentDTO comment = commentDAO.findById(id).orElse(null);
         model.addAttribute("comment", comment);
