@@ -53,7 +53,7 @@ public class MovieWebController {
     public String findMoviesByIdSuccess(@ModelAttribute("movie") MovieDTO movie, Model model){
         movie = movieDAO.findById( movie.getId() ).orElse(null);
         model.addAttribute("movie", movie);
-        return "movieDisplaySuccess";
+        return "movie/displayMovie";
     }
 
     @GetMapping("/basic/search/all")

@@ -37,21 +37,21 @@ public class CommentWebController {
         return "comment/displayComment";
     }
 
-//    @GetMapping("/search/{id}")
-//    public String findCommentById(Model model, @PathVariable("id") String id){
-//        CommentDTO comment = commentDAO.findById( new ObjectId(id)).orElse(null);
-//        System.out.println( comment );
-//        model.addAttribute("comment", comment);
-//        return "comment/displayComment";
-//    }
+    @GetMapping("/basic/search/{id}")
+    public String findCommentById(Model model, @PathVariable("id") String id){
+        CommentDTO comment = commentDAO.findById( new ObjectId(id)).orElse(null);
+        System.out.println( comment );
+        model.addAttribute("comment", comment);
+        return "comment/displayComment";
+    }
 
     @PostMapping("/basic/search/success")
     public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
         comment = commentDAO.findById( comment.getId() ).orElse(null);
         model.addAttribute("comment", comment);
-        return "comment/displayCommentSuccess";
+        return "comment/displayComment";
     }
-//    @PostMapping("/search/success")
+//    @PostMapping("/basic/search/success")
 //    public String findCommentByIdSuccess(@ModelAttribute("comment") CommentDTO comment, Model model){
 //
 //        model.addAttribute("comment", comment);
@@ -82,7 +82,7 @@ public class CommentWebController {
     @PostMapping("/admin/create/success")
     public String createCommentSuccess(@ModelAttribute("comment") CommentDTO comment){
         commentDAO.create(comment);
-        return "commentCreateSuccess";
+        return "comment/createCommentSuccess";
     }
 
 //    @PostMapping("/create/success")
@@ -115,7 +115,7 @@ public class CommentWebController {
     public String updateComment(@PathVariable("id")ObjectId id, Model model){
         CommentDTO comment = commentDAO.findById(id).orElse(null);
         model.addAttribute("comment", comment);
-        return "commentUpdate";
+        return "comment/updateComment";
     }
 //    @GetMapping("/update/{id}")
 //    public String updateComment(@PathVariable("id")String id, Model model){
@@ -129,7 +129,7 @@ public class CommentWebController {
     @PostMapping("/admin/update/success")
     public String updateCommentSuccess(@ModelAttribute("comment")CommentDTO comment, Model model){
         commentDAO.update(comment.getId(), comment); // - needs updating
-        return "commentUpdateSuccess";
+        return "comment/updateCommentSuccess";
     }
 //    @PostMapping("/update/success")
 //    public String updateCommentSuccess(@ModelAttribute("comment")CommentDTO comment, Model model){
@@ -143,7 +143,7 @@ public class CommentWebController {
     public String deleteComment(@PathVariable ObjectId id, Model model){
         CommentDTO comment = commentDAO.findById(id).orElse(null);
         model.addAttribute("comment", comment);
-        return "commentDelete";
+        return "comment/deleteComment";
         //return "comment/deleteComment";
     }
 
@@ -152,13 +152,13 @@ public class CommentWebController {
         // check if records with given ID exists
         if( comment == null){
             model.addAttribute("comment", null);
-            return "commentDeleteSuccess";
+            return "comment/deleteComment";
             // return comment/deleteCommentSuccess
         }
         // otherwise delete from DB
         commentDAO.deleteById(comment.getId());
         model.addAttribute("comment", comment);
-        return "commentDeleteSuccess";
+        return "comment/deleteCommentSuccess";
         // return "comment/deleteCommentSuccess
     }
 
