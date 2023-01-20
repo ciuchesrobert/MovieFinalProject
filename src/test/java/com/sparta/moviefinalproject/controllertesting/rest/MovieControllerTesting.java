@@ -58,7 +58,7 @@ public class MovieControllerTesting {
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Blacksmith Scene"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.plot").value("Three men hammer on an anvil and pass a bottle of beer around."))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("1895"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("1893"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
@@ -180,7 +180,7 @@ public class MovieControllerTesting {
     @Test
     public void FindMoviesWithTitleContains_IfFoundReturnSuccess() throws Exception {
         String title = "Blacksmith Scene";
-        mvc.perform(get("/api/movies/search?title=" + title)
+        mvc.perform(get("/api/movies/search?title=" + title + "&apikey=DSRMSR5jM2UkV5cW4XZNraP2u5ZNNEzV6TU3n6pa9HpiHC2tW0Dzr7ehYMtDPt1N")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
