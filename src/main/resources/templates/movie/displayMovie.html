@@ -95,7 +95,7 @@
         </td>
     </tr>
 </table>
-    <span><a class="pageButton" th:href="@{/movies/basic/search/all/0}"><button>Go Back</button></a></span>
+    <span th:if="${comments.size()>=10}"><a class="pageButton" th:href="@{/movies/basic/search/all/0}"><button>Go Back</button></a></span>
 </div>
 <div class="container" th:unless="${comments == null}">
     <br>
