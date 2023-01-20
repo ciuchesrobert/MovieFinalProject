@@ -125,6 +125,13 @@ public class AdviceController {
         return "<h1>Argument type not allowed...</h1>";
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleIllegalStateException(IllegalStateException e) {
+        log.error(e.getMessage());
+        return "<h1>Argument state not allowed...</h1>";
+    }
+
     @ExceptionHandler(TemplateInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleIllegalArgsException(TemplateInputException e) {

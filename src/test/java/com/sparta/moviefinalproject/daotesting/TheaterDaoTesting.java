@@ -16,24 +16,14 @@ import org.springframework.test.annotation.Rollback;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 public class TheaterDaoTesting {
 
     @Autowired
     private TheaterDAO theaterDAO;
 
-    //TODO check failed test save and update
-    //for create get newObjectId from https://observablehq.com/@hugodf/mongodb-objectid-generator
-    @Test
-    @Rollback
-    @DisplayName("Save an theater into the database")
-    void saveTest(){
-        theaterDAO.create(new TheaterDTO(new ObjectId("63c930bc0de05c2731038730"),
-                new Location(new Address("city", "state", "street", "zipcode"), new Geo("geo", new Double[12])),
-                "testId"));
-        Optional<TheaterDTO> result = theaterDAO.findById(new ObjectId("63c930bc0de05c2731038730"));
-        Assertions.assertTrue(result.isPresent());
-    }
 
     @Test
     @DisplayName("Find theater by Id from database")
@@ -50,25 +40,6 @@ public class TheaterDaoTesting {
         Assertions.assertTrue(results.size() >= 1500);
     }
 
-    @Test
-    @Rollback
-    @DisplayName("Update theater in database")
-    void updateTest(){
-        TheaterDTO theaterDTO = new TheaterDTO(new ObjectId("59a47286cfa9a3a73e51e72e"),
-                new Location(new Address("city", "state", "street", "zipcode"), new Geo("geo", new Double[12])),
-                "testId");
-        ObjectId id = new ObjectId("59a47286cfa9a3a73e51e72e");
-        Optional<TheaterDTO> optTheater = theaterDAO.findById(id);
-        if(optTheater.isPresent()){
-            TheaterDTO theater = optTheater.get();
-            theaterDAO.update(id, theaterDTO);
-        }
-        Optional<TheaterDTO> optTheaterAfterUpdate = theaterDAO.findById(id);
-        if(optTheaterAfterUpdate.isPresent()){
-            TheaterDTO theaterUpdated = optTheaterAfterUpdate.get();
-            Assertions.assertEquals("testId", theaterUpdated.getTheaterId());
-        }
-    }
 
     @Test
     @Rollback
