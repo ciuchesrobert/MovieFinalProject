@@ -36,7 +36,7 @@
         </tr>
     </table>
 <!--    <span><a class="pageButton" th:href="@{/theaters/home}"><button>Go Back</button></a></span>-->
-    <span th:if="${pageNum>1}"><a class="pageButton" th:href="@{'http://localhost:8080/theaters/basic/all/'+ ${pageNum -1}}"><button>Previous</button></a></span>
+    <span th:if="${pageNum>0}"><a class="pageButton" th:href="@{'http://localhost:8080/theaters/basic/all/'+ ${pageNum -1}}"><button>Previous</button></a></span>
     <a class=pageButton th:href="@{'http://localhost:8080/theaters/basic/all/'+ ${pageNum + 1}}">
         <button>Next</button>
     </a>
