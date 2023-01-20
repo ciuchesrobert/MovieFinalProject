@@ -9,8 +9,12 @@
 <body>
 <div th:insert="/navbar/navbar.html :: navbar">  </div>
 <br><br>
-<h1>Theater: <span th:text="${theater.theaterId}"></span> Successfully Created!</h1>
-<br>
-<a th:href="@{/web/movies/}">Go Back</a>
+<div class="container">
+    <h4>Create a Theater</h4>
+    <br>
+    <h1>Theater with ID: <span th:text="${theater.id}"></span> Successfully Created!</h1>
+    <br>
+    <a style="color: #4285f4; text-decoration: none;" th:href="@{/users/adminHome}">Go Back</a>
+</div>
 </body>
 </html>

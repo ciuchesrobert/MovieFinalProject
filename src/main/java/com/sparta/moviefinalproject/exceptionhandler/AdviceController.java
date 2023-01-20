@@ -1,13 +1,11 @@
 package com.sparta.moviefinalproject.exceptionhandler;
 
 import com.sparta.moviefinalproject.exceptionhandler.customexceptions.KeyDoesNotExistException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -16,6 +14,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.exceptions.TemplateInputException;
 
 import java.io.FileNotFoundException;
@@ -24,9 +23,11 @@ import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 @Log4j2
-public class AdviceController implements ErrorController{
+@Order(value = Ordered.HIGHEST_PRECEDENCE)
+@EnableWebMvc
+public class AdviceController {
 
-    @ExceptionHandler(NoHandlerFoundException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotHandledException(NoHandlerFoundException e) {
         log.error(e.getMessage());
@@ -37,7 +38,7 @@ public class AdviceController implements ErrorController{
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleFileNotFoundException(FileNotFoundException e) {
         log.error(e.getMessage());
-        return "<h1>Mapping not found...<h1>";
+        return "<h1>File not found...<h1>";
     }
 
     @ExceptionHandler(ResourceAccessException.class)
@@ -47,12 +48,11 @@ public class AdviceController implements ErrorController{
         return "<h1>Missing resource...</h1>";
     }
 
-
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNullPointerException(NullPointerException e) {
         log.error(e.getMessage());
-        return "<h1>Looks like something is missing...</h1>";
+        return "<h1>Looks like it's missing...</h1>";
     }
 
     @ExceptionHandler(HttpServerErrorException.class)
@@ -131,4 +131,6 @@ public class AdviceController implements ErrorController{
         log.error(e.getMessage());
         return "<h1>Input type not allowed...</h1>";
     }
+
+
 }

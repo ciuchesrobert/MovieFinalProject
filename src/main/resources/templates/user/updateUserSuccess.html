@@ -5,8 +5,14 @@
     <title>Update User Success</title>
 </head>
 <body>
-<h1>User with Id: <span th:text="${user.id}"></span> Successfully Updated!</h1>
-<br>
-<a th:href="@{/web/employees/basic/all/1}">Go Back</a>
+<div th:insert="/navbar/navbar.html :: navbar">  </div>
+<br><br>
+<div class="container">
+    <h4>Update a User</h4>
+    <br>
+    <h1>User with ID: <span th:text="${user.id}"></span> Successfully Updated!</h1>
+    <br>
+    <a style="color: #4285f4; text-decoration: none;" th:href="@{/users/adminHome}">Go Back</a>
+</div>
 </body>
 </html>

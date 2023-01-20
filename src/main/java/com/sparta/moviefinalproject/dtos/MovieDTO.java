@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -74,5 +76,25 @@ public class MovieDTO {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MovieDTO movieDTO = (MovieDTO) o;
+        return Objects.equals(id, movieDTO.id) && Objects.equals(awards, movieDTO.awards) && Arrays.equals(directors, movieDTO.directors) && Objects.equals(fullPlot, movieDTO.fullPlot) && Arrays.equals(languages, movieDTO.languages) && Objects.equals(numMflixComments, movieDTO.numMflixComments) && Objects.equals(plot, movieDTO.plot) && Objects.equals(title, movieDTO.title) && Arrays.equals(writers, movieDTO.writers) && Arrays.equals(genres, movieDTO.genres) && Objects.equals(lastUpdated, movieDTO.lastUpdated) && Objects.equals(poster, movieDTO.poster) && Objects.equals(tomatoes, movieDTO.tomatoes) && Objects.equals(year, movieDTO.year) && Objects.equals(imdb, movieDTO.imdb) && Objects.equals(rated, movieDTO.rated) && Objects.equals(released, movieDTO.released) && Arrays.equals(cast, movieDTO.cast) && Objects.equals(runtime, movieDTO.runtime) && Arrays.equals(countries, movieDTO.countries) && Objects.equals(type, movieDTO.type);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, awards, fullPlot, numMflixComments, plot, title, lastUpdated, poster, tomatoes, year, imdb, rated, released, runtime, type);
+        result = 31 * result + Arrays.hashCode(directors);
+        result = 31 * result + Arrays.hashCode(languages);
+        result = 31 * result + Arrays.hashCode(writers);
+        result = 31 * result + Arrays.hashCode(genres);
+        result = 31 * result + Arrays.hashCode(cast);
+        result = 31 * result + Arrays.hashCode(countries);
+        return result;
     }
 }

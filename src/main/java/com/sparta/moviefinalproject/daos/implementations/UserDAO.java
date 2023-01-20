@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.daos.implementations;
 
+import com.sparta.moviefinalproject.converters.MovieConverter;
 import com.sparta.moviefinalproject.converters.UserConverter;
 import com.sparta.moviefinalproject.dtos.UserDTO;
 import com.sparta.moviefinalproject.entities.User;
@@ -24,8 +25,8 @@ public class UserDAO implements com.sparta.moviefinalproject.daos.interfaces.Use
     }
 
     @Override
-    public void create(UserDTO user) {
-        userRepo.insert(new UserConverter().dtoToEntity(user));
+    public UserDTO create(UserDTO user) {
+        return new UserConverter().entityToDto(userRepo.insert(new UserConverter().dtoToEntity(user)));
     }
 
     @Override
@@ -46,10 +47,11 @@ public class UserDAO implements com.sparta.moviefinalproject.daos.interfaces.Use
     }
 
     @Override
-    public void update(ObjectId id, UserDTO updatedUser) {
+    public UserDTO update(ObjectId id, UserDTO updatedUser) {
             User user = new UserConverter().dtoToEntity(updatedUser);
             user.setId(id);
             userRepo.save(user);
+            return new UserConverter().entityToDto(user);
     }
 
     @Override

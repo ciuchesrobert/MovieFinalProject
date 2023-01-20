@@ -1,5 +1,6 @@
 package com.sparta.moviefinalproject.entities.subentities;
 
+import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -11,10 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Critic {
-    @Nullable
     private Integer meter;
-    @Nullable
     private Integer numReviews;
-    @Nullable
     private Double rating;
 }

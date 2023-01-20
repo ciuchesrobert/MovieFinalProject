@@ -83,15 +83,6 @@
             left: calc(100% * 4 / 5);
             background-color: #e74c3c;
         }
-        .panel-active {
-            left: calc(100% * 1 / 5);
-        }
-        .panel-push-left {
-            left: 0;
-        }
-        .panel-push-right {
-            left: 100%;
-        }
     </style>
 </head>
 <body>
@@ -99,7 +90,7 @@
 <div class="container">
     <!-- Left Side Bar -->
     <section class="sidebar col-1-5">
-        <h1 class="title">Theatres</h1>
+        <h1 class="title">Theaters</h1>
         <br>
         <br>
         <br>
@@ -117,24 +108,48 @@
     <!-- Panels -->
     <section>
         <!-- Panel One -->
-        <a href="#" class="panels panel1 col-1-5">
+        <a th:href="@{/theaters/basic/all/0}" class="panels panel1 col-1-5">
             <h1 class="title">View All</h1>
         </a>
 
         <!-- Panel Two -->
-        <a href="#" class="panels panel2 col-1-5">
-            <h1 class="title">Create</h1>
-        </a>
+        <span th:if="${#authorization.expression('hasRole(''ADMIN'')')} ">
+            <a th:href="@{/theaters/admin/create}" class="panels panel2 col-1-5">
+                <h1 class="title">Create</h1>
+            </a>
+        </span>
+
+        <span th:unless="${#authorization.expression('hasRole(''ADMIN'')')} ">
+            <a style="background-color: grey;" class="panels panel2 col-1-5">
+                <h1 class="title">Create</h1>
+            </a>
+        </span>
 
         <!-- Panel Three -->
-        <a href="#" class="panels panel3 col-1-5">
-            <h1 class="title">Update</h1>
-        </a>
+        <span th:if="${#authorization.expression('hasRole(''ADMIN'')')} ">
+            <a th:href="@{/home}" class="panels panel3 col-1-5">
+                <h1 class="title">Update</h1>
+            </a>
+        </span>
+
+        <span th:unless="${#authorization.expression('hasRole(''ADMIN'')')} ">
+            <a style="background-color: grey;" class="panels panel3 col-1-5">
+                <h1 class="title">Update</h1>
+            </a>
+        </span>
 
         <!-- Panel Four -->
-        <a href="#" class="panels panel4 col-1-5">
-            <h1 class="title">Delete</h1>
-        </a>
+        <span th:if="${#authorization.expression('hasRole(''ADMIN'')')} ">
+            <a th:href="@{/home}" class="panels panel4 col-1-5">
+                <h1 class="title">Delete</h1>
+            </a>
+        </span>
+
+        <span th:unless="${#authorization.expression('hasRole(''ADMIN'')')} ">
+            <a style="background-color: grey;" class="panels panel4 col-1-5">
+                <h1 class="title">Delete</h1>
+            </a>
+        </span>
     </section>
 </div>
 </body>

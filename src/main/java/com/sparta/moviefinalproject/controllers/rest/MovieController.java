@@ -8,6 +8,7 @@ import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,11 @@ public class MovieController {
         return movieDAO.findById(new ObjectId(id));
     }
 
+    @GetMapping("/search")
+    public List<MovieDTO> findByTitle(@RequestParam("title") String title) {
+        return movieDAO.findAllMoviesByTitleContainingIgnoreCase(title);
+    }
+
     @GetMapping
     public List<MovieDTO> findAll() {
         return movieDAO.findAll();
@@ -35,9 +41,8 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody MovieDTO movieDTO){
-
-        this.movieDAO.create(movieDTO);
+    public MovieDTO create(@RequestBody MovieDTO movieDTO){
+        return movieDAO.create(movieDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -47,8 +52,8 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id) {
-        this.movieDAO.update(new ObjectId(id), movieDTO);
+    public MovieDTO update(@RequestBody MovieDTO movieDTO, @PathVariable("id") String id) {
+        return this.movieDAO.update(new ObjectId(id), movieDTO);
     }
 
 

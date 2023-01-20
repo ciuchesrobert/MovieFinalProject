@@ -1,10 +1,11 @@
 package com.sparta.moviefinalproject.controllers.web;
 
+import com.sparta.moviefinalproject.daos.implementations.CommentDAO;
 import com.sparta.moviefinalproject.daos.implementations.MovieDAO;
+import com.sparta.moviefinalproject.dtos.CommentDTO;
 import com.sparta.moviefinalproject.dtos.MovieDTO;
-import com.sparta.moviefinalproject.entities.Movie;
-import com.sparta.moviefinalproject.repositories.MovieRepository;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,15 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieWebController {
     private final MovieDAO movieDAO;
-    private final MovieRepository movieRepository;
 
-    public MovieWebController(MovieDAO movieDAO,
-                              MovieRepository movieRepository) {
+    private final CommentDAO commentDAO;
+
+    public MovieWebController(MovieDAO movieDAO, CommentDAO commentDAO) {
         this.movieDAO = movieDAO;
-        this.movieRepository = movieRepository;
+        this.commentDAO = commentDAO;
     }
+
+
 
     @RequestMapping("/home")
     public String moviesHome(Model model){
@@ -33,8 +36,16 @@ public class MovieWebController {
     public String findMovieById(Model model,@PathVariable String id){
         ObjectId objectId = new ObjectId(id);
         MovieDTO movie = movieDAO.findById(objectId).orElse(null);
+        List<CommentDTO> comments = null;
+        if (movie != null){
+        comments = commentDAO.findAllCommentsByMovieId(movie.getId());
+        if (comments.isEmpty()){
+            comments = null;
+        }
+        }
         System.out.println(movie);
         model.addAttribute("movie", movie);
+        model.addAttribute("comments", comments);
         return "movie/displayMovie";
     }
 
@@ -52,6 +63,12 @@ public class MovieWebController {
         return "movie/displayAllMovies";
     }
 
+    @GetMapping("/basic/search/all/{pageNum}")
+    public String getAllUsers(Model model, @PathVariable int pageNum){
+        Page<MovieDTO> movies = movieDAO.findAllMoviesPagination(pageNum);
+        model.addAttribute("movies", movies);
+        return "movie/displayAllMovies";
+    }
 
     // ------------------ CREATE
     @GetMapping("/admin/create")
@@ -108,7 +125,4 @@ public class MovieWebController {
         model.addAttribute("movie", movieDto);
         return "movie/deleteMovieSuccess";
     }
-
-
-
 }
