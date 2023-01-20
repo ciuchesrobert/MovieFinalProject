@@ -42,8 +42,9 @@ public class TheaterControllerTesting {
     }
 
     @Test
+    // works
     @DisplayName("Testing @GetMapping for findById method on theater with ID of 59a47286cfa9a3a73e51e72c")
-    public void FindCommentById_SuccessIfExists() throws Exception{
+    public void FindTheaterById_SuccessIfExists() throws Exception{
         String id = "59a47286cfa9a3a73e51e72c";
         mvc.perform(get("/api/theaters/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -56,25 +57,27 @@ public class TheaterControllerTesting {
     }
 
     @Test
+    // works
     @DisplayName("Test @GetMapping for findAll method for theaters")
-    public void FindAllComments_SuccessIfExists() throws Exception{
+    public void FindAllTheaters_SuccessIfExists() throws Exception{
         mvc.perform(get("/api/theaters")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].theaterId").value("1000"))
-                .andExpect(jsonPath("$[1].theaterId").value("1003"))
-                .andExpect(jsonPath("$[2].theaterId").value("1008"));
+                .andExpect(jsonPath("$[1].theaterId").value("1008"))
+                .andExpect(jsonPath("$[2].theaterId").value("1004"));
     }
 
     @Test
-    @Disabled
-    @DisplayName("Test @PostMapping for create method for comments")
+//    @Disabled
+    // works
+    @DisplayName("Test @PostMapping for create method for theaters")
     public void CreateTheater_CheckIfExists() throws Exception {
-        String id = "63c97206dc255d54e5719597";
+        String id = "63ca9d7c8fa2e415f2b02ae0";
         mvc.perform(MockMvcRequestBuilders
-                        .post("/comments")
+                        .post("/api/theaters")
                         .content(asJsonString(new TheaterDTO(
                                 new ObjectId(id),
                                 new Location(
@@ -84,8 +87,8 @@ public class TheaterControllerTesting {
                                                 "Street",
                                                 "Zipcode"),
                                                 new Geo(
-                                                        "point",
-                                                        new Double[] {0.0, 0.0})),
+                                                        "Point",
+                                                        new Double[] {1.1, 2.2})),
                                                         "123")
                         ))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,29 +100,30 @@ public class TheaterControllerTesting {
     }
 
     @Test
-    @Disabled
+//    @Disabled
+    // works
     public void UpdateTheater_CheckIfUpdatesPersist() throws Exception {
-        String id = "63c97206dc255d54e5719597";
+        String id = "63ca9d7c8fa2e415f2b02ae0";
         mvc.perform( MockMvcRequestBuilders
-                        .put("/comments/" + id)
+                        .put("/api/theaters/" + id)
                         .content(asJsonString(new TheaterDTO(
                                 new ObjectId(id),
                                 new Location(
                                         new Address(
-                                                "City",
+                                                "Spartaglobal",
                                                 "State",
                                                 "Street",
                                                 "Zipcode"),
                                         new Geo(
-                                                "point",
+                                                "Point",
                                                 new Double[] {0.0, 0.0})),
-                                "123")
+                                "125")
                         ))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("text2"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.location.address.city").value("Spartaglobal"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.theaterId").value("125"));
     }
 }

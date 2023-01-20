@@ -77,9 +77,9 @@ public class MovieControllerTesting {
 
     @Test
 //    @Disabled
-    @DisplayName("Test @PostMapping for create method for comments                WORKS")
+    @DisplayName("Test @PostMapping for create method for movies                WORKS")
     public void CreateMovie_CheckIfExists() throws Exception {
-        String id = "63c9624ac73610a60c93e132";
+        String id = "63ca9d2823f0c314df38897a";
         LocalDateTime testDate = LocalDateTime.parse("2015-08-26 00:03:50.133000000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS"));
         MovieDTO movieDTO = new MovieDTO(new ObjectId(id),
                 new AwardDTO(1, 0, "1 win."),
@@ -88,7 +88,7 @@ public class MovieControllerTesting {
                 null,
                 0,
                 "Three men hammer on an anvil and pass a bottle of beer around.",
-                "Yash Test 19/01/23",
+                "Yash Test 20/01/23",
                 new String[]{"a, b"},
                 new String[]{"Short"},
                 testDate,
@@ -119,9 +119,9 @@ public class MovieControllerTesting {
 
     @Test
 //    @Disabled
-    @DisplayName("Test @PutMapping for update method for comments                WORKS")
+    @DisplayName("Test @PutMapping for update method for movies                WORKS")
     public void UpdateOrReplaceMovie_CheckIfUpdatesPersist() throws Exception {
-        String id = "63c9624a8b7647388504fb24";
+        String id = "573a1391f29313caabcd7faa";
         LocalDateTime testDate = LocalDateTime.parse("2015-08-26 00:03:50.133000000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS"));
         MovieDTO movieDTO = new MovieDTO(new ObjectId(id),
                 new AwardDTO(1, 0, "1 win."),
