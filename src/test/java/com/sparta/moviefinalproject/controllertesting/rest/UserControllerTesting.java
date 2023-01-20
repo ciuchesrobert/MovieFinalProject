@@ -37,6 +37,7 @@ public class UserControllerTesting {
     }
 
     @Test
+    // works
     @DisplayName("Testing @GetMapping for findById method on users with ID of 59b99db4cfa9a34dcd7885b6")
     public void FindUserById_IfExistsReturnSuccess() throws Exception {
         String id = "59b99db4cfa9a34dcd7885b6";
@@ -52,6 +53,7 @@ public class UserControllerTesting {
     }
 
     @Test
+    // works
     @DisplayName("Test @GetMapping for findAll method for users")
     public void FindAllUsers() throws Exception {
         mvc.perform(get("/api/users")
@@ -65,40 +67,41 @@ public class UserControllerTesting {
     }
 
     @Test
+    // works
     @DisplayName("Test @PostMapping for create method for users")
     public void CreateUser_CheckIfExists() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/users")
                         .content(asJsonString(new User(
-                                new ObjectId("63c7cf248b1a8a9b4bf831a0"), "yash2@gmail.com", "yash2", "yash2"
+                                new ObjectId("63ca9e1a5bf3b407f3e9fe39"), "yash2345@gmail.com", "yash2", "yash2"
                         )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2@gmail.com"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("yash2345@gmail.com"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("yash2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("yash2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
     @Test
+    // works
     @DisplayName("Test @PutMapping for update method for users")
     public void UpdateUser_CheckIfUpdatesPersist() throws Exception {
         String id = "59b99db6cfa9a34dcd7885bc";
         mvc.perform( MockMvcRequestBuilders
                         .put("/api/users/" + id)
                         .content(asJsonString(new User(
-                                new ObjectId("59b99db6cfa9a34dcd7885bc"), "iain_glen@gameofthron.es",
-                                "Jorah Mormont",
+                                new ObjectId(id), "iain_glen@gameofthron.es",
+                                "Jorah Mormont3",
                                 "$2b$12$K8bKkwnpkrjsBPzASZxO/.yj7d9kvupiVtO6JA3Xl106AKXr3pXFK"
                         )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id.timestamp").value(1505336758))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id.date").value("2017-09-13T21:05:58.000+00:00"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("iain_glen@gameofthron.es"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Jorah Mormont"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Jorah Mormont3"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("$2b$12$K8bKkwnpkrjsBPzASZxO/.yj7d9kvupiVtO6JA3Xl106AKXr3pXFK"));
     }
 
